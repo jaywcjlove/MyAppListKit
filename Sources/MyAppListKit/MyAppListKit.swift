@@ -61,16 +61,16 @@ public struct MyAppList {
                 let configuration = NSWorkspace.OpenConfiguration()
                 NSWorkspace.shared.openApplication(at: appURL, configuration: configuration) { _, error in
                     if let error = error {
-                        NSWorkspace.shared.open(appStoreURL)
+                        openURL(url: appStoreURL)
                     }
                 }
             } else {
-                NSWorkspace.shared.open(appStoreURL)
+                openURL(url: appStoreURL)
             }
         } else {
             // 应用未安装，打开 App Store
             if let appStoreURL = URL(string: appStoreURL) {
-                NSWorkspace.shared.open(appStoreURL)
+                openURL(url: appStoreURL)
             }
         }
     }
@@ -83,9 +83,7 @@ public struct MyAppList {
             if #available(iOS 13.0, *) {
                 Task {
                     if await UIApplication.shared.canOpenURL(appStoreURL) {
-                        await UIApplication.shared.open(appStoreURL, options: [:], completionHandler: { error in
-                            print("Error opening App Store: \(error.description)")
-                        })
+                        openURL(url: appStoreURL)
                     } else {
                         print("无法打开 URL: \(appStoreURL)")
                     }
@@ -94,6 +92,24 @@ public struct MyAppList {
         }
     }
     #endif
+    public static func openURL(url: URL) {
+        #if os(macOS)
+        NSWorkspace.shared.open(url)
+        #endif
+        #if os(iOS)
+        Task {
+            await UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        #endif
+    }
+    
+    public static var appsByMe: String {
+        #if os(macOS)
+        "macappstore://apps.apple.com/developer/id1714265259"
+        #elseif os(iOS)
+        "https://apps.apple.com/developer/id1714265259"
+        #endif
+    }
 }
 
 
