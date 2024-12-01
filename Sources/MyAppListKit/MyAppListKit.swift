@@ -30,7 +30,7 @@ public struct MyAppList {
             case both
         }
     }
-    static let allApps: [AppData] = [
+    public static let allApps: [AppData] = [
         AppData(name: "DevTutor for SwiftUI", appId: "com.wangchujiang.SwiftTutorial", appstoreId: "6471227008", platform: .both),
         AppData(name: "DevHub", appId: "com.wangchujiang.DevHub", appstoreId: "6476452351", platform: .macOS),
         AppData(name: "RightMenu Master", appId: "com.wangchujiang.rightmenu-master", appstoreId: "6737160756", platform: .macOS),
