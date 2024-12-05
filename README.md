@@ -34,6 +34,8 @@ List {
 
 Button("More Apps by Me") {
     MyAppList.openURL(url: URL(string: MyAppList.appsByMe)!)
+    // or
+    MyAppList.openAppsByMe()
 }
 ```
 

@@ -102,10 +102,15 @@ public struct MyAppList {
         }
         #endif
     }
+    
     public static func openURL(string: String) {
         if let url = URL(string: string) {
             openURL(url: url)
         }
+    }
+    
+    public static func openAppsByMe() {
+        openURL(string: appsByMe)
     }
     
     public static var appsByMe: String {
