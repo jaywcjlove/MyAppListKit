@@ -13,7 +13,8 @@ struct ContentView: View {
         List {
             ForEach(MyAppList.apps(), id: \.appId) { app in
                 Button(app.name, action: {
-                    MyAppList.openApp(appId: app.appId, appstoreId: app.appstoreId)
+                    app.openApp()
+                    //MyAppList.openApp(appId: app.appId, appstoreId: app.appstoreId)
                 })
             }
         }

@@ -27,6 +27,8 @@ import MyAppListKit
 List {
     ForEach(MyAppList.apps(), id: \.appId) { app in
         Button(app.name, action: {
+            app.openApp()
+            // or
             MyAppList.openApp(appId: app.appId, appstoreId: app.appstoreId)
         })
     }
@@ -37,6 +39,11 @@ Button("More Apps by Me") {
     // or
     MyAppList.openAppsByMe()
 }
+
+MyAppList.appDevHub           // -> AppData
+MyAppList.appDevHub.storeURL  // -> URL: macappstore://apps.apple.com/app/id6476452351
+MyAppList.appDevHub.openURL() // Open in browser
+MyAppList.appDevHub.openApp() // Open the app or its store download page
 ```
 
 ## License
