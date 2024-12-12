@@ -44,6 +44,9 @@ MyAppList.appDevHub           // -> AppData
 MyAppList.appDevHub.storeURL  // -> URL: macappstore://apps.apple.com/app/id6476452351
 MyAppList.appDevHub.openURL() // Open in browser
 MyAppList.appDevHub.openApp() // Open the app or its store download page
+
+// Returns the URL of the default app associated with the given bundle identifier.
+MyAppList.appDevHub.appURL()
 ```
 
 ## License

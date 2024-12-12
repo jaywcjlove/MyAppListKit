@@ -43,6 +43,13 @@ public struct MyAppList {
         public func openApp() {
             MyAppList.openApp(appId: appId, appstoreId: appstoreId)
         }
+        public func appURL() -> URL? {
+            #if os(macOS)
+            NSWorkspace.shared.urlForApplication(withBundleIdentifier: self.appId)
+            #elseif os(iOS)
+            return nil
+            #endif
+        }
     }
     public static let appDevTutor = AppData(name: "DevTutor for SwiftUI", appId: "com.wangchujiang.SwiftTutorial", appstoreId: "6471227008", platform: .both)
     public static let appDevHub = AppData(name: "DevHub", appId: "com.wangchujiang.DevHub", appstoreId: "6476452351", platform: .macOS)
