@@ -31,10 +31,11 @@ public struct MyAppList {
         }
         public var storeURL: URL {
             #if os(macOS)
-            return URL(string: "macappstore://apps.apple.com/app/id\(appstoreId)")!
+            /// "macappstore://apps.apple.com/app/id6479819388?action=write-review"
+            return URL(string: "macappstore://apps.apple.com/app/id\(appstoreId)?action=write-review")!
             #endif
             #if os(iOS)
-            return URL(string: "itms-apps://apps.apple.com/app/id\(appstoreId)")!
+            return URL(string: "itms-apps://apps.apple.com/app/id\(appstoreId)?action=write-review")!
             #endif
         }
         public func openURL() {
