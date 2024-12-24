@@ -67,10 +67,12 @@ public struct MyAppList {
     public static let appResumeRevise = AppData(name: "Resume Revise", appId: "com.wangchujiang.ResumeRevise", appstoreId: "6476400184", platform: .macOS)
     public static let appTimePassage = AppData(name: "Time Passage", appId: "com.wangchujiang.LifeCountdownTime", appstoreId: "6479194014", platform: .both)
     public static let appTextSoundSaver = AppData(name: "TextSound Saver", appId: "com.wangchujiang.TextSoundSaver", appstoreId: "6478511402", platform: .both)
+    public static let appIconed = AppData(name: "Iconed", appId: "com.wangchujiang.Iconed", appstoreId: "6739444407", platform: .macOS)
     public static let allApps: [AppData] = [
         appDevTutor,
         appDevHub,
         appRightMenuMaster,
+        appIconed,
         appCopybookGenerator,
         appCreateCustomSymbols,
         appWebServe,
