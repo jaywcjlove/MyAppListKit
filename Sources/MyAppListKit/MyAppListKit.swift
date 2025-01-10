@@ -15,6 +15,7 @@ public struct MyAppList {
         public let appId: String
         public let appstoreId: String
         public let platform: Platform
+        public let divider: Bool = false
 
         public init(name: String, appId: String, appstoreId: String, platform: Platform) {
             self.name = name
@@ -52,36 +53,41 @@ public struct MyAppList {
             #endif
         }
     }
+    public static let appDayBar = AppData(name: "DayBar", appId: "com.wangchujiang.daybar", appstoreId: "6739052447", platform: .macOS)
     public static let appDevTutor = AppData(name: "DevTutor for SwiftUI", appId: "com.wangchujiang.SwiftTutorial", appstoreId: "6471227008", platform: .both)
     public static let appDevHub = AppData(name: "DevHub", appId: "com.wangchujiang.DevHub", appstoreId: "6476452351", platform: .macOS)
     public static let appRightMenuMaster = AppData(name: "RightMenu Master", appId: "com.wangchujiang.rightmenu-master", appstoreId: "6737160756", platform: .macOS)
     public static let appCopybookGenerator = AppData(name: "Copybook Generator", appId: "com.wangchujiang.copybook-generator", appstoreId: "6503953628", platform: .macOS)
-    public static let appCreateCustomSymbols = AppData(name: "Create Custom Symbols", appId: "com.wangchujiang.CreateCustomSymbols", appstoreId: "6476924627", platform: .macOS)
     public static let appWebServe = AppData(name: "Web Serve", appId: "com.wangchujiang.serve", appstoreId: "6670167443", platform: .macOS)
     public static let appQuickRSS = AppData(name: "Quick RSS", appId: "com.wangchujiang.QuickRSS", appstoreId: "6670696072", platform: .both)
     public static let appPasteQuick = AppData(name: "PasteQuick", appId: "com.wangchujiang.paste-quick", appstoreId: "6723903021", platform: .macOS)
     public static let appRegexMate = AppData(name: "RegexMate", appId: "com.wangchujiang.RegexMate", appstoreId: "6479819388", platform: .both)
-    public static let appIconizeFolder = AppData(name: "Iconize Folder", appId: "com.wangchujiang.IconizeFolder", appstoreId: "6478772538", platform: .macOS)
-    public static let appSymbolScribe = AppData(name: "Symbol Scribe", appId: "com.wangchujiang.SymbolScribe", appstoreId: "6470879005", platform: .macOS)
-    public static let appPaletteGenius = AppData(name: "Palette Genius", appId: "com.wangchujiang.PaletteGenius", appstoreId: "6472593276", platform: .macOS)
     public static let appResumeRevise = AppData(name: "Resume Revise", appId: "com.wangchujiang.ResumeRevise", appstoreId: "6476400184", platform: .macOS)
     public static let appTimePassage = AppData(name: "Time Passage", appId: "com.wangchujiang.LifeCountdownTime", appstoreId: "6479194014", platform: .both)
     public static let appTextSoundSaver = AppData(name: "TextSound Saver", appId: "com.wangchujiang.TextSoundSaver", appstoreId: "6478511402", platform: .both)
+    
+    public static let appIconizeFolder = AppData(name: "Iconize Folder", appId: "com.wangchujiang.IconizeFolder", appstoreId: "6478772538", platform: .macOS)
+    public static let appCreateCustomSymbols = AppData(name: "Create Custom Symbols", appId: "com.wangchujiang.CreateCustomSymbols", appstoreId: "6476924627", platform: .macOS)
+    public static let appSymbolScribe = AppData(name: "Symbol Scribe", appId: "com.wangchujiang.SymbolScribe", appstoreId: "6470879005", platform: .macOS)
+    public static let appPaletteGenius = AppData(name: "Palette Genius", appId: "com.wangchujiang.PaletteGenius", appstoreId: "6472593276", platform: .macOS)
     public static let appIconed = AppData(name: "Iconed", appId: "com.wangchujiang.Iconed", appstoreId: "6739444407", platform: .macOS)
     public static let allApps: [AppData] = [
+        appDayBar,
         appDevTutor,
         appDevHub,
         appRightMenuMaster,
-        appIconed,
-        appCopybookGenerator,
+        
+        appIconizeFolder,
         appCreateCustomSymbols,
+        appSymbolScribe,
+        appPaletteGenius,
+        appIconed,
+        
+        appCopybookGenerator,
         appWebServe,
         appQuickRSS,
         appPasteQuick,
         appRegexMate,
-        appIconizeFolder,
-        appSymbolScribe,
-        appPaletteGenius,
         appResumeRevise,
         appTimePassage,
         appTextSoundSaver,
