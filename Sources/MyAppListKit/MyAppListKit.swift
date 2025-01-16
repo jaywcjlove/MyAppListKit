@@ -27,9 +27,10 @@ public struct MyAppList {
         public enum Platform: Sendable {
             case iOS
             case macOS
-            /// 两个平台都支持
+            /// Supports both platforms
             case both
         }
+        /// Returns the store URL for the app based on the platform
         public var storeURL: URL {
             #if os(macOS)
             /// "macappstore://apps.apple.com/app/id6479819388?action=write-review"
@@ -39,12 +40,15 @@ public struct MyAppList {
             return URL(string: "itms-apps://apps.apple.com/app/id\(appstoreId)?action=write-review")!
             #endif
         }
+        /// Opens the store URL for the app
         public func openURL() {
             MyAppList.openURL(url: self.storeURL)
         }
+        /// Opens the app if installed, otherwise opens the App Store
         public func openApp() {
             MyAppList.openApp(appId: appId, appstoreId: appstoreId)
         }
+        /// Returns the URL for the installed app, if available
         public func appURL() -> URL? {
             #if os(macOS)
             NSWorkspace.shared.urlForApplication(withBundleIdentifier: self.appId)
@@ -71,6 +75,8 @@ public struct MyAppList {
     public static let appSymbolScribe = AppData(name: "Symbol Scribe", appId: "com.wangchujiang.SymbolScribe", appstoreId: "6470879005", platform: .macOS)
     public static let appPaletteGenius = AppData(name: "Palette Genius", appId: "com.wangchujiang.PaletteGenius", appstoreId: "6472593276", platform: .macOS)
     public static let appIconed = AppData(name: "Iconed", appId: "com.wangchujiang.Iconed", appstoreId: "6739444407", platform: .macOS)
+
+    /// List of all apps
     public static let allApps: [AppData] = [
         appDayBar,
         appDevTutor,
@@ -92,13 +98,15 @@ public struct MyAppList {
         appTimePassage,
         appTextSoundSaver,
     ]
-    
+    /// Bundle identifier of the current app
     public static let bundleIdentifier: String = Bundle.main.bundleIdentifier!
     
+    /// Returns a list of apps excluding the current app
     public static func apps() -> [AppData] {
         return MyAppList.allApps.filter { $0.appId != MyAppList.bundleIdentifier }
     }
     #if os(macOS)
+    /// Opens the app if installed, otherwise opens the App Store
     public static func openApp(appId: String, appstoreId: String) {
         let appStoreURL = "macappstore://apps.apple.com/app/id\(appstoreId)"
         if let appURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: appId), let appStoreURL = URL(string: appStoreURL) {
@@ -113,7 +121,7 @@ public struct MyAppList {
                 openURL(url: appStoreURL)
             }
         } else {
-            // 应用未安装，打开 App Store
+            /// App not installed, open App Store
             if let appStoreURL = URL(string: appStoreURL) {
                 openURL(url: appStoreURL)
             }
@@ -121,10 +129,11 @@ public struct MyAppList {
     }
     #endif
     #if os(iOS)
+    /// Opens the app if installed, otherwise opens the App Store
     public static func openApp(appId: String, appstoreId: String) {
         let appStoreURL = "itms-apps://apps.apple.com/app/id\(appstoreId)"
         if let appStoreURL = URL(string: appStoreURL) {
-            // 打开 App Store 或使用 URL 方案打开其他应用
+            // Open App Store or use URL scheme to open other apps
             if #available(iOS 13.0, *) {
                 Task {
                     if await UIApplication.shared.canOpenURL(appStoreURL) {
@@ -137,6 +146,7 @@ public struct MyAppList {
         }
     }
     #endif
+    /// Opens the given URL
     public static func openURL(url: URL) {
         #if os(macOS)
         NSWorkspace.shared.open(url)
@@ -148,21 +158,41 @@ public struct MyAppList {
         #endif
     }
     
+    /// Opens the URL from the given string
     public static func openURL(string: String) {
         if let url = URL(string: string) {
             openURL(url: url)
         }
     }
     
+    /// Opens the developer's apps page
     public static func openAppsByMe() {
         openURL(string: appsByMe)
     }
     
+    /// Returns the developer's apps page URL based on the platform
     public static var appsByMe: String {
         #if os(macOS)
         "macappstore://apps.apple.com/developer/id1714265259"
         #elseif os(iOS)
         "https://apps.apple.com/developer/id1714265259"
         #endif
+    }
+    
+
+    /// Checks if the app is installed
+    public static func isAppInstalled(appId: String) -> Bool {
+        #if os(macOS)
+        if let workspace = NSWorkspace.shared as? NSWorkspace {
+            let apps = workspace.runningApplications
+            return apps.contains { $0.bundleIdentifier == appId }
+        }
+        #elseif os(iOS)
+        if let workspace = NSWorkspace.shared as? NSWorkspace {
+            let apps = workspace.runningApplications
+            return apps.contains { $0.bundleIdentifier == appId }
+        }
+        #endif
+        return false
     }
 }
