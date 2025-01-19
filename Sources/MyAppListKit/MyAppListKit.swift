@@ -179,19 +179,23 @@ public struct MyAppList {
         #endif
     }
     
-
+    
+    #if os(macOS)
     /// Checks if the app is installed
     public static func isAppInstalled(appId: String) -> Bool {
-        #if os(macOS)
         if let workspace = NSWorkspace.shared as? NSWorkspace {
             let apps = workspace.runningApplications
             return apps.contains { $0.bundleIdentifier == appId }
         }
-        #elseif os(iOS)
+    }
+    #endif
+    #if os(iOS)
+    /// Checks if the app is installed
+    @MainActor public static func isAppInstalled(appId: String) -> Bool {
         if let url = URL(string: "\(appId)://") {
             return UIApplication.shared.canOpenURL(url)
         }
-        #endif
         return false
     }
+    #endif
 }
