@@ -188,9 +188,8 @@ public struct MyAppList {
             return apps.contains { $0.bundleIdentifier == appId }
         }
         #elseif os(iOS)
-        if let workspace = NSWorkspace.shared as? NSWorkspace {
-            let apps = workspace.runningApplications
-            return apps.contains { $0.bundleIdentifier == appId }
+        if let url = URL(string: "\(appId)://") {
+            return UIApplication.shared.canOpenURL(url)
         }
         #endif
         return false
