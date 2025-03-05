@@ -25,3 +25,14 @@ public struct MoreAppsView: View {
         })
     }
 }
+
+public struct MoreAppsMenuView: View {
+    public init() {}
+    public var body: some View {
+        Menu {
+            MoreAppsView()
+        } label: {
+            Text("my_other_apps".localized())
+        }
+    }
+}
