@@ -19,5 +19,6 @@ struct ContentView: View {
             }
         }
         .padding()
+        MoreAppsView()
     }
 }

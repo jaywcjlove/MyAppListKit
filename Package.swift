@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "MyAppListKit",
+    defaultLocalization: "en",
     platforms: [
         .macOS(.v14),
         .iOS(.v17)
@@ -13,13 +14,18 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "MyAppListKit",
-            targets: ["MyAppListKit"]),
+            targets: ["MyAppListKit"]
+        ),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "MyAppListKit"),
+            name: "MyAppListKit",
+            resources: [
+                .process("Resources")
+            ]
+        ),
 
     ]
 )
