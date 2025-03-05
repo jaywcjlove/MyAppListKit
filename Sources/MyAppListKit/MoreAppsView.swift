@@ -8,6 +8,7 @@
 import SwiftUI
 
 public struct MoreAppsView: View {
+    public init() {}
     public var body: some View {
         ForEach(MyAppList.apps(), id: \.appId) { app in
             Button(app.name, action: {
