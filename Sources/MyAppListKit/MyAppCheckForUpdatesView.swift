@@ -10,6 +10,8 @@ import SwiftUI
 public struct MyAppCheckForUpdatesView<BeforeView: View, AfterView: View>: View {
     public init(app: MyAppList.AppData, before: BeforeView? = nil, after: AfterView? = nil) {
         self.app = app
+        self.before = before
+        self.after = after
     }
     /// chevron.right
     var before: BeforeView?
