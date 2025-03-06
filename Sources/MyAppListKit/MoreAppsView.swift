@@ -36,3 +36,12 @@ public struct MoreAppsMenuView: View {
         }
     }
 }
+
+public struct MoreAppsCommandMenus: Commands {
+    public init() {}
+    public var body: some Commands {
+        CommandMenu("more_tools".localized()) {
+            MoreAppsView()
+        }
+    }
+}

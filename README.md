@@ -113,6 +113,25 @@ struct ContentView: View {
 }
 ```
 
+## MoreAppsCommandMenus
+
+```swift
+import MyAppListKit
+
+@main
+struct IconizeFolderApp: App {
+    var body: some Scene {
+        return Window("", id: "MainWindow") {
+            ContentView()
+        }
+        .commands {
+            MoreAppsCommandMenus()
+        }
+    }
+
+}
+```
+
 ## License
 
 Licensed under the MIT License.
