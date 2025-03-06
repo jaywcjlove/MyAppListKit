@@ -26,6 +26,7 @@ public struct MyAppCheckForUpdatesView<BeforeView: View, AfterView: View>: View 
                 Text("check_for_updates".localized())
                 after
             }
+            .frame(maxWidth: .infinity)
         })
     }
 }
