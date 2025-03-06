@@ -28,3 +28,9 @@ public struct MyAppCheckForUpdatesView<ContentView: View>: View {
         })
     }
 }
+
+extension MyAppCheckForUpdatesView where ContentView == EmptyView {
+    init(app: MyAppList.AppData) {
+        self.init(app: app, content: nil)
+    }
+}
