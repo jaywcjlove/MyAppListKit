@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct MyAppCheckForUpdatesView2<BeforeView: View, AfterView: View>: View {
+public struct MyAppCheckForUpdatesView<BeforeView: View, AfterView: View>: View {
     var app: MyAppList.AppData
     var before: BeforeView
     var after: AfterView
