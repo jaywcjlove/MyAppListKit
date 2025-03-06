@@ -7,26 +7,23 @@
 
 import SwiftUI
 
-public struct MyAppCheckForUpdatesView<BeforeView: View, AfterView: View>: View {
+public struct MyAppCheckForUpdatesView<ContentView: View, AfterView: View>: View {
     var app: MyAppList.AppData
-    var before: BeforeView
-    var after: AfterView
+    var content: ((String) -> ContentView)? = nil
 
-    public init(app: MyAppList.AppData, before: BeforeView = EmptyView(), after: AfterView = EmptyView()) {
+    public init(app: MyAppList.AppData, content: ((String) -> ContentView)? = nil) {
         self.app = app
-        self.before = before
-        self.after = after
+        self.content = content
     }
     public var body: some View {
         Button(action: {
             app.openURL()
         }, label: {
-            HStack {
-                before
+            if let content = content {
+                content("check_for_updates".localized())
+            } else {
                 Text("check_for_updates".localized())
-                after
             }
-            .frame(maxWidth: .infinity)
         })
     }
 }
