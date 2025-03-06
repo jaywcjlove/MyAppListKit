@@ -109,6 +109,16 @@ import MyAppListKit
 struct ContentView: View {
     var body: some View {
         MyAppCheckForUpdatesView(app: MyAppList.appIconed)
+                    
+        MyAppCheckForUpdatesView(app: MyAppList.appIconed) { label in
+            HStack {
+                Text(label)
+                Spacer()
+                Image(systemName: "chevron.right")
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .buttonStyle(.link)
     }
 }
 ```

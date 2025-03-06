@@ -31,14 +31,17 @@ public struct MyAppList {
             case both
         }
         /// Returns the store URL for the app based on the platform
-        public var storeURL: URL {
+        public var storeURLString: String {
             #if os(macOS)
             /// "macappstore://apps.apple.com/app/id6479819388?action=write-review"
-            return URL(string: "macappstore://apps.apple.com/app/id\(appstoreId)?action=write-review")!
+            return "macappstore://apps.apple.com/app/id\(appstoreId)?action=write-review"
             #endif
             #if os(iOS)
-            return URL(string: "itms-apps://apps.apple.com/app/id\(appstoreId)?action=write-review")!
+            return "itms-apps://apps.apple.com/app/id\(appstoreId)?action=write-review"
             #endif
+        }
+        public var storeURL: URL {
+            return URL(string: storeURLString)!
         }
         /// Opens the store URL for the app
         public func openURL() {
