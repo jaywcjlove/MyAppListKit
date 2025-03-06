@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-public struct MyAppCheckForUpdatesView<ContentView: View, AfterView: View>: View {
+public struct MyAppCheckForUpdatesView<ContentView: View>: View {
     var app: MyAppList.AppData
-    var content: ((String) -> ContentView)? = nil
+    var content: ((String) -> ContentView)?
 
     public init(app: MyAppList.AppData, content: ((String) -> ContentView)? = nil) {
         self.app = app
         self.content = content
     }
+
     public var body: some View {
         Button(action: {
             app.openURL()
