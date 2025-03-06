@@ -101,6 +101,18 @@ struct CommandMenus: Commands {
 }
 ```
 
+## MyAppCheckForUpdatesView
+
+```swift
+import MyAppListKit
+
+struct ContentView: View {
+    var body: some View {
+        MyAppCheckForUpdatesView(app: MyAppList.appIconed)
+    }
+}
+```
+
 ## License
 
 Licensed under the MIT License.

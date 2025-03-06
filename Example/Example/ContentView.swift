@@ -20,5 +20,6 @@ struct ContentView: View {
         }
         .padding()
         MoreAppsView()
+        MyAppCheckForUpdatesView(app: MyAppList.appIconed)
     }
 }
