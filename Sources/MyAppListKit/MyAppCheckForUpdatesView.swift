@@ -7,23 +7,25 @@
 
 import SwiftUI
 
-public struct MyAppCheckForUpdatesView<BeforeView: View, AfterView: View>: View {
-    public init(app: MyAppList.AppData, before: BeforeView? = nil, after: AfterView? = nil) {
+public struct MyAppCheckForUpdatesView2<BeforeView: View, AfterView: View>: View {
+    var app: MyAppList.AppData
+    var before: BeforeView
+    var after: AfterView
+
+    public init(app: MyAppList.AppData, before: BeforeView = EmptyView(), after: AfterView = EmptyView()) {
         self.app = app
         self.before = before
         self.after = after
     }
-    /// chevron.right
-    var before: BeforeView?
-    var after: AfterView?
-    var app: MyAppList.AppData
     public var body: some View {
         Button(action: {
             app.openURL()
         }, label: {
-            before
-            Text("check_for_updates".localized())
-            after
+            HStack {
+                before
+                Text("check_for_updates".localized())
+                after
+            }
         })
     }
 }
