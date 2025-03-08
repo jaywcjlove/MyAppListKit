@@ -11,4 +11,7 @@ public extension String {
     func localized() -> String {
         return NSLocalizedString(self, bundle: .module, comment: "")
     }
+    func localized( _ arguments: any CVarArg...) -> String {
+        return String(format: NSLocalizedString(self, bundle: .module, comment: ""), arguments)
+    }
 }

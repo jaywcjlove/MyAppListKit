@@ -40,6 +40,9 @@ public struct MyAppList {
             return "itms-apps://apps.apple.com/app/id\(appstoreId)?action=write-review"
             #endif
         }
+        public func sendFeedback(content: String = "") -> URL {
+            return URL(string: "feedback_email_url".localized(self.name, content))!
+        }
         public var storeURL: URL {
             return URL(string: storeURLString)!
         }

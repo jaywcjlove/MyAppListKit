@@ -8,3 +8,5 @@
 "my_other_apps" = "My Other Apps";
 "more_tools" = "More Tools";
 "check_for_updates" = "Check for Updates...";
+
+"feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nHere, tell me, what suggestions do you have?\n\n%@"
