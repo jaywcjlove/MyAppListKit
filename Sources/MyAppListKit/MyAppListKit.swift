@@ -41,7 +41,10 @@ public struct MyAppList {
             #endif
         }
         public func sendFeedback(content: String = "") -> URL {
-            return URL(string: "feedback_email_url".localized(self.name, content))!
+            return URL(string: sendFeedback(content: content))!
+        }
+        public func sendFeedback(content: String = "") -> String {
+            "feedback_email_url".localized(self.name, content)
         }
         public var storeURL: URL {
             return URL(string: storeURLString)!
@@ -189,10 +192,9 @@ public struct MyAppList {
     #if os(macOS)
     /// Checks if the app is installed
     public static func isAppInstalled(appId: String) -> Bool {
-        if let workspace = NSWorkspace.shared as? NSWorkspace {
-            let apps = workspace.runningApplications
-            return apps.contains { $0.bundleIdentifier == appId }
-        }
+        let workspace = NSWorkspace.shared
+        let apps = workspace.runningApplications
+        return apps.contains { $0.bundleIdentifier == appId }
     }
     #endif
     #if os(iOS)
