@@ -20,10 +20,10 @@ internal extension String {
     func localized(locale: Locale = Locale.current, arguments: any CVarArg...) -> String {
         let languageCode = locale.identifier
         guard let path = Bundle.module.path(forResource: languageCode, ofType: "lproj") else {
-            return NSLocalizedString(self, tableName: nil, bundle: Bundle.module, value: "", comment: "")
+            return NSLocalizedString(self, tableName: nil, bundle: Bundle.module, comment: "")
         }
         let languageBundle = Bundle(path: path)
-        let localizedString = NSLocalizedString(self, tableName: nil, bundle: languageBundle ?? Bundle.module, value: "", comment: "")
+        let localizedString = NSLocalizedString(self, tableName: nil, bundle: languageBundle ?? Bundle.module, comment: "")
         if arguments.count > 0 {
             return String(format: localizedString, arguments)
         }
