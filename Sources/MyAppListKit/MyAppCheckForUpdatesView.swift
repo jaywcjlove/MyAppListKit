@@ -35,3 +35,4 @@ public extension MyAppCheckForUpdatesView where ContentView == EmptyView {
         self.init(app: app, content: nil)
     }
 }
+

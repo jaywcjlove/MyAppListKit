@@ -17,12 +17,16 @@ public extension String {
 }
 
 internal extension String {
-    func localized(locale: Locale = Locale.current) -> String {
+    func localized(locale: Locale = Locale.current, arguments: any CVarArg...) -> String {
         let languageCode = locale.identifier
         guard let path = Bundle.module.path(forResource: languageCode, ofType: "lproj") else {
             return NSLocalizedString(self, tableName: nil, bundle: Bundle.module, value: "", comment: "")
         }
         let languageBundle = Bundle(path: path)
-        return NSLocalizedString(self, tableName: nil, bundle: languageBundle ?? Bundle.module, value: "", comment: "")
+        let localizedString = NSLocalizedString(self, tableName: nil, bundle: languageBundle ?? Bundle.module, value: "", comment: "")
+        if arguments.count > 0 {
+            return String(format: localizedString, arguments)
+        }
+        return localizedString
     }
 }

@@ -44,7 +44,7 @@ public struct MyAppList {
             return URL(string: sendFeedback(content: content))!
         }
         public func sendFeedback(content: String = "") -> String {
-            "feedback_email_url".localized(self.name, self.name, content)
+            return "feedback_email_url".localized(locale: Locale.current, arguments: self.name, self.name, content)
         }
         public var storeURL: URL {
             return URL(string: storeURLString)!
