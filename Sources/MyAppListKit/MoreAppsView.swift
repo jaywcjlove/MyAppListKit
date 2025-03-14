@@ -8,6 +8,7 @@
 import SwiftUI
 
 public struct MoreAppsView: View {
+    @Environment(\.locale) var locale
     public init() {}
     public var body: some View {
         ForEach(MyAppList.apps(), id: \.appId) { app in
@@ -20,27 +21,29 @@ public struct MoreAppsView: View {
         }, label: {
             HStack {
                 Image(systemName: "ellipsis.circle.fill")
-                Text("my_other_apps".localized())
+                Text("my_other_apps".localized(locale: locale))
             }
         })
     }
 }
 
 public struct MoreAppsMenuView: View {
+    @Environment(\.locale) var locale
     public init() {}
     public var body: some View {
         Menu {
             MoreAppsView()
         } label: {
-            Text("my_other_apps".localized())
+            Text("my_other_apps".localized(locale: locale))
         }
     }
 }
 
 public struct MoreAppsCommandMenus: Commands {
+    @Environment(\.locale) var locale
     public init() {}
     public var body: some Commands {
-        CommandMenu("more_tools".localized()) {
+        CommandMenu("more_tools".localized(locale: locale)) {
             MoreAppsView()
         }
     }

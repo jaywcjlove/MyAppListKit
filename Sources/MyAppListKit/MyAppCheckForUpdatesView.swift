@@ -8,6 +8,7 @@
 import SwiftUI
 
 public struct MyAppCheckForUpdatesView<ContentView: View>: View {
+    @Environment(\.locale) var locale
     var app: MyAppList.AppData
     var content: ((String) -> ContentView)?
 
@@ -21,9 +22,9 @@ public struct MyAppCheckForUpdatesView<ContentView: View>: View {
             app.openURL()
         }, label: {
             if let content = content {
-                content("check_for_updates".localized())
+                content("check_for_updates".localized(locale: locale))
             } else {
-                Text("check_for_updates".localized())
+                Text("check_for_updates".localized(locale: locale))
             }
         })
     }
