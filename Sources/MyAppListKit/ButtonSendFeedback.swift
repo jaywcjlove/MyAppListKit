@@ -15,7 +15,7 @@ public struct ButtonSendFeedback: View {
     }
     public var body: some View {
         Button("send_feedback".localized(locale: locale)) {
-            let emailURLString: String = app.sendFeedback(content: MyAppList.version)
+            let emailURLString: String = app.sendFeedback(content: MyAppList.version, locale: locale)
             MyAppList.openURL(string: emailURLString)
         }
     }
