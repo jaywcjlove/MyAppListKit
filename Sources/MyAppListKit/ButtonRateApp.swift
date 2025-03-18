@@ -9,6 +9,7 @@ import SwiftUI
 
 public struct ButtonRateApp: View {
     @Environment(\.locale) var locale
+    public init() {}
     public var body: some View {
         Button("rate_app".localized(locale: locale)) {
             MyAppList.appIconed.openURL()
