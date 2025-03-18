@@ -136,9 +136,10 @@ struct CommandMenus: Commands {
 struct CommandMenus: Commands {
     var body: some Commands {
         CommandGroup(replacing: CommandGroupPlacement.help) {
-            ButtonRateApp()
+            ButtonWebsite(app: MyAppList.appRegexMate)
+            ButtonRateApp(app: MyAppList.appRegexMate)
             Divider()
-            ButtonSendFeedback()
+            ButtonSendFeedback(app: MyAppList.appRegexMate)
         }
     }
 }
