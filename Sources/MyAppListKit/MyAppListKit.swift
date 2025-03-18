@@ -118,6 +118,10 @@ public struct MyAppList {
         name: "TextSound Saver", appId: "com.wangchujiang.TextSoundSaver", appstoreId: "6478511402", platform: .both,
         website: "https://wangchujiang.com/TextSoundSaver/"
     )
+    public static let appKeyClicker = AppData(
+        name: "KeyClicker", appId: "com.wangchujiang.keyclicker", appstoreId: "6740425504", platform: .macOS,
+        website: "https://wangchujiang.com/key-clicker/"
+    )
     
     public static let appIconizeFolder = AppData(
         name: "Iconize Folder", appId: "com.wangchujiang.IconizeFolder", appstoreId: "6478772538", platform: .macOS,
