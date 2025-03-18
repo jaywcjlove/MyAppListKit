@@ -13,7 +13,6 @@ public struct ButtonSendFeedback: View {
     public init(app: MyAppList.AppData) {
         self.app = app
     }
-    public static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     public var body: some View {
         Button("send_feedback".localized(locale: locale)) {
             let emailURLString: String = app.sendFeedback(content: MyAppList.version)
