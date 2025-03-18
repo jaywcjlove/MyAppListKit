@@ -70,6 +70,12 @@ public struct MyAppList {
             #endif
         }
     }
+    
+    public static let appVideoer = AppData(
+        name: "Videoer", appId: "com.wangchujiang.videoer", appstoreId: "6742680573", platform: .macOS,
+        website: "https://wangchujiang.com/videoer/"
+    )
+
     public static let appDayBar = AppData(
         name: "DayBar", appId: "com.wangchujiang.daybar", appstoreId: "6739052447", platform: .macOS,
         website: "https://wangchujiang.com/daybar/"
@@ -157,6 +163,9 @@ public struct MyAppList {
         appPaletteGenius,
         appIconed,
         
+        appVideoer,
+        
+        appKeyClicker,
         appCopybookGenerator,
         appWebServe,
         appQuickRSS,
