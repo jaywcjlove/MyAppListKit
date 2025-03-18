@@ -9,4 +9,6 @@
 "check_for_updates" = "Nach Updates suchen…";
 "more_tools" = "Mehr Werkzeuge";
 
+"rate_app" = "Bewerten Sie die App";
+
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nLass mich wissen, welche Vorschläge du hast.\n\n%@ %@";

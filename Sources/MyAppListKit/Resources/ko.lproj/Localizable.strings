@@ -9,4 +9,6 @@
 "check_for_updates" = "업데이트 확인…";
 "more_tools" = "더 많은 도구";
 
+"rate_app" = "앱 평가";
+
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\n어떤 의견이든 알려주세요.\n\n%@ %@";
