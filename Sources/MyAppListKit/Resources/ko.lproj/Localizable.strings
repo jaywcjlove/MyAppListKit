@@ -1,0 +1,12 @@
+//
+//  Localizable.strings
+//  MyAppListKit
+//
+//  Created by wong on 3/18/25.
+//
+
+"my_other_apps" = "다른 앱";
+"check_for_updates" = "업데이트 확인…";
+"more_tools" = "더 많은 도구";
+
+"feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\n어떤 의견이든 알려주세요.\n\n%@ %@";

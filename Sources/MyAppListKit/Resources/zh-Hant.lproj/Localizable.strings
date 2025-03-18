@@ -1,0 +1,12 @@
+//
+//  Localizable.strings
+//  MyAppListKit
+//
+//  Created by wong on 3/18/25.
+//
+
+"my_other_apps" = "我的更多應用程式";
+"check_for_updates" = "檢查更新…";
+"more_tools" = "更多工具";
+
+"feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\n請告訴我你的建議。\n\n%@ %@";
