@@ -11,6 +11,15 @@ public extension String {
     func localized() -> String {
         return NSLocalizedString(self, bundle: .module, comment: "")
     }
+    func localized(locale: Locale = Locale.current) -> String {
+        localized(locale: locale, arguments: [])
+    }
+    func localized(arguments: any CVarArg...) -> String {
+        return String(format: NSLocalizedString(self, bundle: .module, comment: ""), arguments)
+    }
+}
+
+internal extension String {
     func localized(locale: Locale = Locale.current, arguments: any CVarArg...) -> String {
         let languagePart = locale.identifier.split(separator: "_").first.map(String.init) ?? ""
         guard let path = Bundle.module.path(forResource: languagePart, ofType: "lproj") else {
@@ -22,11 +31,5 @@ public extension String {
             return String(format: localizedString, arguments)
         }
         return localizedString
-    }
-    func localized(locale: Locale = Locale.current) -> String {
-        self.localized(locale: locale)
-    }
-    func localized(arguments: any CVarArg...) -> String {
-        return String(format: NSLocalizedString(self, bundle: .module, comment: ""), arguments)
     }
 }
