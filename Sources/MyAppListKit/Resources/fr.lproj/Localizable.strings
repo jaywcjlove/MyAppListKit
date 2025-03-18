@@ -11,5 +11,6 @@
 
 "rate_app" = "Noter l'application";
 "send_feedback" = "Envoyer des commentaires…";
+"website" = "Site Web";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nDites-moi ce que vous suggérez.\n\n%@ %@";

@@ -11,5 +11,6 @@
 
 "rate_app" = "Bewerten Sie die App";
 "send_feedback" = "Feedback senden";
+"website" = "Webseite";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nLass mich wissen, welche Vorschläge du hast.\n\n%@ %@";

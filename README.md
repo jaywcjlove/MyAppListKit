@@ -84,22 +84,6 @@ Checks if the app is installed
 MyAppList.isAppInstalled(appId: "com.wangchujiang.daybar")
 ```
 
-## MoreAppsView
-
-Display My Apps on the Menu.
-
-```swift
-struct CommandMenus: Commands {
-    var body: some Commands {
-        CommandMenu("More Tools") {
-            MoreAppsView()
-        }
-        CommandGroup(replacing: CommandGroupPlacement.help) {
-            MoreAppsMenuView()
-        }
-    }
-}
-```
 
 ## MyAppCheckForUpdatesView
 
@@ -122,6 +106,44 @@ struct ContentView: View {
     }
 }
 ```
+
+## MoreAppsView
+
+Display My Apps on the Menu.
+
+```swift
+struct CommandMenus: Commands {
+    var body: some Commands {
+        //CommandMenu("More Tools") {
+        //    MoreAppsView()
+        //}
+        MoreAppsCommandMenus()
+        MoreAppsCommandMenus() {
+            Group {
+                // ....
+            }
+        }
+        CommandGroup(replacing: CommandGroupPlacement.help) {
+            MoreAppsMenuView()
+        }
+    }
+}
+```
+
+## ButtonRateApp & ButtonSendFeedback
+
+```swift
+struct CommandMenus: Commands {
+    var body: some Commands {
+        CommandGroup(replacing: CommandGroupPlacement.help) {
+            ButtonRateApp()
+            Divider()
+            ButtonSendFeedback()
+        }
+    }
+}
+```
+
 
 ## MoreAppsCommandMenus
 

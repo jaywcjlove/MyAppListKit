@@ -11,5 +11,6 @@
 
 "rate_app" = "Rate App";
 "send_feedback" = "Send Feedback";
+"website" = "Website";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nHere, tell me, what suggestions do you have?\n\n%@ %@";

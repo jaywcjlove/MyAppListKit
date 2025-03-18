@@ -11,5 +11,6 @@
 
 "rate_app" = "為應用程式評分";
 "send_feedback" = "發送意見反饋...";
+"website" = "網站";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\n請告訴我你的建議。\n\n%@ %@";

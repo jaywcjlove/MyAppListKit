@@ -11,5 +11,6 @@
 
 "rate_app" = "앱 평가";
 "send_feedback" = "피드백 전송…";
+"website" = "웹사이트";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\n어떤 의견이든 알려주세요.\n\n%@ %@";

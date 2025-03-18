@@ -11,5 +11,6 @@
 
 "rate_app" = "アプリを評価する";
 "send_feedback" = "フィードバックを送信";
+"website" = "ウェブサイト";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nご意見があればお聞かせください。\n\n%@ %@";
