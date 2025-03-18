@@ -10,5 +10,6 @@
 "more_tools" = "Plus d'outils";
 
 "rate_app" = "Noter l'application";
+"send_feedback" = "Envoyer des commentaires…";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nDites-moi ce que vous suggérez.\n\n%@ %@";

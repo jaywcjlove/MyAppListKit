@@ -9,6 +9,7 @@
 "check_for_updates" = "检查更新…";
 "more_tools" = "更多工具";
 
-"rate_app" = "為應用程式評分";
+"rate_app" = "给App评分";
+"send_feedback" = "发送反馈...";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\n在这里告诉我，你有什么建议?\n\n%@ %@";

@@ -41,15 +41,15 @@ public struct MoreAppsMenuView: View {
 
 public struct MoreAppsCommandMenus<ContentView: View>: Commands {
     @Environment(\.locale) var locale
-    var content: ContentView?
-    public init(content: ContentView? = nil) {
+    var content: (() -> ContentView)?
+    public init(content: (() -> ContentView)?) {
         self.content = content
     }
     public var body: some Commands {
         CommandMenu("more_tools".localized(locale: locale)) {
             MoreAppsView()
             if let content = self.content {
-                self.content
+                content()
             }
         }
     }

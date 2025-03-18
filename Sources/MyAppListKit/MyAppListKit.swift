@@ -10,6 +10,8 @@ import WatchKit
 #endif
 
 public struct MyAppList {
+    /// The version number of the current application
+    public static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     public struct AppData: Sendable {
         public let name: String
         public let appId: String
