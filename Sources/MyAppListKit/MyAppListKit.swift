@@ -71,6 +71,11 @@ public struct MyAppList {
         }
     }
     
+    public static let appFocusCursor = AppData(
+        name: "Focus Cursor", appId: "com.wangchujiang.focuscursor", appstoreId: "6743495172", platform: .macOS,
+        website: "https://wangchujiang.com/focus-cursor/"
+    )
+    
     public static let appVideoer = AppData(
         name: "Videoer", appId: "com.wangchujiang.videoer", appstoreId: "6742680573", platform: .macOS,
         website: "https://wangchujiang.com/videoer/"
@@ -166,6 +171,7 @@ public struct MyAppList {
         appVideoer,
         
         appKeyClicker,
+        appFocusCursor,
         appCopybookGenerator,
         appWebServe,
         appQuickRSS,
