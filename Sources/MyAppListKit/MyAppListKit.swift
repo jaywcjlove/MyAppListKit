@@ -35,13 +35,22 @@ public struct MyAppList {
             case both
         }
         /// Returns the store URL for the app based on the platform
+        @available(iOS, deprecated: 17.0, message: "Use appStoreWriteReview instead")
+        @available(macOS, deprecated: 14.0, message: "Use appStoreWriteReview instead")
         public var storeURLString: String {
+            return "\(appStoreURLString)?action=write-review"
+        }
+        /// Returns the store URL for the app based on the platform
+        public var appStoreWriteReview: String {
+            return "\(appStoreURLString)?action=write-review"
+        }
+        public var appStoreURLString: String {
             #if os(macOS)
             /// "macappstore://apps.apple.com/app/id6479819388?action=write-review"
-            return "macappstore://apps.apple.com/app/id\(appstoreId)?action=write-review"
+            return "macappstore://apps.apple.com/app/id\(appstoreId)"
             #endif
             #if os(iOS)
-            return "itms-apps://apps.apple.com/app/id\(appstoreId)?action=write-review"
+            return "itms-apps://apps.apple.com/app/id\(appstoreId)"
             #endif
         }
         public func sendFeedback(content: String = "", locale: Locale = Locale.current) -> URL {
@@ -51,11 +60,15 @@ public struct MyAppList {
             return "feedback_email_url".localized(locale: locale, arguments: self.name, self.name, content)
         }
         public var storeURL: URL {
-            return URL(string: storeURLString)!
+            return URL(string: appStoreURLString)!
         }
         /// Opens the store URL for the app
         public func openURL() {
             MyAppList.openURL(url: self.storeURL)
+        }
+        /// Opens the store URL for the app
+        public func openWriteReviewURL() {
+            MyAppList.openURL(string: self.appStoreWriteReview)
         }
         /// Opens the app if installed, otherwise opens the App Store
         public func openApp() {
