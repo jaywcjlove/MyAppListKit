@@ -15,7 +15,7 @@ public struct ButtonRateApp: View {
     }
     public var body: some View {
         Button("rate_app".localized(locale: locale)) {
-            app.openURL()
+            app.openWriteReviewURL()
         }
     }
 }
