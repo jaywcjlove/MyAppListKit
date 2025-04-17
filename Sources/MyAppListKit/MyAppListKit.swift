@@ -84,6 +84,11 @@ public struct MyAppList {
         }
     }
     
+    public static let appFileSentinel = AppData(
+        name: "File Sentinel", appId: "com.wangchujiang.filesentinel", appstoreId: "6744690194", platform: .macOS,
+        website: "https://wangchujiang.com/file-sentinel/"
+    )
+    
     public static let appFocusCursor = AppData(
         name: "Focus Cursor", appId: "com.wangchujiang.focuscursor", appstoreId: "6743495172", platform: .macOS,
         website: "https://wangchujiang.com/focus-cursor/"
@@ -183,6 +188,7 @@ public struct MyAppList {
         
         appVideoer,
         
+        appFileSentinel,
         appKeyClicker,
         appFocusCursor,
         appCopybookGenerator,
