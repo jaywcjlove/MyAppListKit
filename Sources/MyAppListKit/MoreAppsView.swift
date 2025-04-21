@@ -24,7 +24,7 @@ extension MyAppList {
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) else {
             return nil
         }
-        return NSWorkspace.shared.icon(forFile: appUrl.path).resized(to: NSSize(width: 18, height: 18))
+        return NSWorkspace.shared.icon(forFile: appUrl.path)
     }
 }
 
@@ -37,7 +37,7 @@ public struct MoreAppsView: View {
                 app.openApp()
             }, label: {
                 HStack {
-                    if let icon = MyAppList.getAppIcon(forId: app.appId) {
+                    if let icon = MyAppList.getAppIcon(forId: app.appId)?.resized(to: NSSize(width: 18, height: 18)) {
                         Image(nsImage: icon)
                     } else {
                         Image(systemName: "app.fill")
