@@ -19,3 +19,8 @@ public struct ButtonWebsite: View {
         }
     }
 }
+
+#Preview {
+    ButtonWebsite(app: MyAppList.appRightMenuMaster)
+        .padding()
+}

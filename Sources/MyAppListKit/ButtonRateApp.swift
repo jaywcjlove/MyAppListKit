@@ -19,3 +19,8 @@ public struct ButtonRateApp: View {
         }
     }
 }
+
+#Preview {
+    ButtonRateApp(app: MyAppList.appRightMenuMaster)
+        .padding()
+}

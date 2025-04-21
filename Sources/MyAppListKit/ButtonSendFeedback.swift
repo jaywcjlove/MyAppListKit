@@ -20,3 +20,8 @@ public struct ButtonSendFeedback: View {
         }
     }
 }
+
+#Preview {
+    ButtonSendFeedback(app: MyAppList.appRightMenuMaster)
+        .padding()
+}
