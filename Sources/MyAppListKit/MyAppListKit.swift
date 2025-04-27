@@ -19,13 +19,15 @@ public struct MyAppList {
         public let platform: Platform
         public let divider: Bool = false
         public let website: String?
+        public let desc: String?
 
-        public init(name: String, appId: String, appstoreId: String, platform: Platform, website: String? = nil) {
+        public init(name: String, appId: String, appstoreId: String, platform: Platform, website: String? = nil, desc: String? = nil) {
             self.name = name
             self.appId = appId
             self.appstoreId = appstoreId
             self.website = website
             self.platform = platform
+            self.desc = desc
         }
 
         public enum Platform: Sendable {
@@ -86,91 +88,91 @@ public struct MyAppList {
     
     public static let appFileSentinel = AppData(
         name: "File Sentinel", appId: "com.wangchujiang.filesentinel", appstoreId: "6744690194", platform: .macOS,
-        website: "https://wangchujiang.com/file-sentinel/"
+        website: "https://wangchujiang.com/file-sentinel/", desc: "file_sentinel_des".localized()
     )
     
     public static let appFocusCursor = AppData(
         name: "Focus Cursor", appId: "com.wangchujiang.focuscursor", appstoreId: "6743495172", platform: .macOS,
-        website: "https://wangchujiang.com/focus-cursor/"
+        website: "https://wangchujiang.com/focus-cursor/", desc: "focus_cursor_des".localized()
     )
     
     public static let appVideoer = AppData(
         name: "Videoer", appId: "com.wangchujiang.videoer", appstoreId: "6742680573", platform: .macOS,
-        website: "https://wangchujiang.com/videoer/"
+        website: "https://wangchujiang.com/videoer/", desc: "videoer_des".localized()
     )
 
     public static let appDayBar = AppData(
         name: "DayBar", appId: "com.wangchujiang.daybar", appstoreId: "6739052447", platform: .macOS,
-        website: "https://wangchujiang.com/daybar/"
+        website: "https://wangchujiang.com/daybar/", desc: "daybar_des".localized()
     )
     public static let appDevTutor = AppData(
         name: "DevTutor for SwiftUI", appId: "com.wangchujiang.SwiftTutorial", appstoreId: "6471227008", platform: .both,
-        website: "https://wangchujiang.com/devtutor/"
+        website: "https://wangchujiang.com/devtutor/", desc: "devtutor_des".localized()
     )
     public static let appDevHub = AppData(
         name: "DevHub", appId: "com.wangchujiang.DevHub", appstoreId: "6476452351", platform: .macOS,
-        website: "https://wangchujiang.com/DevHub/"
+        website: "https://wangchujiang.com/DevHub/", desc: "devhub_des".localized()
     )
     public static let appRightMenuMaster = AppData(
         name: "RightMenu Master", appId: "com.wangchujiang.rightmenu-master", appstoreId: "6737160756", platform: .macOS,
-        website: "https://wangchujiang.com/rightmenu-master/"
+        website: "https://wangchujiang.com/rightmenu-master/", desc: "rightmenu_master_des".localized()
     )
     public static let appCopybookGenerator = AppData(
         name: "Copybook Generator", appId: "com.wangchujiang.copybook-generator", appstoreId: "6503953628", platform: .macOS,
-        website: "https://wangchujiang.com/copybook-generator/"
+        website: "https://wangchujiang.com/copybook-generator/", desc: "copybook_generator_des".localized()
     )
     public static let appWebServe = AppData(
         name: "Web Serve", appId: "com.wangchujiang.serve", appstoreId: "6670167443", platform: .macOS,
-        website: "https://wangchujiang.com/web-serve/"
+        website: "https://wangchujiang.com/web-serve/", desc: "web_serve_des".localized()
     )
     public static let appQuickRSS = AppData(
         name: "Quick RSS", appId: "com.wangchujiang.QuickRSS", appstoreId: "6670696072", platform: .both,
-        website: "https://wangchujiang.com/quick-rss/"
+        website: "https://wangchujiang.com/quick-rss/", desc: "quick_rss_des".localized()
     )
     public static let appPasteQuick = AppData(
         name: "PasteQuick", appId: "com.wangchujiang.paste-quick", appstoreId: "6723903021", platform: .macOS,
-        website: "https://wangchujiang.com/paste-quick/"
+        website: "https://wangchujiang.com/paste-quick/", desc: "paste_quick_des".localized()
     )
     public static let appRegexMate = AppData(
         name: "RegexMate", appId: "com.wangchujiang.RegexMate", appstoreId: "6479819388", platform: .both,
-        website: "https://wangchujiang.com/regex-mate/"
+        website: "https://wangchujiang.com/regex-mate/", desc: "regex_mate_des".localized()
     )
     public static let appResumeRevise = AppData(
         name: "Resume Revise", appId: "com.wangchujiang.ResumeRevise", appstoreId: "6476400184", platform: .macOS,
-        website: "https://wangchujiang.com/ResumeRevise/"
+        website: "https://wangchujiang.com/ResumeRevise/", desc: "resume_revise_des".localized()
     )
     public static let appTimePassage = AppData(
         name: "Time Passage", appId: "com.wangchujiang.LifeCountdownTime", appstoreId: "6479194014", platform: .both,
-        website: "https://wangchujiang.com/time-passage/"
+        website: "https://wangchujiang.com/time-passage/", desc: "time_passage_des".localized()
     )
     public static let appTextSoundSaver = AppData(
         name: "TextSound Saver", appId: "com.wangchujiang.TextSoundSaver", appstoreId: "6478511402", platform: .both,
-        website: "https://wangchujiang.com/TextSoundSaver/"
+        website: "https://wangchujiang.com/TextSoundSaver/", desc: "textsound_saver_des".localized()
     )
     public static let appKeyClicker = AppData(
         name: "KeyClicker", appId: "com.wangchujiang.keyclicker", appstoreId: "6740425504", platform: .macOS,
-        website: "https://wangchujiang.com/key-clicker/"
+        website: "https://wangchujiang.com/key-clicker/", desc: "key_clicker_des".localized()
     )
     
     public static let appIconizeFolder = AppData(
         name: "Iconize Folder", appId: "com.wangchujiang.IconizeFolder", appstoreId: "6478772538", platform: .macOS,
-        website: "https://wangchujiang.com/IconizeFolder/"
+        website: "https://wangchujiang.com/IconizeFolder/", desc: "iconize_folder_des".localized()
     )
     public static let appCreateCustomSymbols = AppData(
         name: "Create Custom Symbols", appId: "com.wangchujiang.CreateCustomSymbols", appstoreId: "6476924627", platform: .macOS,
-        website: "https://wangchujiang.com/create-custom-symbols/"
+        website: "https://wangchujiang.com/create-custom-symbols/", desc: "create_custom_symbols_des".localized()
     )
     public static let appSymbolScribe = AppData(
         name: "Symbol Scribe", appId: "com.wangchujiang.SymbolScribe", appstoreId: "6470879005", platform: .macOS,
-        website: "https://wangchujiang.com/symbol-scribe/"
+        website: "https://wangchujiang.com/symbol-scribe/", desc: "symbol_scribe_des".localized()
     )
     public static let appPaletteGenius = AppData(
         name: "Palette Genius", appId: "com.wangchujiang.PaletteGenius", appstoreId: "6472593276", platform: .macOS,
-        website: "https://wangchujiang.com/palette-genius/"
+        website: "https://wangchujiang.com/palette-genius/", desc: "paste_quick_des".localized()
     )
     public static let appIconed = AppData(
         name: "Iconed", appId: "com.wangchujiang.Iconed", appstoreId: "6739444407", platform: .macOS,
-        website: "https://wangchujiang.com/iconed/"
+        website: "https://wangchujiang.com/iconed/", desc: "iconed_des".localized()
     )
 
     /// List of all apps

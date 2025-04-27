@@ -38,11 +38,11 @@ public struct MoreAppsView: View {
             }, label: {
                 HStack {
                     if let icon = MyAppList.getAppIcon(forId: app.appId)?.resized(to: NSSize(width: 18, height: 18)) {
-                        Image(nsImage: icon)
+                        Image(nsImage: icon).resizable()
                     } else {
                         Image(systemName: "app.fill")
                     }
-                    Text(app.name)
+                    Text(app.name) + Text(" - ").foregroundStyle(Color.secondary) + Text(app.desc ?? "").foregroundStyle(Color.secondary).font(.system(size: 10))
                 }
             })
         }

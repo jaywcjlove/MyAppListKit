@@ -14,3 +14,25 @@
 "website" = "網站";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\n請告訴我你的建議。\n\n%@ %@";
+
+"iconed_des" = "創建自訂圖示";
+"palette_genius_des" = "顏色管理與顏色選擇器";
+"symbol_scribe_des" = "複製與管理符號";
+"create_custom_symbols_des" = "將 SVG 轉為 SF 符號";
+"iconize_folder_des" = "自訂文件夾圖示";
+"key_clicker_des" = "模擬打字聲與按鍵顯示";
+"textsound_saver_des" = "文本轉語音";
+"time_passage_des" = "計算剩餘生命天數";
+"resume_revise_des" = "製作專業履歷";
+"regex_mate_des" = "正則表達式工具";
+"paste_quick_des" = "簡單剪貼簿管理";
+"quick_rss_des" = "RSS閱讀器";
+"web_serve_des" = "創建本地靜態伺服器";
+"copybook_generator_des" = "生成漢字字帖";
+"rightmenu_master_des" = "強化 Finder 菜單";
+"devhub_des" = "開發者工具包";
+"devtutor_des" = "SwiftUI/Swift 快速參考";
+"daybar_des" = "在菜單欄顯示日期與提醒";
+"videoer_des" = "批次處理影片與音訊";
+"focus_cursor_des" = "高亮顯示光標位置";
+"file_sentinel_des" = "追蹤 Shell 命令歷史";

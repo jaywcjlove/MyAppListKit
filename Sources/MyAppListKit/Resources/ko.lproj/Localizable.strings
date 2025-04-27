@@ -14,3 +14,26 @@
 "website" = "웹사이트";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\n어떤 의견이든 알려주세요.\n\n%@ %@";
+
+
+"iconed_des" = "맞춤형 아이콘 만들기";
+"palette_genius_des" = "색상 관리 및 색상 추출기";
+"symbol_scribe_des" = "기호 복사 및 관리";
+"create_custom_symbols_des" = "SVG를 SF 기호로 변환";
+"iconize_folder_des" = "폴더 아이콘 맞춤 설정";
+"key_clicker_des" = "타이핑 소리 및 키 표시";
+"textsound_saver_des" = "텍스트를 음성으로 변환";
+"time_passage_des" = "남은 생애 일수 계산";
+"resume_revise_des" = "전문적인 이력서 작성";
+"regex_mate_des" = "정규 표현식 도구";
+"paste_quick_des" = "간단한 클립보드 관리";
+"quick_rss_des" = "RSS 리더";
+"web_serve_des" = "로컬 웹 서버 생성";
+"copybook_generator_des" = "한자 연습장 만들기";
+"rightmenu_master_des" = "Finder 메뉴 강화";
+"devhub_des" = "개발자 도구 모음";
+"devtutor_des" = "SwiftUI/Swift 빠른 참조";
+"daybar_des" = "메뉴바에 날짜 및 알림 표시";
+"videoer_des" = "비디오 및 오디오 배치 처리";
+"focus_cursor_des" = "커서 위치 강조";
+"file_sentinel_des" = "Shell 명령어 이력 추적";

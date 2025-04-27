@@ -14,3 +14,26 @@
 "website" = "Website";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nHere, tell me, what suggestions do you have?\n\n%@ %@";
+
+
+"iconed_des" = "Create custom icons";
+"palette_genius_des" = "Color management & picker";
+"symbol_scribe_des" = "Copy & manage symbols";
+"create_custom_symbols_des" = "Convert SVG to SF Symbols";
+"iconize_folder_des" = "Customize folder icons";
+"key_clicker_des" = "Simulate typing sounds & keys";
+"textsound_saver_des" = "Convert text to speech";
+"time_passage_des" = "Calculate remaining life days";
+"resume_revise_des" = "Create a professional resume";
+"regex_mate_des" = "Regular expression tool";
+"paste_quick_des" = "Simple clipboard management";
+"quick_rss_des" = "RSS reader";
+"web_serve_des" = "Create local web servers";
+"copybook_generator_des" = "Generate Chinese writing templates";
+"rightmenu_master_des" = "Enhance Finder menu";
+"devhub_des" = "Developer toolset";
+"devtutor_des" = "SwiftUI/Swift quick reference";
+"daybar_des" = "Show date & reminders in menu bar";
+"videoer_des" = "Batch process videos & audios";
+"focus_cursor_des" = "Highlight cursor position";
+"file_sentinel_des" = "Track shell command history";

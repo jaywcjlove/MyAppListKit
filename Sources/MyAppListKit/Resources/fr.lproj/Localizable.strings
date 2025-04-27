@@ -14,3 +14,25 @@
 "website" = "Site Web";
 
 "feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nDites-moi ce que vous suggérez.\n\n%@ %@";
+
+"iconed_des" = "Créez des icônes personnalisées";
+"palette_genius_des" = "Gestion des couleurs et sélecteur";
+"symbol_scribe_des" = "Copier et gérer des symboles";
+"create_custom_symbols_des" = "Convertir SVG en symboles SF";
+"iconize_folder_des" = "Personnaliser les icônes de dossiers";
+"key_clicker_des" = "Simuler les sons de frappe et les touches";
+"textsound_saver_des" = "Convertir le texte en parole";
+"time_passage_des" = "Calculer les jours de vie restants";
+"resume_revise_des" = "Créer un CV professionnel";
+"regex_mate_des" = "Outil d'expressions régulières";
+"paste_quick_des" = "Gestion simple du presse-papiers";
+"quick_rss_des" = "Lecteur RSS";
+"web_serve_des" = "Créer des serveurs web locaux";
+"copybook_generator_des" = "Générer des modèles d'écriture chinoise";
+"rightmenu_master_des" = "Améliorer le menu Finder";
+"devhub_des" = "Kit d'outils pour développeurs";
+"devtutor_des" = "Référence rapide SwiftUI/Swift";
+"daybar_des" = "Afficher la date et les rappels dans la barre de menu";
+"videoer_des" = "Traitement par lots de vidéos et audios";
+"focus_cursor_des" = "Mettre en surbrillance la position du curseur";
+"file_sentinel_des" = "Suivre l'historique des commandes Shell";
