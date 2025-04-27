@@ -38,7 +38,9 @@ public struct MoreAppsView: View {
             }, label: {
                 HStack {
                     if let icon = MyAppList.getAppIcon(forId: app.appId)?.resized(to: NSSize(width: 18, height: 18)) {
-                        Image(nsImage: icon).resizable()
+                        Image(nsImage: icon)
+                    } else if let icon = MyAppList.getAppIcon(forId: "com.apple.AppStore")?.resized(to: NSSize(width: 18, height: 18)) {
+                        Image(nsImage: icon)
                     } else {
                         Image(systemName: "app.fill")
                     }
