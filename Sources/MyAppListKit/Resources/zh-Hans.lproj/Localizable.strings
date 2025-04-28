@@ -37,3 +37,4 @@
 "videoer_des" = "批量处理视频与音频";
 "focus_cursor_des" = "高亮显示光标位置";
 "file_sentinel_des" = "Shell 命令历史跟踪并搜索";
+"audioer_des" = "批量音频转换";

@@ -36,3 +36,4 @@
 "videoer_des" = "Traitement par lots de vidéos et audios";
 "focus_cursor_des" = "Mettre en surbrillance la position du curseur";
 "file_sentinel_des" = "Suivre l'historique des commandes Shell";
+"audioer_des" = "Conversion audio par lot";
