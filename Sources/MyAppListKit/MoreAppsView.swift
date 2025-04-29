@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#if os(macOS)
 extension NSImage {
     public func resized(to newSize: NSSize) -> NSImage {
         return NSImage(size: newSize, flipped: false) { rect in
@@ -18,14 +18,43 @@ extension NSImage {
         }
     }
 }
+#endif
+
+#if os(iOS)
+extension UIImage {
+    public func resized(to newSize: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: newSize))
+        return UIGraphicsGetImageFromCurrentImageContext()!
+    }
+}
+#endif
 
 extension MyAppList {
+    #if os(macOS)
     public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore") -> NSImage? {
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) else {
             return nil
         }
         return NSWorkspace.shared.icon(forFile: appUrl.path)
     }
+    #elseif os(iOS)
+    public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore") -> UIImage? {
+        guard let app = Bundle.main.url(forResource: bundleIdentifier, withExtension: "app") else {
+            // For system apps, you might need a different approach.
+            // This is a basic example for bundled apps.
+            return nil
+        }
+        if let bundle = Bundle(url: app), let icons = bundle.infoDictionary?["CFBundleIcons"] as? [String: Any],
+           let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
+           let iconFiles = primaryIcon["CFBundleIconFiles"] as? [String],
+           let lastIcon = iconFiles.last {
+            return UIImage(named: lastIcon)
+        }
+        return nil
+    }
+    #endif
 }
 
 public struct MoreAppsView: View {
@@ -37,10 +66,18 @@ public struct MoreAppsView: View {
                 app.openApp()
             }, label: {
                 HStack {
-                    if let icon = MyAppList.getAppIcon(forId: app.appId)?.resized(to: NSSize(width: 18, height: 18)) {
+                    if let icon = MyAppList.getAppIcon(forId: app.appId)?.resized(to: .init(width: 18, height: 18)) {
+#if os(macOS)
                         Image(nsImage: icon)
-                    } else if let icon = MyAppList.getAppIcon()?.resized(to: NSSize(width: 18, height: 18)) {
+#elseif os(iOS)
+                        Image(uiImage: icon)
+#endif
+                    } else if let icon = MyAppList.getAppIcon()?.resized(to: .init(width: 18, height: 18)) {
+#if os(macOS)
                         Image(nsImage: icon)
+#elseif os(iOS)
+                        Image(uiImage: icon)
+#endif
                     }
                     Text(app.name) + Text(" - ").foregroundStyle(Color.secondary) + Text(app.desc ?? "").foregroundStyle(Color.secondary).font(.system(size: 10))
                 }
