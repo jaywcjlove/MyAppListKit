@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension NSImage {
-    func resized(to newSize: NSSize) -> NSImage {
+    public func resized(to newSize: NSSize) -> NSImage {
         return NSImage(size: newSize, flipped: false) { rect in
             self.draw(in: rect,
                       from: NSRect(origin: CGPoint.zero, size: self.size),
@@ -41,8 +41,6 @@ public struct MoreAppsView: View {
                         Image(nsImage: icon)
                     } else if let icon = MyAppList.getAppIcon()?.resized(to: NSSize(width: 18, height: 18)) {
                         Image(nsImage: icon)
-                    } else {
-                        Image(systemName: "app.fill")
                     }
                     Text(app.name) + Text(" - ").foregroundStyle(Color.secondary) + Text(app.desc ?? "").foregroundStyle(Color.secondary).font(.system(size: 10))
                 }
