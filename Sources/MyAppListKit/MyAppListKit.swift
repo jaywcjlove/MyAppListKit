@@ -176,7 +176,7 @@ public struct MyAppList {
     )
     public static let appPaletteGenius = AppData(
         name: "Palette Genius", appId: "com.wangchujiang.PaletteGenius", appstoreId: "6472593276", platform: .macOS,
-        website: "https://wangchujiang.com/palette-genius/", desc: "paste_quick_des".localized()
+        website: "https://wangchujiang.com/palette-genius/", desc: "palette_genius_des".localized()
     )
     public static let appIconed = AppData(
         name: "Iconed", appId: "com.wangchujiang.Iconed", appstoreId: "6739444407", platform: .macOS,
@@ -225,7 +225,7 @@ public struct MyAppList {
             if #available(macOS 10.15, *) {
                 let configuration = NSWorkspace.OpenConfiguration()
                 NSWorkspace.shared.openApplication(at: appURL, configuration: configuration) { _, error in
-                    if let error = error {
+                    if error != nil {
                         openURL(url: appStoreURL)
                     }
                 }
