@@ -35,7 +35,7 @@ extension MyAppList {
     #if os(macOS)
     public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore") -> NSImage? {
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) else {
-            return nil
+            return getAppIcon()
         }
         return NSWorkspace.shared.icon(forFile: appUrl.path)
     }
@@ -44,7 +44,7 @@ extension MyAppList {
         guard let app = Bundle.main.url(forResource: bundleIdentifier, withExtension: "app") else {
             // For system apps, you might need a different approach.
             // This is a basic example for bundled apps.
-            return nil
+            return getAppIcon()
         }
         if let bundle = Bundle(url: app), let icons = bundle.infoDictionary?["CFBundleIcons"] as? [String: Any],
            let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
@@ -79,7 +79,8 @@ public struct MoreAppsView: View {
                         Image(uiImage: icon)
 #endif
                     }
-                    Text(app.name) + Text(" - ").foregroundStyle(Color.secondary) + Text(app.desc ?? "").foregroundStyle(Color.secondary).font(.system(size: 10))
+                    Text(app.name) + Text(" - ").foregroundStyle(Color.secondary) +
+                    Text(app.desc?.localized(locale: locale) ?? "").foregroundStyle(Color.secondary).font(.system(size: 10))
                 }
             })
         }
@@ -115,7 +116,10 @@ public struct MoreAppsCommandMenus<ContentView: View>: Commands {
     }
     public var body: some Commands {
         CommandMenu("more_tools".localized(locale: locale)) {
-            MoreAppsView()
+            Group {
+                MoreAppsView()
+            }
+            .environment(\.locale, locale)
             if let content = self.content {
                 content()
             }
