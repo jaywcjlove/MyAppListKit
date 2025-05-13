@@ -38,3 +38,4 @@
 "focus_cursor_des" = "커서 위치 강조";
 "file_sentinel_des" = "Shell 명령어 이력 추적";
 "audioer_des" = "배치 오디오 변환";
+"musicer_des" = "간단한 로컬 음악 플레이어";

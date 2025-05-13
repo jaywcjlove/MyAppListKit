@@ -38,3 +38,4 @@
 "focus_cursor_des" = "Highlight cursor position";
 "file_sentinel_des" = "Track shell command history";
 "audioer_des" = "Batch Audio Conversion";
+"musicer_des" = "Simple local music player";

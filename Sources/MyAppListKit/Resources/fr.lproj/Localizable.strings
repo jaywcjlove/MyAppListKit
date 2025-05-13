@@ -37,3 +37,4 @@
 "focus_cursor_des" = "Mettre en surbrillance la position du curseur";
 "file_sentinel_des" = "Suivre l'historique des commandes Shell";
 "audioer_des" = "Conversion audio par lot";
+"musicer_des" = "Lecteur de musique local simple";

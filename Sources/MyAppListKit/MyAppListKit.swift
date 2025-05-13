@@ -94,6 +94,14 @@ public struct MyAppList {
         website: "https://wangchujiang.com/audioer/", desc: "audioer_des"
     )
     
+    public static let appMusicer = AppData(
+        name: "Musicer",
+        appId: "com.wangchujiang.musicer",
+        appstoreId: "6745227444",
+        platform: .macOS,
+        website: "https://wangchujiang.com/musicer/", desc: "musicer_des"
+    )
+    
     public static let appFileSentinel = AppData(
         name: "File Sentinel", appId: "com.wangchujiang.filesentinel", appstoreId: "6744690194", platform: .macOS,
         website: "https://wangchujiang.com/file-sentinel/", desc: "file_sentinel_des"

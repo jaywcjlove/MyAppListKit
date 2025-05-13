@@ -37,3 +37,4 @@
 "focus_cursor_des" = "高亮顯示光標位置";
 "file_sentinel_des" = "追蹤 Shell 命令歷史";
 "audioer_des" = "批量音頻轉換";
+"musicer_des" = "簡單本地音樂播放器";
