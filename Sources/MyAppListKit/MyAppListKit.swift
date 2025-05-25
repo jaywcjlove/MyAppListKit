@@ -204,7 +204,9 @@ public struct MyAppList {
         appPaletteGenius,
         appIconed,
         
+        appAudioer,
         appVideoer,
+        appMusicer,
         
         appFileSentinel,
         appKeyClicker,
