@@ -86,6 +86,11 @@ public struct MyAppList {
         }
     }
     
+    public static let appMousio = AppData(
+        name: "Mousio", appId: "com.wangchujiang.mousio", appstoreId: "6746747327", platform: .macOS,
+        website: "https://wangchujiang.com/mousio/", desc: "mousio_des"
+    )
+    
     public static let appAudioer = AppData(
         name: "Audioer",
         appId: "com.wangchujiang.audioer",
@@ -209,6 +214,8 @@ public struct MyAppList {
         appMusicer,
         
         appFileSentinel,
+        
+        appMousio,
         appKeyClicker,
         appFocusCursor,
         appCopybookGenerator,
