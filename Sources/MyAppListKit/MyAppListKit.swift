@@ -238,6 +238,10 @@ public struct MyAppList {
     /// Opens the app if installed, otherwise opens the App Store
     public static func openApp(appId: String, appstoreId: String) {
         let appStoreURL = "macappstore://apps.apple.com/app/id\(appstoreId)"
+        openApp(appId: appId, urlString: appStoreURL)
+    }
+    public static func openApp(appId: String, urlString: String) {
+        let appStoreURL = urlString
         if let appURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: appId), let appStoreURL = URL(string: appStoreURL) {
             if #available(macOS 10.15, *) {
                 let configuration = NSWorkspace.OpenConfiguration()
@@ -261,6 +265,10 @@ public struct MyAppList {
     /// Opens the app if installed, otherwise opens the App Store
     public static func openApp(appId: String, appstoreId: String) {
         let appStoreURL = "itms-apps://apps.apple.com/app/id\(appstoreId)"
+        openApp(appId: appId, urlString: appStoreURL)
+    }
+    public static func openApp(appId: String, urlString: String) {
+        let appStoreURL = urlString
         if let appStoreURL = URL(string: appStoreURL) {
             // Open App Store or use URL scheme to open other apps
             if #available(iOS 13.0, *) {
