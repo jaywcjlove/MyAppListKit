@@ -134,8 +134,8 @@ public struct MyAppList {
         name: "DevHub", appId: "com.wangchujiang.DevHub", appstoreId: "6476452351", platform: .macOS,
         website: "https://wangchujiang.com/DevHub/", desc: "devhub_des"
     )
-    public static let appRightMenuMaster = AppData(
-        name: "RightMenu Master", appId: "com.wangchujiang.rightmenu-master", appstoreId: "6737160756", platform: .macOS,
+    public static let appMenuist = AppData(
+        name: "Menuist", appId: "com.wangchujiang.rightmenu-master", appstoreId: "6737160756", platform: .macOS,
         website: "https://wangchujiang.com/rightmenu-master/", desc: "rightmenu_master_des"
     )
     public static let appCopybookGenerator = AppData(
@@ -201,7 +201,7 @@ public struct MyAppList {
         appDayBar,
         appDevTutor,
         appDevHub,
-        appRightMenuMaster,
+        appMenuist,
         
         appIconizeFolder,
         appCreateCustomSymbols,

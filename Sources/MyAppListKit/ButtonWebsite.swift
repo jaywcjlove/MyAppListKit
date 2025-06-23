@@ -21,6 +21,6 @@ public struct ButtonWebsite: View {
 }
 
 #Preview {
-    ButtonWebsite(app: MyAppList.appRightMenuMaster)
+    ButtonWebsite(app: MyAppList.appMenuist)
         .padding()
 }

@@ -234,7 +234,7 @@ public extension MoreAppsCommandMenus where ContentView == EmptyView {
     List {
         MoreAppsView()
         MoreAppsMenuView()
-        ButtonWebsite(app: MyAppList.appRightMenuMaster)
+        ButtonWebsite(app: MyAppList.appMenuist)
     }
     .padding()
 }

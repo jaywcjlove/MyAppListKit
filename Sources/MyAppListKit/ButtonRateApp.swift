@@ -21,6 +21,6 @@ public struct ButtonRateApp: View {
 }
 
 #Preview {
-    ButtonRateApp(app: MyAppList.appRightMenuMaster)
+    ButtonRateApp(app: MyAppList.appMenuist)
         .padding()
 }
