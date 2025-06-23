@@ -180,6 +180,37 @@ struct IconizeFolderApp: App {
 }
 ```
 
+## My Apps List
+
+```swift
+ForEach(MyAppList.apps(), id: \.appId) { app in
+    Button(action: {
+        MyAppList.openApp(appId: app.appId, appstoreId: app.appstoreId)
+    }, label: {
+        Label(title: {
+            VStack(alignment: .leading) {
+                Text(app.name).font(.system(size: 12))
+                    .multilineTextAlignment(.leading)
+                if let desc = app.desc {
+                    Text(desc.localized(locale: locale))
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .foregroundStyle(Color.secondary)
+                        .font(.system(size: 10))
+                        .multilineTextAlignment(.leading)
+                        .lineSpacing(0)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }, icon: {
+            MoreAppsIcon(appId: app.appId, appstoreId: app.appstoreId)
+        })
+    })
+    .buttonStyle(.link)
+}
+```
+
 ## License
 
 Licensed under the MIT License.
