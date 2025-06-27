@@ -35,7 +35,6 @@ extension UIImage {
 extension MyAppList {
     #if os(macOS)
     /// 获取本地应用图标
-    @MainActor
     public static func getAppIcon(forId: String = "com.apple.AppStore", defaultAppStore: Bool = false) -> NSImage? {
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: forId) else {
             if defaultAppStore == true {
@@ -64,8 +63,7 @@ extension MyAppList {
     }
     #elseif os(iOS)
     /// 获取本地应用图标
-    @MainActor
-    public static func getAppIcon(bundleIdentifier: String = "com.apple.AppStore") -> UIImage? {
+    public static func getAppIcon(forId: String = "com.apple.AppStore", defaultAppStore: Bool = false) -> UIImage? {
         if let icons = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
            let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
            let iconFiles = primaryIcon["CFBundleIconFiles"] as? [String],
