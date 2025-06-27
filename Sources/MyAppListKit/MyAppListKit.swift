@@ -86,6 +86,15 @@ public struct MyAppList {
         }
     }
     
+    public static let appVidwall = MyAppList.AppData(
+        name: "Vidwall",
+        appId: "com.wangchujiang.vidwall",
+        appstoreId: "6747587746",
+        platform: .macOS,
+        website: "https://wangchujiang.com/vidwall/",
+        desc: "vidwall_des"
+    )
+
     public static let appMousio = AppData(
         name: "Mousio", appId: "com.wangchujiang.mousio", appstoreId: "6746747327", platform: .macOS,
         website: "https://wangchujiang.com/mousio/", desc: "mousio_des"
@@ -202,6 +211,7 @@ public struct MyAppList {
         appDevTutor,
         appDevHub,
         appMenuist,
+        appVidwall,
         
         appIconizeFolder,
         appCreateCustomSymbols,
