@@ -1,11 +1,11 @@
-[[中文](./README-zh.md)] 
+[[English](./README.md)]
 
 MyAppListKit
 ===
 
-Encapsulation of My Personal App List
+我的个人应用列表的封装整理
 
-✦ My macOS/iOS application ✦
+✦ 我开发的 macOS/iOS 应用 ✦
 
 <p style="display: inline_block">
     <a target="_blank" href="https://apps.apple.com/app/Vidwall/6747587746" title="Vidwall for macOS"><img align="center" alt="Vidwall" height="52" width="52" src="https://github.com/user-attachments/assets/7b5df70a-ed91-4d4b-85be-f00e60a09ce9"></a>
@@ -44,75 +44,83 @@ Welcome to download [DevTutor](https://apps.apple.com/app/devtutor/id6471227008)
   </a>
 </p>
 
-## Installation
+## 安装
 
-You can add MyAppListKit to an Xcode project by adding it as a package dependency.
+你可以将 MyAppListKit 添加到 Xcode 项目中，作为一个包依赖。
 
-1. From the File menu, select Add Packages…
-2. Enter https://github.com/jaywcjlove/MyAppListKit in the Search or Enter Package URL search field
-3. Link `MyAppListKit` to your application target
+1. 在 Xcode 的菜单栏中选择「File > Add Packages…」
+2. 在「Search or Enter Package URL」字段中输入：  
+   `https://github.com/jaywcjlove/MyAppListKit`
+3. 将 `MyAppListKit` 链接到你的应用目标（Target）
 
-Or add the following to `Package.swift`:
+或者在你的 `Package.swift` 文件中添加以下内容：
 
 ```swift
 .package(url: "https://github.com/jaywcjlove/MyAppListKit", branch: "main")
 ```
 
-Or [add the package in Xcode](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app).
+也可以参考 [Xcode 添加依赖包的官方文档](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app)。
 
-## Usage
+## 使用方法
 
 ```swift
 import MyAppListKit
-    
+
 List {
+    // 遍历我的应用列表
     ForEach(MyAppList.apps(), id: \.appId) { app in
         Button(app.name, action: {
-            app.openApp()
-            // or
+            app.openApp() // 打开应用（如果已安装）
+            // 或者使用静态方法打开应用（根据 appId 或 App Store ID）
             MyAppList.openApp(appId: app.appId, appstoreId: app.appstoreId)
         })
     }
 }
 
+// 显示“更多我的应用”按钮
 Button("More Apps by Me") {
-    MyAppList.openURL(url: URL(string: MyAppList.appsByMe)!)
-    // or
+    MyAppList.openURL(url: URL(string: MyAppList.appsByMe)!) // 打开我的所有应用页面（自定义 URL）
+    // 或使用封装的方法打开
     MyAppList.openAppsByMe()
 }
 
-MyAppList.appDevHub           // -> AppData
-MyAppList.appDevHub.storeURL  // -> URL: macappstore://apps.apple.com/app/id6476452351
-MyAppList.appDevHub.appStoreWriteReview  // -> URL: macappstore://apps.apple.com/app/id6476452351?action=write-review
-MyAppList.appDevHub.openURL() // Open in browser
-MyAppList.appDevHub.openWriteReviewURL() // Open WriteReview in browser
-MyAppList.appDevHub.openApp() // Open the app or its store download page
-MyAppList.appDevHub.openWriteReviewURL() // Open the app or its store download page
+// 获取一个应用（如 DevHub）相关的信息和操作方法
+MyAppList.appDevHub          // -> AppData 实例，包含应用信息
+MyAppList.appDevHub.storeURL // -> 应用在 App Store 的链接（URL 类型）
+                             // 例如：macappstore://apps.apple.com/app/id6476452351
+
+MyAppList.appDevHub.appStoreWriteReview  // -> App Store 评论链接
+                                         // 例如：macappstore://apps.apple.com/app/id6476452351?action=write-review
+
+MyAppList.appDevHub.openURL()            // 在浏览器中打开应用页面
+MyAppList.appDevHub.openWriteReviewURL() // 在浏览器中打开写评论页面
+MyAppList.appDevHub.openApp()            // 打开本地应用，或跳转到 App Store 下载页面
+MyAppList.appDevHub.openWriteReviewURL() // 同上，主要用于引导用户写评论
 ```
 
-Returns the URL of the default app associated with the given bundle identifier.
+返回与指定 Bundle Identifier 关联的默认应用的 URL。
 
-```
+```swift
 MyAppList.appDevHub.appURL()
 ```
 
-Checks if the app is installed
+检查应用是否已安装。
 
 ```swift
-MyAppList.isAppInstalled(appId: "com.wangchujiang.daybar")
+MyAppList.isAppInstalled(appId: "com.wangchujiang.vidwall")
 ```
 
-Get app icon
+获取应用图标
 
 ```swift
-MyAppList.getAppIcon() // Get the app's App Store icon
-// Get icon using bundleIdentifier (if app is installed locally)
+MyAppList.getAppIcon() // 获取应用商店图标
+// 通过 bundleIdentifier 获取图标（如果本地安装了应用）
 MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall") 
-// Get icon using bundleIdentifier; if not found locally, fallback to App Store icon
+// 通过 bundleIdentifier 获取图标，如果本地不存在，则返回 App Store 图标
 MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall", defaultAppStore: true) 
-// Get icon using bundleIdentifier; if not found locally, fetch from App Store using appstoreId
+// 通过 bundleIdentifier 获取图标，如果本地不存在，则根据 appstoreId 从 App Store 获取图标
 MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall", appstoreId: "6747587746") 
-// Fetch icon directly from App Store using the app's ID
+// 直接通过 App Store 的应用 ID 获取图标
 MyAppList.fetchAppIconFromAppStore(appId: "6747587746") 
 ```
 
@@ -140,7 +148,7 @@ struct ContentView: View {
 
 ## MoreAppsView
 
-Display My Apps on the Menu.
+在菜单中显示我的应用。
 
 ```swift
 struct CommandMenus: Commands {
@@ -163,7 +171,7 @@ struct CommandMenus: Commands {
 
 ## ButtonRateApp & ButtonSendFeedback
 
-A button that guides users to rate or review the app on the App Store. When clicked, it opens the “Write a Review” page for the current app.
+用于引导用户前往 App Store 评分/评论应用的按钮。点击后会打开当前应用在 App Store 的“撰写评论”页面。
 
 ```swift
 struct CommandMenus: Commands {
@@ -198,7 +206,7 @@ struct IconizeFolderApp: App {
 }
 ```
 
-## My Apps List
+## 我的应用列表
 
 ```swift
 ForEach(MyAppList.apps(), id: \.appId) { app in
@@ -229,6 +237,6 @@ ForEach(MyAppList.apps(), id: \.appId) { app in
 }
 ```
 
-## License
+## 许可证
 
-Licensed under the MIT License.
+本项目采用 MIT 许可证授权。

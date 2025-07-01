@@ -93,7 +93,7 @@ extension MyAppList {
     }
     #endif
     // MARK: - 公共 fetch 方法
-    private static func fetchAppIconFromAppStore(appId: String) async -> Data? {
+    public static func fetchAppIconFromAppStore(appId: String) async -> Data? {
         let urlString = "https://itunes.apple.com/lookup?id=\(appId)"
         guard let url = URL(string: urlString) else { return nil }
         do {
