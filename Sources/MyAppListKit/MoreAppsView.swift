@@ -42,7 +42,7 @@ extension MyAppList {
             }
             return nil
         }
-        return NSWorkspace.shared.icon(forFile: appUrl.path)
+        return NSWorkspace.shared.icon(forFile: appUrl.path())
     }
     @MainActor
     public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore", appstoreId: String? = nil) async -> NSImage? {
@@ -159,7 +159,7 @@ public struct MoreAppsIcon: View {
     var appId: String
     var appstoreId: String
 #if os(macOS)
-    @State var nsImage: NSImage? = nil
+    @State var nsImage: NSImage? = MyAppList.getAppIcon()
 #elseif os(iOS)
     @State var nsImage: UIImage? = nil
 #endif
@@ -170,7 +170,6 @@ public struct MoreAppsIcon: View {
     public var body: some View {
         Group {
             if let icon = nsImage?.resized(to: .init(width: 30, height: 30)) {
-                
 #if os(macOS)
                 Image(nsImage: icon)
 #elseif os(iOS)
@@ -179,9 +178,6 @@ public struct MoreAppsIcon: View {
             }
         }
         .onAppear() {
-#if os(macOS)
-            nsImage = MyAppList.getAppIcon()
-#endif
             Task {
                 if let icon = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId)?.resized(to: .init(width: 62, height: 62)) {
                     DispatchQueue.main.async {
