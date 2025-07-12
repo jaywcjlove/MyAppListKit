@@ -59,7 +59,7 @@ extension MyAppList {
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) else {
             return nil
         }
-        return NSWorkspace.shared.icon(forFile: appUrl.path)
+        return NSWorkspace.shared.icon(forFile: appUrl.path())
     }
     #elseif os(iOS)
     /// 获取本地应用图标
