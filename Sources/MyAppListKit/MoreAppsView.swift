@@ -159,7 +159,7 @@ public struct MoreAppsIcon: View {
     var appId: String
     var appstoreId: String
 #if os(macOS)
-    @State var nsImage: NSImage? = MyAppList.getAppIcon()
+    @State var nsImage: NSImage? = nil
 #elseif os(iOS)
     @State var nsImage: UIImage? = nil
 #endif
@@ -179,6 +179,9 @@ public struct MoreAppsIcon: View {
             }
         }
         .onAppear() {
+#if os(macOS)
+            nsImage = MyAppList.getAppIcon()
+#endif
             Task {
                 if let icon = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId)?.resized(to: .init(width: 62, height: 62)) {
                     DispatchQueue.main.async {
@@ -203,7 +206,7 @@ public struct MoreAppsMenuView: View {
 }
 
 public struct MoreAppsCommandMenus<ContentView: View>: Commands {
-    @Environment(\.locale) var locale
+    @Environment(\.locale) var locale: Locale
     var content: (() -> ContentView)?
     public init(content: (() -> ContentView)?) {
         self.content = content
