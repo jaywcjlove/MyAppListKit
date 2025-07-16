@@ -154,8 +154,12 @@ public struct MoreAppsLabelView: View {
     }
 }
 
+private class MoreAppsIconModel: ObservableObject {
+    @Published var resizable: Bool = false
+}
 
 public struct MoreAppsIcon: View {
+    @ObservedObject private var viewModel: MoreAppsIconModel = .init()
     var appId: String
     var appstoreId: String
 #if os(macOS)
@@ -170,11 +174,19 @@ public struct MoreAppsIcon: View {
     public var body: some View {
         Group {
             if let icon = nsImage?.resized(to: .init(width: 30, height: 30)) {
+                if viewModel.resizable == true {
 #if os(macOS)
-                Image(nsImage: icon)
+                    Image(nsImage: icon).resizable()
 #elseif os(iOS)
-                Image(uiImage: icon)
+                    Image(uiImage: icon).resizable()
 #endif
+                } else {
+#if os(macOS)
+                    Image(nsImage: icon)
+#elseif os(iOS)
+                    Image(uiImage: icon)
+#endif
+                }
             }
         }
         .onAppear() {
@@ -186,6 +198,10 @@ public struct MoreAppsIcon: View {
                 }
             }
         }
+    }
+    public func resizable() -> some View {
+        viewModel.resizable = true
+        return self
     }
 }
 
