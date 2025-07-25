@@ -18,6 +18,15 @@ extension NSImage {
             return true
         }
     }
+    func toData() -> Data? {
+        guard let tiffData = self.tiffRepresentation,
+              let bitmapImageRep = NSBitmapImageRep(data: tiffData) else {
+            return nil
+        }
+        
+        let imageFileType: NSBitmapImageRep.FileType = .png
+        return bitmapImageRep.representation(using: imageFileType, properties: [:])
+    }
 }
 #endif
 
@@ -28,6 +37,9 @@ extension UIImage {
         defer { UIGraphicsEndImageContext() }
         draw(in: CGRect(origin: .zero, size: newSize))
         return UIGraphicsGetImageFromCurrentImageContext()!
+    }
+    func toData() -> Data? {
+        return self.pngData()
     }
 }
 #endif
@@ -46,20 +58,24 @@ extension MyAppList {
     }
     @MainActor
     public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore", appstoreId: String? = nil) async -> NSImage? {
+        guard let imageData: Data = await getAppIcon(forId: bundleIdentifier, appstoreId: appstoreId) else { return nil }
+        return NSImage(data: imageData)
+    }
+    public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore", appstoreId: String? = nil) async -> Data? {
         // 1️⃣ 本地优先
         if let appIcon = getAppIcon(forId: bundleIdentifier, defaultAppStore: false) {
-            return appIcon
+            return appIcon.toData()
         }
         // 2️⃣ 如果提供了 AppStore ID，尝试在线获取
         if let appstoreId,
            let iconData = await fetchAppIconFromAppStore(appId: appstoreId) {
-            return NSImage(data: iconData)
+            return iconData
         }
         // 3️⃣ fallback，返回系统默认 icon
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) else {
             return nil
         }
-        return NSWorkspace.shared.icon(forFile: appUrl.path())
+        return NSWorkspace.shared.icon(forFile: appUrl.path()).toData()
     }
     #elseif os(iOS)
     /// 获取本地应用图标
@@ -78,15 +94,24 @@ extension MyAppList {
         forId bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "com.apple.AppStore",
         appstoreId: String? = nil
     ) async -> UIImage? {
+        guard let imageData: Data = await getAppIcon(forId: bundleIdentifier, appstoreId: appstoreId) else {
+            return nil
+        }
+        return UIImage(data: imageData)
+    }
+    public static func getAppIcon(
+        forId bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "com.apple.AppStore",
+        appstoreId: String? = nil
+    ) async -> Data? {
         // 1️⃣ 本地优先
         if let appIcon = getAppIcon(forId: bundleIdentifier, defaultAppStore: false) {
-            return appIcon
+            return appIcon.toData()
         }
 
         // 2️⃣ 如果提供了 AppStore ID，尝试在线获取
         if let appstoreId,
            let iconData = await fetchAppIconFromAppStore(appId: appstoreId) {
-            return UIImage(data: iconData)
+            return iconData
         }
         // 3️⃣ fallback，返回空或默认图标
         return nil
@@ -172,7 +197,7 @@ public struct MoreAppsIcon: View {
         self.appstoreId = appstoreId
     }
     public var body: some View {
-        Group {
+        VStack {
             if let icon = nsImage?.resized(to: .init(width: 30, height: 30)) {
                 if viewModel.resizable == true {
 #if os(macOS)
@@ -190,10 +215,15 @@ public struct MoreAppsIcon: View {
             }
         }
         .onAppear() {
-            Task {
-                if let icon = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId)?.resized(to: .init(width: 62, height: 62)) {
+            DispatchQueue.global(qos: .userInteractive).async {
+                Task {
+                    guard let icon: Data = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId) else { return }
                     DispatchQueue.main.async {
-                        self.nsImage = icon
+#if os(macOS)
+                        self.nsImage = NSImage(data: icon)
+#elseif os(iOS)
+                        self.nsImage = UIImage(data: icon)
+#endif
                     }
                 }
             }
