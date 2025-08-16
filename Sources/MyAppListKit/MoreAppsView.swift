@@ -187,18 +187,20 @@ public struct MoreAppsIcon: View {
     @ObservedObject private var viewModel: MoreAppsIconModel = .init()
     var appId: String
     var appstoreId: String
+    var size: Int = 30
 #if os(macOS)
     @State var nsImage: NSImage? = MyAppList.getAppIcon()
 #elseif os(iOS)
-    @State var nsImage: UIImage? = nil
+    @State var nsImage: UIImage? = MyAppList.getAppIcon()
 #endif
-    public init(appId: String, appstoreId: String) {
+    public init(appId: String, appstoreId: String, size: Int = 30) {
         self.appId = appId
         self.appstoreId = appstoreId
+        self.size = size
     }
     public var body: some View {
         VStack {
-            if let icon = nsImage?.resized(to: .init(width: 30, height: 30)) {
+            if let icon = nsImage {
                 if viewModel.resizable == true {
 #if os(macOS)
                     Image(nsImage: icon).resizable()
@@ -217,12 +219,14 @@ public struct MoreAppsIcon: View {
         .onAppear() {
             DispatchQueue.global(qos: .userInteractive).async {
                 Task {
-                    guard let icon: Data = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId) else { return }
+                    guard let icon: Data = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId) else {
+                        return
+                    }
                     DispatchQueue.main.async {
 #if os(macOS)
-                        self.nsImage = NSImage(data: icon)
+                        self.nsImage = NSImage(data: icon)?.resized(to: .init(width: size, height: size))
 #elseif os(iOS)
-                        self.nsImage = UIImage(data: icon)
+                        self.nsImage = UIImage(data: icon)?.resized(to: .init(width: size, height: size))
 #endif
                     }
                 }
