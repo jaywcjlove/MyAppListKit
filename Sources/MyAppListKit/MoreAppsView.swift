@@ -46,7 +46,7 @@ extension UIImage {
 
 extension MyAppList {
     #if os(macOS)
-    /// 获取本地应用图标
+    /// Get local app icon
     public static func getAppIcon(forId: String = "com.apple.AppStore", defaultAppStore: Bool = false) -> NSImage? {
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: forId) else {
             if defaultAppStore == true {
@@ -62,23 +62,23 @@ extension MyAppList {
         return NSImage(data: imageData)
     }
     public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore", appstoreId: String? = nil) async -> Data? {
-        // 1️⃣ 本地优先
+        // 1️⃣ Try local first
         if let appIcon = getAppIcon(forId: bundleIdentifier, defaultAppStore: false) {
             return appIcon.toData()
         }
-        // 2️⃣ 如果提供了 AppStore ID，尝试在线获取
+        // 2️⃣ If AppStore ID is provided, try online fetch
         if let appstoreId,
            let iconData = await fetchAppIconFromAppStore(appId: appstoreId) {
             return iconData
         }
-        // 3️⃣ fallback，返回系统默认 icon
+        // 3️⃣ Fallback, return system default icon
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) else {
             return nil
         }
         return NSWorkspace.shared.icon(forFile: appUrl.path()).toData()
     }
     #elseif os(iOS)
-    /// 获取本地应用图标
+    /// Get local app icon
     public static func getAppIcon(forId: String = "com.apple.AppStore", defaultAppStore: Bool = false) -> UIImage? {
         if let icons = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
            let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
@@ -103,21 +103,21 @@ extension MyAppList {
         forId bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "com.apple.AppStore",
         appstoreId: String? = nil
     ) async -> Data? {
-        // 1️⃣ 本地优先
+        // 1️⃣ Try local first
         if let appIcon = getAppIcon(forId: bundleIdentifier, defaultAppStore: false) {
             return appIcon.toData()
         }
 
-        // 2️⃣ 如果提供了 AppStore ID，尝试在线获取
+        // 2️⃣ If AppStore ID is provided, try online fetch
         if let appstoreId,
            let iconData = await fetchAppIconFromAppStore(appId: appstoreId) {
             return iconData
         }
-        // 3️⃣ fallback，返回空或默认图标
+        // 3️⃣ Fallback, return nil or default icon
         return nil
     }
     #endif
-    // MARK: - 公共 fetch 方法
+    // MARK: - Common fetch method
     public static func fetchAppIconFromAppStore(appId: String) async -> Data? {
         let urlString = "https://itunes.apple.com/lookup?id=\(appId)"
         guard let url = URL(string: urlString) else { return nil }
@@ -183,21 +183,45 @@ private class MoreAppsIconModel: ObservableObject {
     @Published var resizable: Bool = false
 }
 
+// MARK: - Icon cache management
+private class IconCache: @unchecked Sendable {
+    static let shared = IconCache()
+    private let cache = NSCache<NSString, NSData>()
+    
+    private init() {
+        cache.countLimit = 100 // Maximum 100 icons cache
+        cache.totalCostLimit = 50 * 1024 * 1024 // 50MB
+    }
+    
+    func getIcon(for key: String) -> Data? {
+        return cache.object(forKey: key as NSString) as Data?
+    }
+    
+    func setIcon(_ data: Data, for key: String) {
+        cache.setObject(data as NSData, forKey: key as NSString, cost: data.count)
+    }
+}
+
 public struct MoreAppsIcon: View {
     @ObservedObject private var viewModel: MoreAppsIconModel = .init()
     var appId: String
     var appstoreId: String
     var size: Int = 30
 #if os(macOS)
-    @State var nsImage: NSImage? = MyAppList.getAppIcon()
+    @State var nsImage: NSImage?
 #elseif os(iOS)
-    @State var nsImage: UIImage? = MyAppList.getAppIcon()
+    @State var nsImage: UIImage?
 #endif
     public init(appId: String, appstoreId: String, size: Int = 30) {
         self.appId = appId
         self.appstoreId = appstoreId
         self.size = size
     }
+    
+    private var cacheKey: String {
+        return "\(appId)_\(appstoreId)_\(size)"
+    }
+    
     public var body: some View {
         VStack {
             if let icon = nsImage {
@@ -214,25 +238,49 @@ public struct MoreAppsIcon: View {
                     Image(uiImage: icon)
 #endif
                 }
+            } else {
+                // Show placeholder
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(width: CGFloat(size), height: CGFloat(size))
             }
         }
         .onAppear() {
-            DispatchQueue.global(qos: .userInteractive).async {
-                Task {
-                    guard let icon: Data = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId) else {
-                        return
-                    }
-                    DispatchQueue.main.async {
+            loadIcon()
+        }
+    }
+    
+    private func loadIcon() {
+        // 1️⃣ Try reading from cache first
+        if let cachedData = IconCache.shared.getIcon(for: cacheKey) {
 #if os(macOS)
-                        self.nsImage = NSImage(data: icon)?.resized(to: .init(width: size, height: size))
+            self.nsImage = NSImage(data: cachedData)?.resized(to: .init(width: size, height: size))
 #elseif os(iOS)
-                        self.nsImage = UIImage(data: icon)?.resized(to: .init(width: size, height: size))
+            self.nsImage = UIImage(data: cachedData)?.resized(to: .init(width: size, height: size))
 #endif
-                    }
-                }
+            return
+        }
+        
+        // 2️⃣ Not in cache, load asynchronously
+        Task {
+            guard let icon: Data = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId) else {
+                return
+            }
+            
+            // 3️⃣ Save to cache
+            IconCache.shared.setIcon(icon, for: cacheKey)
+            
+            // 4️⃣ Update UI
+            await MainActor.run {
+#if os(macOS)
+                self.nsImage = NSImage(data: icon)?.resized(to: .init(width: size, height: size))
+#elseif os(iOS)
+                self.nsImage = UIImage(data: icon)?.resized(to: .init(width: size, height: size))
+#endif
             }
         }
     }
+    
     public func resizable() -> some View {
         viewModel.resizable = true
         return self
