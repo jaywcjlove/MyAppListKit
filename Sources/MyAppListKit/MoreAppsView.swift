@@ -101,11 +101,6 @@ extension MyAppList {
         forId bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "com.apple.AppStore",
         appstoreId: String? = nil
     ) async -> Data? {
-        // 1️⃣ Try local first
-        if let appIcon = getAppIcon(forId: bundleIdentifier, defaultAppStore: false) {
-            return appIcon.toData()
-        }
-
         // 2️⃣ If AppStore ID is provided, try online fetch
         if let appstoreId,
            let iconData = await fetchAppIconFromAppStore(appId: appstoreId) {
