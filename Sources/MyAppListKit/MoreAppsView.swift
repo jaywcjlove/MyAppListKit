@@ -222,7 +222,7 @@ public struct MoreAppsIcon: View {
                 if viewModel.resizable == true {
                     Image(nsuiImage: icon).resizable()
                 } else {
-                    Image(nsuiImage: icon).resizable()
+                    Image(nsuiImage: icon)
                 }
             } else {
                 // Show placeholder
