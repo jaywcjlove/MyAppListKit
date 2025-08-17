@@ -168,6 +168,12 @@ public struct MoreAppsLabelView: View {
     var desc: String
     var appId: String
     var appstoreId: String
+    public init(name: String, desc: String, appId: String, appstoreId: String) {
+        self.name = name
+        self.desc = desc
+        self.appId = appId
+        self.appstoreId = appstoreId
+    }
     public var body: some View {
         HStack {
             MoreAppsIcon(appId: appId, appstoreId: appstoreId)
