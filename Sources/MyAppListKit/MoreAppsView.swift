@@ -243,6 +243,9 @@ public struct MoreAppsIcon: View {
                 RoundedRectangle(cornerRadius: 6)
                     .fill(Color.gray.opacity(0.3))
                     .frame(width: CGFloat(size), height: CGFloat(size))
+                    .background(
+                        ProgressView().controlSize(.small)
+                    )
             }
         }
         .onAppear() {
