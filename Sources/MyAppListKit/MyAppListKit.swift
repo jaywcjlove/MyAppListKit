@@ -47,11 +47,10 @@ public struct MyAppList {
             return "\(appStoreURLString)?action=write-review"
         }
         public var appStoreURLString: String {
-            #if os(macOS)
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
             /// "macappstore://apps.apple.com/app/id6479819388?action=write-review"
             return "macappstore://apps.apple.com/app/id\(appstoreId)"
-            #endif
-            #if os(iOS)
+            #elseif canImport(UIKit)
             return "itms-apps://apps.apple.com/app/id\(appstoreId)"
             #endif
         }
@@ -78,9 +77,9 @@ public struct MyAppList {
         }
         /// Returns the URL for the installed app, if available
         public func appURL() -> URL? {
-            #if os(macOS)
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
             NSWorkspace.shared.urlForApplication(withBundleIdentifier: self.appId)
-            #elseif os(iOS)
+            #elseif canImport(UIKit)
             return nil
             #endif
         }
@@ -244,7 +243,7 @@ public struct MyAppList {
     public static func apps() -> [AppData] {
         return MyAppList.allApps.filter { $0.appId != MyAppList.bundleIdentifier }
     }
-    #if os(macOS)
+    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     /// Opens the app if installed, otherwise opens the App Store
     public static func openApp(appId: String, appstoreId: String) {
         let appStoreURL = "macappstore://apps.apple.com/app/id\(appstoreId)"
@@ -270,8 +269,7 @@ public struct MyAppList {
             }
         }
     }
-    #endif
-    #if os(iOS)
+    #elseif canImport(UIKit)
     /// Opens the app if installed, otherwise opens the App Store
     public static func openApp(appId: String, appstoreId: String) {
         let appStoreURL = "itms-apps://apps.apple.com/app/id\(appstoreId)"
@@ -295,10 +293,9 @@ public struct MyAppList {
     #endif
     /// Opens the given URL
     public static func openURL(url: URL) {
-        #if os(macOS)
+        #if canImport(AppKit) && !targetEnvironment(macCatalyst)
         NSWorkspace.shared.open(url)
-        #endif
-        #if os(iOS)
+        #elseif canImport(UIKit)
         Task {
             await UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
@@ -319,23 +316,22 @@ public struct MyAppList {
     
     /// Returns the developer's apps page URL based on the platform
     public static var appsByMe: String {
-        #if os(macOS)
+        #if canImport(AppKit) && !targetEnvironment(macCatalyst)
         "macappstore://apps.apple.com/developer/id1714265259"
-        #elseif os(iOS)
+        #elseif canImport(UIKit)
         "https://apps.apple.com/developer/id1714265259"
         #endif
     }
     
     
-    #if os(macOS)
+    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     /// Checks if the app is installed
     public static func isAppInstalled(appId: String) -> Bool {
         let workspace = NSWorkspace.shared
         let apps = workspace.runningApplications
         return apps.contains { $0.bundleIdentifier == appId }
     }
-    #endif
-    #if os(iOS)
+    #elseif canImport(UIKit)
     /// Checks if the app is installed
     @MainActor public static func isAppInstalled(appId: String) -> Bool {
         if let url = URL(string: "\(appId)://") {

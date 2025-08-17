@@ -6,6 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
+
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
+public typealias NSUIImage = NSImage
+#elseif canImport(UIKit)
+public typealias NSUIImage = UIImage
+#endif
 
 public extension String {
     func localized() -> String {
@@ -31,5 +38,16 @@ internal extension String {
             return String(format: localizedString, arguments)
         }
         return localizedString
+    }
+}
+
+
+extension Image {
+    public init(nsuiImage: NSUIImage) {
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
+        self.init(nsImage: nsuiImage)
+#elseif canImport(UIKit)
+        self.init(uiImage: nsuiImage)
+#endif
     }
 }

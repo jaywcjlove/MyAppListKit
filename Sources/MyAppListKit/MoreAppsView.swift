@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-#if os(macOS)
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 extension NSImage {
     public func resized(to newSize: NSSize) -> NSImage {
         return NSImage(size: newSize, flipped: false) { rect in
@@ -28,9 +28,7 @@ extension NSImage {
         return bitmapImageRep.representation(using: imageFileType, properties: [:])
     }
 }
-#endif
-
-#if os(iOS)
+#elseif canImport(UIKit)
 extension UIImage {
     public func resized(to newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
@@ -45,7 +43,7 @@ extension UIImage {
 #endif
 
 extension MyAppList {
-    #if os(macOS)
+    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     /// Get local app icon
     public static func getAppIcon(forId: String = "com.apple.AppStore", defaultAppStore: Bool = false) -> NSImage? {
         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: forId) else {
@@ -77,7 +75,7 @@ extension MyAppList {
         }
         return NSWorkspace.shared.icon(forFile: appUrl.path()).toData()
     }
-    #elseif os(iOS)
+    #elseif canImport(UIKit)
     /// Get local app icon
     public static func getAppIcon(forId: String = "com.apple.AppStore", defaultAppStore: Bool = false) -> UIImage? {
         if let icons = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
@@ -207,11 +205,7 @@ public struct MoreAppsIcon: View {
     var appId: String
     var appstoreId: String
     var size: Int = 30
-#if os(macOS)
-    @State var nsImage: NSImage?
-#elseif os(iOS)
-    @State var nsImage: UIImage?
-#endif
+    @State var nsuiImage: NSUIImage?
     public init(appId: String, appstoreId: String, size: Int = 30) {
         self.appId = appId
         self.appstoreId = appstoreId
@@ -224,19 +218,11 @@ public struct MoreAppsIcon: View {
     
     public var body: some View {
         VStack {
-            if let icon = nsImage {
+            if let icon: NSUIImage = nsuiImage {
                 if viewModel.resizable == true {
-#if os(macOS)
-                    Image(nsImage: icon).resizable()
-#elseif os(iOS)
-                    Image(uiImage: icon).resizable()
-#endif
+                    Image(nsuiImage: icon).resizable()
                 } else {
-#if os(macOS)
-                    Image(nsImage: icon)
-#elseif os(iOS)
-                    Image(uiImage: icon)
-#endif
+                    Image(nsuiImage: icon).resizable()
                 }
             } else {
                 // Show placeholder
@@ -256,11 +242,7 @@ public struct MoreAppsIcon: View {
     private func loadIcon() {
         // 1️⃣ Try reading from cache first
         if let cachedData = IconCache.shared.getIcon(for: cacheKey) {
-#if os(macOS)
-            self.nsImage = NSImage(data: cachedData)?.resized(to: .init(width: size, height: size))
-#elseif os(iOS)
-            self.nsImage = UIImage(data: cachedData)?.resized(to: .init(width: size, height: size))
-#endif
+            self.nsuiImage = NSUIImage(data: cachedData)?.resized(to: .init(width: size, height: size))
             return
         }
         
@@ -275,11 +257,7 @@ public struct MoreAppsIcon: View {
             
             // 4️⃣ Update UI
             await MainActor.run {
-#if os(macOS)
-                self.nsImage = NSImage(data: icon)?.resized(to: .init(width: size, height: size))
-#elseif os(iOS)
-                self.nsImage = UIImage(data: icon)?.resized(to: .init(width: size, height: size))
-#endif
+                self.nsuiImage = NSUIImage(data: icon)?.resized(to: .init(width: size, height: size))
             }
         }
     }
