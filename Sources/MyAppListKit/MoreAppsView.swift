@@ -168,6 +168,17 @@ public struct MoreAppsLabelView: View {
     var desc: String
     var appId: String
     var appstoreId: String
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
+    var size: Int = 30
+    var axis: Axis = .horizontal
+#elseif canImport(UIKit)
+    var size: Int = 38
+    var axis: Axis = .vertical
+#endif
+    enum Axis {
+        case horizontal
+        case vertical
+    }
     public init(name: String, desc: String, appId: String, appstoreId: String) {
         self.name = name
         self.desc = desc
@@ -175,10 +186,22 @@ public struct MoreAppsLabelView: View {
         self.appstoreId = appstoreId
     }
     public var body: some View {
-        HStack {
-            MoreAppsIcon(appId: appId, appstoreId: appstoreId)
-            Text(name) + Text(" - ").foregroundStyle(Color.secondary) +
-            Text(desc.localized(locale: locale)).foregroundStyle(Color.secondary).font(.system(size: 10))
+        if axis == .horizontal {
+            HStack {
+                MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
+                Text(name) + Text(" - ").foregroundStyle(Color.secondary) +
+                Text(desc.localized(locale: locale)).foregroundStyle(Color.secondary).font(.system(size: 10))
+            }
+        }
+        if axis == .vertical {
+            HStack {
+                MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(name)
+                    Text(desc.localized(locale: locale))
+                        .foregroundStyle(Color.secondary).font(.system(size: 10))
+                }
+            }
         }
     }
 }
