@@ -9,7 +9,16 @@ import SwiftUI
 import MyAppListKit
 
 struct ContentView: View {
+    @Environment(\.locale) var locale
     var body: some View {
+        
+        let emailURLString2: String = MyAppList.appDevTutor.sendFeedback(content: MyAppList.version, locale: locale)
+        var _ = print("locale:", locale)
+        var _ = print("locale.language.languageCode:", locale.language.languageCode?.identifier ?? "nil")
+        var _ = print("locale.region:", locale.region?.identifier ?? "nil")
+        var _ = print("send_feedback localized:", "send_feedback".localized(locale: locale))
+        var _ = print("emailURLString:", emailURLString2, MyAppList.version)
+        
         List {
             ForEach(MyAppList.apps(), id: \.appId) { app in
                 Button(app.name, action: {
