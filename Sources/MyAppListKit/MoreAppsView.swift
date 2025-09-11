@@ -206,22 +206,81 @@ private class MoreAppsIconModel: ObservableObject {
 }
 
 // MARK: - Icon cache management
-private class IconCache: @unchecked Sendable {
+private actor IconCache {
     static let shared = IconCache()
     private let cache = NSCache<NSString, NSData>()
+    private let diskCacheURL: URL
     
     private init() {
         cache.countLimit = 100 // Maximum 100 icons cache
         cache.totalCostLimit = 50 * 1024 * 1024 // 50MB
+        // Set disk cache path
+        let cacheDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        diskCacheURL = cacheDir.appendingPathComponent("AppIcons")
+        
+        // Create cache directory
+        try? FileManager.default.createDirectory(at: diskCacheURL, withIntermediateDirectories: true)
+        
+        // Configure memory cache
+        cache.name = "AppIconCache"
+        
+        // Setup memory warning observer - using traditional approach to avoid warnings
+        #if canImport(UIKit)
+        setupMemoryWarningObserver()
+        #endif
     }
     
     func getIcon(for key: String) -> Data? {
-        return cache.object(forKey: key as NSString) as Data?
+        // Check memory cache first
+        if let cachedData = cache.object(forKey: key as NSString) as Data? {
+            return cachedData
+        }
+        
+        // Check disk cache
+        let fileURL = diskCacheURL.appendingPathComponent("\(key.hash).png")
+        if let diskData = try? Data(contentsOf: fileURL) {
+            // Load disk data into memory cache
+            cache.setObject(diskData as NSData, forKey: key as NSString, cost: diskData.count)
+            return diskData
+        }
+        
+        return nil
     }
     
     func setIcon(_ data: Data, for key: String) {
+        // Save to memory cache
         cache.setObject(data as NSData, forKey: key as NSString, cost: data.count)
+        
+        // Asynchronously save to disk cache
+        Task.detached(priority: .utility) {
+            let fileURL = self.diskCacheURL.appendingPathComponent("\(key.hash).png")
+            try? data.write(to: fileURL)
+        }
     }
+    
+    func clearCache() {
+        cache.removeAllObjects()
+        try? FileManager.default.removeItem(at: diskCacheURL)
+        try? FileManager.default.createDirectory(at: diskCacheURL, withIntermediateDirectories: true)
+    }
+    
+    func clearMemoryCache() {
+        cache.removeAllObjects()
+    }
+    
+    #if canImport(UIKit)
+    private nonisolated func setupMemoryWarningObserver() {
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.didReceiveMemoryWarningNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task {
+                await self?.clearMemoryCache()
+            }
+        }
+    }
+    #endif
 }
 
 public struct MoreAppsIcon: View {
@@ -229,7 +288,10 @@ public struct MoreAppsIcon: View {
     var appId: String
     var appstoreId: String
     var size: Int = 30
-    @State var nsuiImage: NSUIImage?
+    @State private var nsuiImage: NSUIImage?
+    @State private var isLoading: Bool = false
+    @State private var loadTask: Task<Void, Never>?
+    
     public init(appId: String, appstoreId: String, size: Int = 30) {
         self.appId = appId
         self.appstoreId = appstoreId
@@ -241,10 +303,12 @@ public struct MoreAppsIcon: View {
     }
     
     public var body: some View {
-        VStack {
+        Group {
             if let icon: NSUIImage = nsuiImage {
                 if viewModel.resizable == true {
-                    Image(nsuiImage: icon).resizable()
+                    Image(nsuiImage: icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                 } else {
                     Image(nsuiImage: icon)
                 }
@@ -252,43 +316,116 @@ public struct MoreAppsIcon: View {
                 // Show placeholder
                 RoundedRectangle(cornerRadius: 6)
                     .fill(Color.gray.opacity(0.3))
-                    .frame(width: CGFloat(size), height: CGFloat(size))
-                    .background(
-                        ProgressView().controlSize(.small)
+                    .overlay(
+                        Group {
+                            if isLoading {
+                                ProgressView()
+                                    .controlSize(.small)
+                                    .scaleEffect(0.8)
+                            } else {
+                                Image(systemName: "app.fill")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: CGFloat(size) * 0.4))
+                            }
+                        }
                     )
             }
         }
-        .onAppear() {
-            loadIcon()
+        .frame(width: CGFloat(size), height: CGFloat(size))
+        .clipShape(RoundedRectangle(cornerRadius: 6))
+        .onAppear {
+            loadIconIfNeeded()
         }
+        .onDisappear {
+            cancelLoading()
+        }
+        .id(cacheKey) // Ensure reload when cache key changes
     }
     
-    private func loadIcon() {
-        // 1️⃣ Try reading from cache first
-        if let cachedData = IconCache.shared.getIcon(for: cacheKey) {
-            self.nsuiImage = NSUIImage(data: cachedData)?.resized(to: .init(width: size, height: size))
-            return
-        }
+    private func loadIconIfNeeded() {
+        // Prevent duplicate loading
+        guard nsuiImage == nil && !isLoading else { return }
         
-        // 2️⃣ Not in cache, load asynchronously
-        Task {
-            guard let icon: Data = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId) else {
+        // Asynchronously check cache and load
+        loadTask = Task {
+            // 1️⃣ Check cache first
+            if let cachedData = await IconCache.shared.getIcon(for: cacheKey) {
+                // Process image on background thread
+                let resizedImage = await processImageData(cachedData)
+                
+                guard !Task.isCancelled else { return }
+                
+                await MainActor.run {
+                    self.nsuiImage = resizedImage
+                }
                 return
             }
             
-            // 3️⃣ Save to cache
-            IconCache.shared.setIcon(icon, for: cacheKey)
-            
-            // 4️⃣ Update UI
+            // 2️⃣ No cache available, start loading
             await MainActor.run {
-                self.nsuiImage = NSUIImage(data: icon)?.resized(to: .init(width: size, height: size))
+                self.isLoading = true
+            }
+            
+            // Get icon data
+            let iconData = await MyAppList.getAppIcon(forId: appId, appstoreId: appstoreId) as Data?
+            
+            guard !Task.isCancelled, let iconData = iconData else {
+                await MainActor.run {
+                    self.isLoading = false
+                    self.loadTask = nil
+                }
+                return
+            }
+            
+            // Save to cache
+            await IconCache.shared.setIcon(iconData, for: cacheKey)
+            
+            // Process image
+            let processedImage = await processImageData(iconData)
+            
+            guard !Task.isCancelled else {
+                await MainActor.run {
+                    self.loadTask = nil
+                }
+                return
+            }
+            
+            // Update UI
+            await MainActor.run {
+                self.nsuiImage = processedImage
+                self.isLoading = false
+                self.loadTask = nil
             }
         }
     }
     
+    private func processImageData(_ data: Data) async -> NSUIImage? {
+        return await withCheckedContinuation { continuation in
+            Task.detached(priority: .userInitiated) {
+                let result: NSUIImage? = autoreleasepool {
+                    guard let image = NSUIImage(data: data) else { return nil }
+                    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+                    let targetSize = NSSize(width: size, height: size)
+                    #else
+                    let targetSize = CGSize(width: size, height: size)
+                    #endif
+                    return image.resized(to: targetSize)
+                }
+                continuation.resume(returning: result)
+            }
+        }
+    }
+    
+    private func cancelLoading() {
+        loadTask?.cancel()
+        loadTask = nil
+        isLoading = false
+    }
+    
     public func resizable() -> some View {
-        viewModel.resizable = true
-        return self
+        let view = self
+        view.viewModel.resizable = true
+        return view
     }
 }
 
