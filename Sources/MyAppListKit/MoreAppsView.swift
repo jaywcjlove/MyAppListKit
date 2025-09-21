@@ -10,16 +10,30 @@ import SwiftUI
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
 extension NSImage {
     public func resized(to newSize: NSSize) -> NSImage {
-        return NSImage(size: newSize, flipped: false) { rect in
-            self.draw(in: rect,
-                      from: NSRect(origin: CGPoint.zero, size: self.size),
-                      operation: NSCompositingOperation.copy,
-                      fraction: 1.0)
-            return true
+        // 优先选择最佳的 NSImageRep（矢量图/位图时更清晰）
+        if let rep = self.bestRepresentation(for: CGRect(origin: .zero, size: newSize),
+                                             context: nil,
+                                             hints: nil) {
+            let image = NSImage(size: newSize)
+            image.lockFocus()
+            NSGraphicsContext.current?.imageInterpolation = .high
+            defer { image.unlockFocus() }
+            rep.draw(in: CGRect(origin: .zero, size: newSize))
+            return image
         }
+        // fallback: 常规缩放绘制
+        let image = NSImage(size: newSize)
+        image.lockFocus()
+        NSGraphicsContext.current?.imageInterpolation = .high
+        self.draw(in: CGRect(origin: .zero, size: newSize),
+                  from: CGRect(origin: .zero, size: self.size),
+                  operation: .copy,
+                  fraction: 1.0)
+        image.unlockFocus()
+        return image
     }
     public func toPNGData() -> Data? {
-        var rect = NSRect(origin: .zero, size: self.size)
+        let rect = NSRect(origin: .zero, size: self.size)
         guard let rep = NSBitmapImageRep(
             bitmapDataPlanes: nil,
             pixelsWide: Int(rect.width),
