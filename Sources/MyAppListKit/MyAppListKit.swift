@@ -85,6 +85,15 @@ public struct MyAppList {
         }
     }
     
+    public static let appVidCrop = MyAppList.AppData(
+        name: "VidCrop",
+        appId: "com.wangchujiang.vidcrop",
+        appstoreId: "6752624705",
+        platform: .macOS,
+        website: "https://wangchujiang.com/vidcrop/",
+        desc: "vidcrop_des"
+    )
+    
     public static let appVidwall = MyAppList.AppData(
         name: "Vidwall",
         appId: "com.wangchujiang.vidwall",
