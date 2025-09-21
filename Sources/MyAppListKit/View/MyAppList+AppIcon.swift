@@ -20,11 +20,19 @@ extension MyAppList {
         return NSWorkspace.shared.icon(forFile: appUrl.path())
     }
     @MainActor
-    public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore", appstoreId: String? = nil) async -> NSImage? {
+    public static func getAppIcon(
+        forId bundleIdentifier: String = "com.apple.AppStore",
+        appstoreId: String? = nil,
+        scale: CGFloat = NSScreen.main?.backingScaleFactor ?? 2.0
+    ) async -> NSImage? {
         guard let imageData: Data = await getAppIcon(forId: bundleIdentifier, appstoreId: appstoreId) else { return nil }
         return NSImage(data: imageData)
     }
-    public static func getAppIcon(forId bundleIdentifier: String = "com.apple.AppStore", appstoreId: String? = nil) async -> Data? {
+    public static func getAppIcon(
+        forId bundleIdentifier: String = "com.apple.AppStore",
+        appstoreId: String? = nil,
+        scale: CGFloat = NSScreen.main?.backingScaleFactor ?? 2.0
+    ) async -> Data? {
         // 1️⃣ Try local first
         if let appIcon = getAppIcon(forId: bundleIdentifier, defaultAppStore: false) {
             return appIcon.toPNGData()

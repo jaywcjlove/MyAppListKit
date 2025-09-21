@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MyAppListKit
 
 @main
 struct ExampleApp: App {
@@ -13,5 +14,15 @@ struct ExampleApp: App {
         WindowGroup {
             ContentView()
         }
+        .commands {
+            CommandMenus()
+        }
+    }
+}
+
+struct CommandMenus: Commands {
+    var body: some Commands {
+        MoreAppsCommandMenus()
+        
     }
 }

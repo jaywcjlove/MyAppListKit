@@ -28,7 +28,7 @@ public struct MoreAppsIcon: View {
         self.size = size
     }
     private var cacheKey: String {
-        return "\(appId)_\(appstoreId)_\(size)~124"
+        return "\(appId)_\(appstoreId)_\(size)~125"
     }
     public var body: some View {
         Group {
@@ -102,7 +102,6 @@ public struct MoreAppsIcon: View {
                     #else
                     let targetSize = CGSize(width: size, height: size)
                     #endif
-                    
                     // Batch image operations to reduce context switches
                     let resized = image.resized(to: targetSize)
                     
@@ -116,7 +115,6 @@ public struct MoreAppsIcon: View {
         }
     }
     private func loadIconIfNeeded() {
-        // Prevent duplicate loading
         guard nsuiImage == nil && !isLoading && !hasAttemptedLoad else { return }
         
         // Mark as attempted to prevent re-triggering
@@ -125,7 +123,7 @@ public struct MoreAppsIcon: View {
         // Asynchronously check cache and load
         loadTask = Task { @MainActor in
             // 1️⃣ Check cache first (non-blocking)
-            if let cachedData: Data = await IconCache.shared.getIcon(for: cacheKey) {
+            if let cachedData: Data = await AppIconCache.shared.getIcon(for: cacheKey) {
                 // Process image on background thread
                 let resizedImage = await processImageData(cachedData)
                 
@@ -154,7 +152,7 @@ public struct MoreAppsIcon: View {
             
             // Save to cache (background)
             Task.detached {
-                await IconCache.shared.setIcon(iconData, for: cacheKey)
+                await AppIconCache.shared.setIcon(iconData, for: cacheKey)
             }
             
             // Process image (background)

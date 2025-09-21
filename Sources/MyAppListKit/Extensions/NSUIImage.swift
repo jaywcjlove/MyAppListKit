@@ -32,12 +32,16 @@ extension NSImage {
         image.unlockFocus()
         return image
     }
-    public func toPNGData() -> Data? {
-        let rect = NSRect(origin: .zero, size: self.size)
+    public func toPNGData(scale: CGFloat = NSScreen.main?.backingScaleFactor ?? 2.0) -> Data? {
+        let size = self.size
+        let pixelWidth = Int(size.width * scale)
+        let pixelHeight = Int(size.height * scale)
+        let rect = NSRect(origin: .zero, size: size)
+
         guard let rep = NSBitmapImageRep(
             bitmapDataPlanes: nil,
-            pixelsWide: Int(rect.width),
-            pixelsHigh: Int(rect.height),
+            pixelsWide: pixelWidth,
+            pixelsHigh: pixelHeight,
             bitsPerSample: 8,
             samplesPerPixel: 4,
             hasAlpha: true,
@@ -46,15 +50,17 @@ extension NSImage {
             bytesPerRow: 0,
             bitsPerPixel: 0
         ) else { return nil }
-        
+
         NSGraphicsContext.saveGraphicsState()
         if let context = NSGraphicsContext(bitmapImageRep: rep) {
+            context.cgContext.scaleBy(x: scale, y: scale) // 考虑 Retina 缩放
             NSGraphicsContext.current = context
+            NSGraphicsContext.current?.imageInterpolation = .high // 提升插值质量
             self.draw(in: rect)
             context.flushGraphics()
         }
         NSGraphicsContext.restoreGraphicsState()
-        
+
         return rep.representation(using: .png, properties: [:])
     }
 }
