@@ -11,7 +11,6 @@ import Foundation
 public actor AppIconCache {
     public static let shared = AppIconCache()
     private let cache = NSCache<NSString, NSData>()
-    private let loadingKeys = Set<String>()
     
     public init() {
         cache.countLimit = 100 // Maximum 100 icons cache
@@ -39,29 +38,12 @@ public actor AppIconCache {
         cache.setObject(data as NSData, forKey: key as NSString, cost: cost)
     }
     
-    public func isLoading(key: String) -> Bool {
-        return loadingKeys.contains(key)
-    }
-    
-    func markAsLoading(_ key: String) {
-        var mutableSet = loadingKeys
-        mutableSet.insert(key)
-    }
-    
-    func markAsLoaded(_ key: String) {
-        var mutableSet = loadingKeys
-        mutableSet.remove(key)
-    }
-    
     public func clearCache() {
         cache.removeAllObjects()
     }
     
-    @MainActor
     public func clearMemoryCache() {
-        DispatchQueue.main.async {
-            self.cache.removeAllObjects()
-        }
+        cache.removeAllObjects()
     }
     
     #if canImport(UIKit)
