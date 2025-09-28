@@ -54,6 +54,14 @@ public struct MyAppList {
             return "itms-apps://apps.apple.com/app/id\(appstoreId)"
             #endif
         }
+        /// Only supported on macOS
+        public var isAppInstalled: Bool {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+            return NSWorkspace.shared.urlForApplication(withBundleIdentifier: appId) != nil
+            #elseif canImport(UIKit)
+            return false
+            #endif
+        }
         public func sendFeedback(content: String = "", locale: Locale = Locale.current) -> URL {
             return URL(string: sendFeedback(content: content, locale: locale))!
         }
