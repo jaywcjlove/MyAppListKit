@@ -20,15 +20,20 @@ public struct MoreAppsLabelView: View {
     var size: Int = 38
     var axis: Axis = .vertical
 #endif
-    enum Axis {
+    public enum Axis {
         case horizontal
         case vertical
     }
-    public init(name: String, desc: String, appId: String, appstoreId: String) {
+    public init(name: String, desc: String, appId: String, appstoreId: String, axis: Axis? = nil) {
         self.name = name
         self.desc = desc
         self.appId = appId
         self.appstoreId = appstoreId
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
+        self.axis = axis ?? .horizontal
+#elseif canImport(UIKit)
+        self.axis = axis ?? .vertical
+#endif
     }
     public var body: some View {
         if axis == .horizontal {
