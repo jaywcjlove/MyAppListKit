@@ -43,15 +43,11 @@ public struct MoreAppsLabelView: View {
                 Text(desc.localized(locale: locale)).foregroundStyle(Color.secondary).font(.system(size: 10))
             }
         }
-        if axis == .vertical {
-            HStack {
-                MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(name)
-                    Text(desc.localized(locale: locale))
-                        .foregroundStyle(Color.secondary).font(.system(size: 10))
-                }
-            }
+        if axis == .vertical { // in Menu
+            MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
+            Text(name)
+            Text(desc.localized(locale: locale))
+                .foregroundStyle(Color.secondary).font(.system(size: 10))
         }
     }
 }
