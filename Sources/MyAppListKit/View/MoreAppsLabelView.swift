@@ -29,11 +29,7 @@ public struct MoreAppsLabelView: View {
         self.desc = desc
         self.appId = appId
         self.appstoreId = appstoreId
-#if canImport(AppKit) && !targetEnvironment(macCatalyst)
-        self.axis = axis ?? .horizontal
-#elseif canImport(UIKit)
         self.axis = axis ?? .vertical
-#endif
     }
     public var body: some View {
         if axis == .horizontal {
