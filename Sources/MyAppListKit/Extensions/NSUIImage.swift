@@ -5,9 +5,9 @@
 //  Created by wong on 9/21/25.
 //
 
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 import AppKit
 
-#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 extension NSImage {
     public func resized(to newSize: NSSize) -> NSImage {
         // 优先选择最佳的 NSImageRep（矢量图/位图时更清晰）
@@ -65,6 +65,8 @@ extension NSImage {
     }
 }
 #elseif canImport(UIKit)
+import UIKit
+
 extension UIImage {
     public func resized(to newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
