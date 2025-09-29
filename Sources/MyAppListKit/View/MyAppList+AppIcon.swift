@@ -5,7 +5,11 @@
 //  Created by wong on 9/21/25.
 //
 
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
 
 extension MyAppList {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
