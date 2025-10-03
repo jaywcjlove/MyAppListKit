@@ -12,12 +12,17 @@ private class MoreAppsIconModel: ObservableObject {
 }
 
 // MARK: - MoreAppsIcon
-public struct MoreAppsIcon: View {
+public struct MoreAppsIcon: View, @MainActor Equatable {
+    public static func == (lhs: MoreAppsIcon, rhs: MoreAppsIcon) -> Bool {
+        return lhs.appId == rhs.appId
+            && lhs.appstoreId == rhs.appstoreId
+            && lhs.size == rhs.size
+    }
     @ObservedObject private var viewModel: MoreAppsIconModel = .init()
     var appId: String
     var appstoreId: String
     var size: Int = 30
-    @State private var nsuiImage: NSUIImage?
+    @State private var nsuiImage: NSUIImage = .init()
     @State private var isLoading: Bool = false
     @State private var loadTask: Task<Void, Never>?
     @State private var hasAttemptedLoad: Bool = false
@@ -32,17 +37,14 @@ public struct MoreAppsIcon: View {
     }
     public var body: some View {
         Group {
-            if let icon: NSUIImage = nsuiImage {
-                if viewModel.resizable == true {
-                    Image(nsuiImage: icon)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                } else {
-                    Image(nsuiImage: icon)
-                }
+            if viewModel.resizable == true {
+                Image(nsuiImage: nsuiImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .background(placeholderView)
             } else {
-                // Show placeholder with minimal state changes
-                placeholderView
+                Image(nsuiImage: nsuiImage)
+                    .background(placeholderView)
             }
         }
         .frame(width: CGFloat(size), height: CGFloat(size))
@@ -75,17 +77,13 @@ public struct MoreAppsIcon: View {
     // Separate computed property to reduce body complexity
     private var placeholderView: some View {
         RoundedRectangle(cornerRadius: 6)
-            .fill(Color.gray.opacity(0.3))
+            .fill(Color.accentColor.opacity(isLoading ? 0.3 : 0))
             .overlay(
                 Group {
                     if isLoading {
                         ProgressView()
                             .controlSize(.small)
                             .scaleEffect(0.8)
-                    } else {
-                        Image(systemName: "app.fill")
-                            .foregroundColor(.gray)
-                            .font(.system(size: CGFloat(size) * 0.4))
                     }
                 }
             )
@@ -115,7 +113,7 @@ public struct MoreAppsIcon: View {
         }
     }
     private func loadIconIfNeeded() {
-        guard nsuiImage == nil && !isLoading && !hasAttemptedLoad else { return }
+        guard !isLoading && !hasAttemptedLoad else { return }
         
         // Mark as attempted to prevent re-triggering
         hasAttemptedLoad = true
@@ -130,7 +128,7 @@ public struct MoreAppsIcon: View {
                 guard !Task.isCancelled else { return }
                 
                 // Single UI update
-                self.nsuiImage = resizedImage
+                self.nsuiImage = resizedImage ?? .init()
                 return
             }
             // 2️⃣ No cache available, show loading state briefly
@@ -164,7 +162,7 @@ public struct MoreAppsIcon: View {
             }
             
             // Single UI update with both state changes
-            self.nsuiImage = processedImage
+            self.nsuiImage = processedImage ?? .init()
             self.isLoading = false
             self.loadTask = nil
         }
