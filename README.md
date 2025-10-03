@@ -36,8 +36,6 @@
 MyAppListKit
 ===
 
-[[中文](./README-zh.md)] 
-
 Encapsulation of My Personal App List
 
 Welcome to download [DevTutor](https://apps.apple.com/app/devtutor/id6471227008), a cheat sheet app designed to help developers quickly build excellent applications using SwiftUI.
