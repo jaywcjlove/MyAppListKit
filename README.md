@@ -1,4 +1,8 @@
-<div markdown="1">
+<p align="right">
+<a href="./README.zh.md">English</a>
+</p>
+
+<div align="center" markdown="1">
   <sup>Using <a href="https://wangchujiang.com/#/app" target="_blank">my app</a> is also a way to <a href="https://wangchujiang.com/#/sponsor" target="_blank">support</a> me:</sup>
   <br>
   <a target="_blank" href="https://github.com/jaywcjlove/vidwall-hub" title="Vidwall Hub for macOS"><img alt="Vidwall Hub" height="52" width="52" src="https://wangchujiang.com/appicon/vidwall-hub.png"></a>
