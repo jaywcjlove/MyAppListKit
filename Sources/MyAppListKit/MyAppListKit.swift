@@ -57,7 +57,7 @@ public struct MyAppList {
         /// Only supported on macOS
         public var isAppInstalled: Bool {
             #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-            return NSWorkspace.shared.urlForApplication(withBundleIdentifier: appId) != nil
+            return NSWorkspace.shared.urlForApplication(withBundleIdentifier: self.appId) != nil
             #elseif canImport(UIKit)
             return false
             #endif
