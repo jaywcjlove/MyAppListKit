@@ -33,7 +33,7 @@ public struct MoreAppsIcon: View, @MainActor Equatable {
         self.size = size
     }
     private var cacheKey: String {
-        return "\(appId)_\(appstoreId)_\(size)~125"
+        return "\(appId)_\(appstoreId)_\(size)~126"
     }
     public var body: some View {
         Group {
@@ -41,13 +41,12 @@ public struct MoreAppsIcon: View, @MainActor Equatable {
                 Image(nsuiImage: nsuiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .background(placeholderView)
             } else {
                 Image(nsuiImage: nsuiImage)
-                    .background(placeholderView)
             }
         }
         .frame(width: CGFloat(size), height: CGFloat(size))
+        .background(placeholderView)
         .clipShape(RoundedRectangle(cornerRadius: 6))
         .onAppear {
             if !hasAttemptedLoad {
@@ -77,7 +76,7 @@ public struct MoreAppsIcon: View, @MainActor Equatable {
     // Separate computed property to reduce body complexity
     private var placeholderView: some View {
         RoundedRectangle(cornerRadius: 6)
-            .fill(Color.accentColor.opacity(isLoading ? 0.3 : 0))
+            .fill(Color.primary.opacity(isLoading ? 0.2 : 0.0))
             .overlay(
                 Group {
                     if isLoading {

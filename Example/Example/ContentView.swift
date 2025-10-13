@@ -26,8 +26,12 @@ struct ContentView: View {
                 })
             }
         }
+        .onDisappear() {
+            Task {
+                await AppIconCache.shared.clearMemoryCache()
+            }
+        }
 //        ScrollView {
-////            .padding()
 //            VStack(alignment: .leading) {
 //                MoreAppsView()
 //                MyAppCheckForUpdatesView(app: MyAppList.appIconed)
