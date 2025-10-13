@@ -40,10 +40,25 @@ public struct MoreAppsLabelView: View {
             }
         }
         if axis == .vertical { // in Menu
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
             MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
             Text(name)
             Text(desc.localized(locale: locale))
                 .foregroundStyle(Color.secondary).font(.system(size: 10))
+#elseif canImport(UIKit)
+            MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
+            VStack {
+                HStack {
+                    Text(name)
+                    Spacer()
+                }
+                HStack {
+                    Text(desc.localized(locale: locale))
+                        .foregroundStyle(Color.secondary).font(.system(size: 10))
+                    Spacer()
+                }
+            }
+#endif
         }
     }
 }
