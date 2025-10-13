@@ -17,22 +17,23 @@ struct ContentView: View {
         var _ = print("locale.region:", locale.region?.identifier ?? "nil")
         var _ = print("send_feedback localized:", "send_feedback".localized(locale: locale))
         var _ = print("emailURLString:", emailURLString2, MyAppList.version)
-        ScrollView {
-//            List {
-//                ForEach(MyAppList.apps(), id: \.appId) { app in
-//                    Button(app.name, action: {
-//                        app.openApp()
-//                        //MyAppList.openApp(appId: app.appId, appstoreId: app.appstoreId)
-//                    })
-//                }
-//            }
-//            .padding()
-            VStack(alignment: .leading) {
-                MoreAppsView()
-                MyAppCheckForUpdatesView(app: MyAppList.appIconed)
+        List {
+            ForEach(MyAppList.apps(), id: \.appId) { app in
+                Button(action: {
+                    app.openApp()
+                }, label: {
+                    MoreAppsLabelView(name: app.name, desc: app.desc ?? "", appId: app.appId, appstoreId: app.appstoreId)
+                })
             }
-            .padding(.horizontal)
-            .padding(.vertical)
         }
+//        ScrollView {
+////            .padding()
+//            VStack(alignment: .leading) {
+//                MoreAppsView()
+//                MyAppCheckForUpdatesView(app: MyAppList.appIconed)
+//            }
+//            .padding(.horizontal)
+//            .padding(.vertical)
+//        }
     }
 }
