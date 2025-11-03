@@ -93,7 +93,7 @@ public struct MyAppList {
         }
     }
     
-    public static let appKeyzer = MyAppList.AppData(
+    public static let appKeyzer = AppData(
         name: "Keyzer",
         appId: "com.wangchujiang.keyzer",
         appstoreId: "6500434773",
@@ -102,7 +102,7 @@ public struct MyAppList {
         desc: "keyzer_des"
     )
     
-    public static let appVidCrop = MyAppList.AppData(
+    public static let appVidCrop = AppData(
         name: "VidCrop",
         appId: "com.wangchujiang.vidcrop",
         appstoreId: "6752624705",
@@ -111,7 +111,7 @@ public struct MyAppList {
         desc: "vidcrop_des"
     )
     
-    public static let appVidwall = MyAppList.AppData(
+    public static let appVidwall = AppData(
         name: "Vidwall",
         appId: "com.wangchujiang.vidwall",
         appstoreId: "6747587746",
@@ -232,27 +232,19 @@ public struct MyAppList {
 
     /// List of all apps
     public static let allApps: [AppData] = [
+        appKeyzer,
+        appVidCrop,
+        appVidwall,
+        appMousio,
+        appAudioer,
+        appMusicer,
+        appFileSentinel,
+        appFocusCursor,
+        appVideoer,
         appDayBar,
         appDevTutor,
         appDevHub,
         appMenuist,
-        appVidwall,
-        
-        appIconizeFolder,
-        appCreateCustomSymbols,
-        appSymbolScribe,
-        appPaletteGenius,
-        appIconed,
-        
-        appAudioer,
-        appVideoer,
-        appMusicer,
-        
-        appFileSentinel,
-        
-        appMousio,
-        appKeyClicker,
-        appFocusCursor,
         appCopybookGenerator,
         appWebServe,
         appQuickRSS,
@@ -261,6 +253,12 @@ public struct MyAppList {
         appResumeRevise,
         appTimePassage,
         appTextSoundSaver,
+        appKeyClicker,
+        appIconizeFolder,
+        appCreateCustomSymbols,
+        appSymbolScribe,
+        appPaletteGenius,
+        appIconed,
     ]
     /// Bundle identifier of the current app
     public static let bundleIdentifier: String = Bundle.main.bundleIdentifier!

@@ -116,7 +116,6 @@ public struct MoreAppsIcon: View, @MainActor Equatable {
         
         // Mark as attempted to prevent re-triggering
         hasAttemptedLoad = true
-        
         // Asynchronously check cache and load
         loadTask = Task { @MainActor in
             // 1️⃣ Check cache first (non-blocking)
