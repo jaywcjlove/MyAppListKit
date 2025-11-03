@@ -93,6 +93,15 @@ public struct MyAppList {
         }
     }
     
+    public static let appKeyzer = MyAppList.AppData(
+        name: "Keyzer",
+        appId: "com.wangchujiang.keyzer",
+        appstoreId: "6500434773",
+        platform: .macOS,
+        website: "https://wangchujiang.com/keyzer/",
+        desc: "keyzer_des"
+    )
+    
     public static let appVidCrop = MyAppList.AppData(
         name: "VidCrop",
         appId: "com.wangchujiang.vidcrop",
