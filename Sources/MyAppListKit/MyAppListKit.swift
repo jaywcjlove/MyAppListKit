@@ -270,8 +270,7 @@ public struct MyAppList {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     /// Opens the app if installed, otherwise opens the App Store
     public static func openApp(appId: String, appstoreId: String) {
-        let appStoreURL = "macappstore://apps.apple.com/app/id\(appstoreId)"
-        openApp(appId: appId, urlString: appStoreURL)
+        openApp(appId: appId, urlString: appStoreURL + appstoreId)
     }
     public static func openApp(appId: String, urlString: String) {
         let appStoreURL = urlString
@@ -293,11 +292,12 @@ public struct MyAppList {
             }
         }
     }
+    public static let appStoreURL: String = "macappstore://apps.apple.com/app/id"
     #elseif canImport(UIKit)
+    public static let appStoreURL: String = "itms-apps://apps.apple.com/app/id"
     /// Opens the app if installed, otherwise opens the App Store
     public static func openApp(appId: String, appstoreId: String) {
-        let appStoreURL = "itms-apps://apps.apple.com/app/id\(appstoreId)"
-        openApp(appId: appId, urlString: appStoreURL)
+        openApp(appId: appId, urlString: appStoreURL + appstoreId)
     }
     public static func openApp(appId: String, urlString: String) {
         let appStoreURL = urlString
