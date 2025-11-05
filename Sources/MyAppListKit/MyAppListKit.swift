@@ -47,12 +47,7 @@ public struct MyAppList {
             return "\(appStoreURLString)?action=write-review"
         }
         public var appStoreURLString: String {
-            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-            /// "macappstore://apps.apple.com/app/id6479819388?action=write-review"
-            return "macappstore://apps.apple.com/app/id\(appstoreId)"
-            #elseif canImport(UIKit)
-            return "itms-apps://apps.apple.com/app/id\(appstoreId)"
-            #endif
+            return appStoreURL + appstoreId
         }
         /// Only supported on macOS
         public var isAppInstalled: Bool {
