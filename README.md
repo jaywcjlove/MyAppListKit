@@ -89,7 +89,8 @@ Button("More Apps by Me") {
 
 MyAppList.appDevHub           // -> AppData
 MyAppList.appDevHub.storeURL  // -> URL: macappstore://apps.apple.com/app/id6476452351
-MyAppList.appDevHub.appStoreWriteReview  // -> URL: macappstore://apps.apple.com/app/id6476452351?action=write-review
+MyAppList.appDevHub.appStoreWriteReview  
+// -> URL: macappstore://apps.apple.com/app/id6476452351?action=write-review
 MyAppList.appDevHub.openURL() // Open in browser
 MyAppList.appDevHub.openWriteReviewURL() // Open WriteReview in browser
 MyAppList.appDevHub.openApp() // Open the app or its store download page
@@ -116,7 +117,8 @@ MyAppList.getAppIcon() // Get the app's App Store icon
 MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall") 
 // Get icon using bundleIdentifier; if not found locally, fallback to App Store icon
 MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall", defaultAppStore: true) 
-// Get icon using bundleIdentifier; if not found locally, fetch from App Store using appstoreId
+// Get icon using bundleIdentifier; if not found locally, 
+// fetch from App Store using appstoreId
 MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall", appstoreId: "6747587746") 
 // Fetch icon directly from App Store using the app's ID
 MyAppList.fetchAppIconFromAppStore(appId: "6747587746") 
@@ -130,7 +132,8 @@ import MyAppListKit
 
 extension Locale {
     /// Get the system's preferred language Locale, ignoring the app's region settings
-    /// This ensures that the MyAppListKit component always uses the system language instead of the app's region settings
+    /// This ensures that the MyAppListKit component always uses 
+    /// the system language instead of the app's region settings
     static var systemPreferred: Locale {
         let preferredLanguage = Locale.preferredLanguages.first ?? "en"
         return Locale(identifier: preferredLanguage)
@@ -190,7 +193,8 @@ struct CommandAppButton: View {
                 let text: String = " - "
                 Text(app.name) +
                 Text(text).foregroundStyle(Color.secondary) +
-                Text(app.desc?.localized(locale: Locale.systemPreferred) ?? "").foregroundStyle(Color.secondary).font(.system(size: 10))
+                Text(app.desc?.localized(locale: Locale.systemPreferred) ?? "")
+                    .foregroundStyle(Color.secondary).font(.system(size: 10))
             }
         })
     }

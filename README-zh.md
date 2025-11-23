@@ -95,7 +95,7 @@ MyAppList.appDevHub.storeURL // -> 应用在 App Store 的链接（URL 类型）
                              // 例如：macappstore://apps.apple.com/app/id6476452351
 
 MyAppList.appDevHub.appStoreWriteReview  // -> App Store 评论链接
-                                         // 例如：macappstore://apps.apple.com/app/id6476452351?action=write-review
+// 例如：macappstore://apps.apple.com/app/id6476452351?action=write-review
 
 MyAppList.appDevHub.openURL()            // 在浏览器中打开应用页面
 MyAppList.appDevHub.openWriteReviewURL() // 在浏览器中打开写评论页面
@@ -197,7 +197,8 @@ struct CommandAppButton: View {
                 let text: String = " - "
                 Text(app.name) +
                 Text(text).foregroundStyle(Color.secondary) +
-                Text(app.desc?.localized(locale: Locale.systemPreferred) ?? "").foregroundStyle(Color.secondary).font(.system(size: 10))
+                Text(app.desc?.localized(locale: Locale.systemPreferred) ?? "")
+                    .foregroundStyle(Color.secondary).font(.system(size: 10))
             }
         })
     }
