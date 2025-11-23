@@ -17,7 +17,7 @@ public struct MoreAppsView: View {
             }, label: {
                 MoreAppsLabelView(
                     name: app.name,
-                    desc: app.desc ?? "",
+                    desc: "\(app.desc ?? "")".localized(locale: locale),
                     appId: app.appId,
                     appstoreId: app.appstoreId
                 )
