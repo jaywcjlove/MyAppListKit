@@ -135,6 +135,15 @@ MyAppList.fetchAppIconFromAppStore(appId: "6747587746")
 import SwiftUI
 import MyAppListKit
 
+extension Locale {
+    /// 获取系统首选语言的 Locale，忽略应用的区域设置
+    /// 这用于确保 MyAppListKit 组件始终使用系统语言而不是应用区域设置
+    static var systemPreferred: Locale {
+        let preferredLanguage = Locale.preferredLanguages.first ?? "en"
+        return Locale(identifier: preferredLanguage)
+    }
+}
+
 struct CommandMenus: Commands {
     var body: some Commands {
         CommandMenu("more_tools".localized(locale: Locale.systemPreferred)) {
