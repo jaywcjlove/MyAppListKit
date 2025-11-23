@@ -122,6 +122,72 @@ MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall", appstoreId: "6747587746"
 MyAppList.fetchAppIconFromAppStore(appId: "6747587746") 
 ```
 
+## Example Command Menu
+
+```swift
+import SwiftUI
+import MyAppListKit
+
+struct CommandMenus: Commands {
+    var body: some Commands {
+        CommandMenu("more_tools".localized(locale: Locale.systemPreferred)) {
+            MoreAppsView().environment(\.locale, Locale.systemPreferred)
+        }
+        CommandGroup(replacing: .systemServices) {}
+        CommandGroup(after: CommandGroupPlacement.appInfo) {
+            Divider()
+            MyAppCheckForUpdatesView(app: MyAppList.appIconizeFolder)
+                .environment(\.locale, Locale.systemPreferred)
+            Divider()
+            CommandGroupView()
+        }
+        CommandGroup(replacing: CommandGroupPlacement.help) {
+            MyAppCheckForUpdatesView(app: MyAppList.appIconizeFolder)
+                .environment(\.locale, Locale.systemPreferred)
+            Divider()
+            CommandGroupView()
+        }
+    }
+}
+
+struct CommandGroupView: View {
+    var body: some View {
+        Group {
+            ButtonWebsite(app: MyAppList.appIconizeFolder)
+            ButtonRateApp(app: MyAppList.appIconizeFolder)
+            ButtonSendFeedback(app: MyAppList.appIconizeFolder)
+            
+            MoreAppsMenuView()
+            
+            Divider()
+            CommandAppButton(app: MyAppList.appIconed)
+            CommandAppButton(app: MyAppList.appCreateCustomSymbols)
+            CommandAppButton(app: MyAppList.appPaletteGenius)
+            CommandAppButton(app: MyAppList.appDevHub)
+            Divider()
+        }
+        .environment(\.locale, Locale.systemPreferred)
+    }
+}
+
+struct CommandAppButton: View {
+    let app: MyAppList.AppData
+    var body: some View {
+        Button(action: {
+            app.openApp()
+        }, label: {
+            HStack {
+                MoreAppsIcon(appId: app.appId, appstoreId: app.appstoreId)
+                let text: String = " - "
+                Text(app.name) +
+                Text(text).foregroundStyle(Color.secondary) +
+                Text(app.desc?.localized(locale: Locale.systemPreferred) ?? "").foregroundStyle(Color.secondary).font(.system(size: 10))
+            }
+        })
+    }
+}
+```
+
 ## MyAppCheckForUpdatesView
 
 ```swift
