@@ -87,6 +87,14 @@ public struct MyAppList {
             #endif
         }
     }
+    public static let appDeskmark = AppData(
+        name: "Deskmark",
+        appId: "com.wangchujiang.deskmark",
+        appstoreId: "6755948110",
+        platform: .macOS,
+        website: "https://wangchujiang.com/deskmark/",
+        desc: "deskmark_des"
+    )
     
     public static let appKeyzer = AppData(
         name: "Keyzer",
