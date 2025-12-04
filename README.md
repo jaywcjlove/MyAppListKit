@@ -136,8 +136,7 @@ extension Locale {
     /// This ensures that the MyAppListKit component always uses 
     /// the system language instead of the app's region settings
     static var systemPreferred: Locale {
-        let preferredLanguage = Locale.preferredLanguages.first ?? "en"
-        return Locale(identifier: preferredLanguage)
+        Locale(identifier: Locale.preferredLanguages.first ?? "en")
     }
 }
 
