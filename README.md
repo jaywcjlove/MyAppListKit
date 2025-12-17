@@ -2,7 +2,7 @@
 <a href="./README-zh.md">简体中文</a>
 </p>
 
-<div align="center" markdown="1">
+<div markdown="1">
   <sup>Using <a href="https://wangchujiang.com/#/app" target="_blank">my app</a> is also a way to <a href="https://wangchujiang.com/#/sponsor" target="_blank">support</a> me:</sup>
   <br>
   <a target="_blank" href="https://apps.apple.com/app/Deskmark/6755948110" title="Deskmark for macOS"><img alt="Deskmark" height="52" width="52" src="https://wangchujiang.com/appicon/deskmark.png"></a>
