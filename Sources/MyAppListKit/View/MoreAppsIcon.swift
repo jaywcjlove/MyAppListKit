@@ -18,7 +18,7 @@ public struct MoreAppsIcon: View, @MainActor Equatable {
             && lhs.appstoreId == rhs.appstoreId
             && lhs.size == rhs.size
     }
-    @ObservedObject private var viewModel: MoreAppsIconModel = .init()
+    @StateObject private var viewModel: MoreAppsIconModel = .init()
     var appId: String
     var appstoreId: String
     var size: Int = 30
