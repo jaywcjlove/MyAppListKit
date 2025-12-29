@@ -10,9 +10,12 @@ import MyAppListKit
 
 @main
 struct ExampleApp: App {
+    @Environment(\.locale) var locale
     var body: some Scene {
         WindowGroup {
+            let locale: Locale = Locale(identifier: Locale.preferredLanguages.first ?? "en")
             ContentView()
+                .environment(\.locale, .init(identifier: locale.identifier))
         }
         .commands {
             CommandMenus()

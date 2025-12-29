@@ -17,10 +17,12 @@ public struct MoreAppsView: View {
             }, label: {
                 MoreAppsLabelView(
                     name: app.name,
-                    desc: "\(app.desc ?? "")".localized(locale: locale),
+//                    desc: (app.desc ?? "").localized(),
+                    desc: String.localized(key: app.desc ?? "", locale: locale),
                     appId: app.appId,
                     appstoreId: app.appstoreId
                 )
+                .environment(\.locale, locale)
             })
         }
         Divider()
@@ -29,8 +31,10 @@ public struct MoreAppsView: View {
         }, label: {
             HStack {
                 Image(systemName: "ellipsis.circle.fill")
-                Text("my_other_apps".localized(locale: locale))
+                Text("my_other_apps".localized())
+//                Text("my_other_apps", bundle: .module)
             }
+            .environment(\.locale, locale)
         })
     }
 }
@@ -42,7 +46,7 @@ public struct MoreAppsMenuView: View {
         Menu {
             MoreAppsView()
         } label: {
-            Text("my_other_apps".localized(locale: locale))
+            Text("my_other_apps".localized())
         }
     }
 }

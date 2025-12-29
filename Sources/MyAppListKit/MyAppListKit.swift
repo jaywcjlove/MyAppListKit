@@ -61,7 +61,7 @@ public struct MyAppList {
             return URL(string: sendFeedback(content: content, locale: locale))!
         }
         public func sendFeedback(content: String = "", locale: Locale = Locale.current) -> String {
-            return "feedback_email_url".localized(locale: locale, arguments: self.name, self.name, content)
+            return String.localized(key: "feedback_email_url", locale: locale, self.name, self.name, content)
         }
         public var storeURL: URL {
             return URL(string: appStoreURLString)!
@@ -235,6 +235,10 @@ public struct MyAppList {
 
     /// List of all apps
     public static let allApps: [AppData] = [
+        appDevHub,
+        appMenuist,
+        appDayBar,
+        appDeskmark,
         appKeyzer,
         appVidCrop,
         appVidwall,
@@ -244,10 +248,7 @@ public struct MyAppList {
         appFileSentinel,
         appFocusCursor,
         appVideoer,
-        appDayBar,
         appDevTutor,
-        appDevHub,
-        appMenuist,
         appCopybookGenerator,
         appWebServe,
         appQuickRSS,

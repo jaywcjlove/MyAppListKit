@@ -142,7 +142,7 @@ extension Locale {
 
 struct CommandMenus: Commands {
     var body: some Commands {
-        CommandMenu("more_tools".localized(locale: Locale.systemPreferred)) {
+        CommandMenu(String.localized(key: "more_tools", locale: Locale.systemPreferred)) {
             MoreAppsView().environment(\.locale, Locale.systemPreferred)
         }
         CommandGroup(replacing: .systemServices) {}
@@ -193,7 +193,7 @@ struct CommandAppButton: View {
                 let text: String = " - "
                 Text(app.name) +
                 Text(text).foregroundStyle(Color.secondary) +
-                Text(app.desc?.localized(locale: Locale.systemPreferred) ?? "")
+                Text(String.localized(key: desc ?? "", locale: Locale.systemPreferred))
                     .foregroundStyle(Color.secondary).font(.system(size: 10))
             }
         })
@@ -286,6 +286,8 @@ struct IconizeFolderApp: App {
 ## My Apps List
 
 ```swift
+let locale: Locale = Locale(identifier: Locale.preferredLanguages.first ?? "en")
+
 ForEach(MyAppList.apps(), id: \.appId) { app in
     Button(action: {
         MyAppList.openApp(appId: app.appId, appstoreId: app.appstoreId)
@@ -295,7 +297,7 @@ ForEach(MyAppList.apps(), id: \.appId) { app in
                 Text(app.name).font(.system(size: 12))
                     .multilineTextAlignment(.leading)
                 if let desc = app.desc {
-                    Text(desc.localized(locale: locale))
+                    Text(String.localized(key: desc, locale: locale))
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .foregroundStyle(Color.secondary)

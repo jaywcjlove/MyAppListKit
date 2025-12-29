@@ -36,24 +36,28 @@ public struct MoreAppsLabelView: View {
             HStack {
                 MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
                 Text(name) + Text(" - ").foregroundStyle(Color.secondary) +
-                Text(desc.localized(locale: locale)).foregroundStyle(Color.secondary).font(.system(size: 10))
+                Text(String.localized(key: desc, locale: locale))
+                    .foregroundStyle(Color.secondary).font(.system(size: 10))
             }
+            .environment(\.locale, locale)
         }
         if axis == .vertical { // in Menu
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
             MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
             Text(name)
-            Text(desc.localized(locale: locale))
+            Text(String.localized(key: desc, locale: locale))
                 .foregroundStyle(Color.secondary).font(.system(size: 10))
+                .environment(\.locale, locale)
 #elseif canImport(UIKit)
             HStack {
                 MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
                 VStack(alignment: .leading) {
                     Text(name)
-                    Text(desc.localized(locale: locale))
+                    Text(String.localized(key: desc, locale: locale))
                         .foregroundStyle(Color.secondary).font(.system(size: 10))
                 }
             }
+            .environment(\.locale, locale)
 #endif
         }
     }

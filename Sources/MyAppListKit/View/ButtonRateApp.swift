@@ -14,9 +14,10 @@ public struct ButtonRateApp: View {
         self.app = app
     }
     public var body: some View {
-        Button("rate_app".localized(locale: locale)) {
-            app.openWriteReviewURL()
-        }
+        Button(action: app.openWriteReviewURL, label: {
+            Text("rate_app", bundle: .module)
+                .environment(\.locale, locale)
+        })
     }
 }
 

@@ -14,7 +14,7 @@ public struct MoreAppsCommandMenus<ContentView: View>: Commands {
         self.content = content
     }
     public var body: some Commands {
-        CommandMenu("more_tools".localized(locale: locale)) {
+        CommandMenu(String.localized(key: "more_tools", locale: locale)) {
             Group {
                 MoreAppsView()
             }

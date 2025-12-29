@@ -14,9 +14,12 @@ public struct ButtonWebsite: View {
         self.app = app
     }
     public var body: some View {
-        Button("website".localized(locale: locale)) {
+        Button(action: {
             MyAppList.openURL(string: app.website!)
-        }
+        }, label: {
+            Text("website", bundle: .module)
+                .environment(\.locale, locale)
+        })
     }
 }
 

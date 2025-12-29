@@ -14,10 +14,13 @@ public struct ButtonSendFeedback: View {
         self.app = app
     }
     public var body: some View {
-        Button("send_feedback".localized(locale: locale)) {
+        Button(action: {
             let emailURLString: String = app.sendFeedback(content: MyAppList.version, locale: locale)
             MyAppList.openURL(string: emailURLString)
-        }
+        }, label: {
+            Text("send_feedback", bundle: .module)
+                .environment(\.locale, locale)
+        })
     }
 }
 
