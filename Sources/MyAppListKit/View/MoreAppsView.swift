@@ -30,8 +30,7 @@ public struct MoreAppsView: View {
         }, label: {
             HStack {
                 Image(systemName: "ellipsis.circle.fill")
-                Text("my_other_apps".localized())
-//                Text("my_other_apps", bundle: .module)
+                Text("my_other_apps", bundle: .module)
             }
             .environment(\.locale, locale)
         })
@@ -45,7 +44,8 @@ public struct MoreAppsMenuView: View {
         Menu {
             MoreAppsView()
         } label: {
-            Text("my_other_apps".localized())
+            Text("my_other_apps", bundle: .module)
+                .environment(\.locale, locale)
         }
     }
 }
