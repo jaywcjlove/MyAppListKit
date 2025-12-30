@@ -5,8 +5,8 @@
 //  Created by 王楚江 on 2025/3/6.
 //
 
-import Foundation
 import SwiftUI
+import Foundation
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
 public typealias NSUIImage = NSImage
@@ -15,18 +15,18 @@ public typealias NSUIImage = UIImage
 #endif
 
 public extension String {
-    static func localized(key: String, locale: Locale, _ arguments: any CVarArg...) -> String {
+    static func localized(key: String, bundle: Bundle? = nil, locale: Locale, _ arguments: any CVarArg...) -> String {
         guard let path = Bundle.module.path(forResource: locale.identifier, ofType: "lproj"),
               let bundle = Bundle(path: path) else {
-            let format = NSLocalizedString(key, bundle: .module, comment: "")
+            let format = NSLocalizedString(key, bundle: bundle ?? .module, comment: "")
             return String.localizedStringWithFormat(format, arguments)
         }
         let format = NSLocalizedString(key, bundle: bundle, comment: "")
         return String.localizedStringWithFormat(format, arguments)
     }
     
-    func localized() -> String {
-        return NSLocalizedString(self, bundle: .module, comment: "")
+    func localized(bundle: Bundle? = nil) -> String {
+        return NSLocalizedString(self, bundle: bundle ?? .module, comment: "")
     }
 }
 
