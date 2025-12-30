@@ -23,7 +23,7 @@ public extension String {
             return String.localizedStringWithFormat(format, arguments)
         }
         let format = NSLocalizedString(key, bundle: localeBundle, comment: comment)
-        return String.localizedStringWithFormat(format, arguments)
+        return String(format: format, arguments: arguments)
     }
     static func localized(key: String, bundle: Bundle? = nil, comment: String = "", locale: String, _ arguments: CVarArg...) -> String {
         return self.localized(key: key, bundle: bundle, comment: comment, locale: Locale(identifier: locale), arguments)
