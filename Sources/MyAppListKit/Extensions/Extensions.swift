@@ -15,18 +15,22 @@ public typealias NSUIImage = UIImage
 #endif
 
 public extension String {
-    static func localized(key: String, bundle: Bundle? = nil, locale: Locale, _ arguments: any CVarArg...) -> String {
-        guard let path = Bundle.module.path(forResource: locale.identifier, ofType: "lproj"),
+    static func localized(key: String, bundle: Bundle? = nil, comment: String = "", locale: Locale, _ arguments: any CVarArg...) -> String {
+        let bd = bundle ?? .module
+        guard let path = bd.path(forResource: locale.identifier, ofType: "lproj"),
               let bundle = Bundle(path: path) else {
-            let format = NSLocalizedString(key, bundle: bundle ?? .module, comment: "")
+            let format = NSLocalizedString(key, bundle: bd, comment: comment)
             return String.localizedStringWithFormat(format, arguments)
         }
-        let format = NSLocalizedString(key, bundle: bundle, comment: "")
+        let format = NSLocalizedString(key, bundle: bundle, comment: comment)
         return String.localizedStringWithFormat(format, arguments)
     }
+    static func localized(key: String, bundle: Bundle? = nil, comment: String = "", locale: String, _ arguments: any CVarArg...) -> String {
+        self.localized(key: key, bundle: bundle, locale: .init(identifier: locale), arguments)
+    }
     
-    func localized(bundle: Bundle? = nil) -> String {
-        return NSLocalizedString(self, bundle: bundle ?? .module, comment: "")
+    func localized(bundle: Bundle? = nil, comment: String = "") -> String {
+        return NSLocalizedString(self, bundle: bundle ?? .module, comment: comment)
     }
 }
 
