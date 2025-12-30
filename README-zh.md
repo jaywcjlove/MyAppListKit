@@ -130,6 +130,20 @@ MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall", appstoreId: "6747587746"
 MyAppList.fetchAppIconFromAppStore(appId: "6747587746") 
 ```
 
+本地化字符串的区域设置
+
+```swift
+String.localized("Confirm \"\(data.title)\" data", locale: "zh")
+String.localized("Confirm Deletion", locale: "zh")
+String.localized("Confirm Deletion", locale: Locale(identifier: "zh"))
+```
+
+获取依赖包本地国际化字符串
+
+```swift
+String.localized(key: "my_other_apps", locale: "zh")
+```
+
 ## 示例菜单
 
 ```swift

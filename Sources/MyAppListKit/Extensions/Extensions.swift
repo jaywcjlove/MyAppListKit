@@ -31,6 +31,17 @@ public extension String {
     static func localized(key: String, bundle: Bundle? = nil, locale: String, _ arguments: CVarArg...) -> String {
         return self.localized(key: key, bundle: bundle, locale: Locale(identifier: locale), arguments)
     }
+    
+    static func localized(_ resource: LocalizedStringResource, locale: String) -> String {
+        return localized(resource, locale: .init(identifier: locale))
+    }
+    
+    static func localized(_ resource: LocalizedStringResource, locale: Locale) -> String {
+        var localizable = resource
+        localizable.locale = locale
+        return String(localized: localizable)
+    }
+    
     func localized(bundle: Bundle? = nil, comment: String = "") -> String {
         return NSLocalizedString(self, bundle: bundle ?? .module, comment: comment)
     }

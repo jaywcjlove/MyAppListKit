@@ -125,6 +125,20 @@ MyAppList.getAppIcon(forId: "com.wangchujiang.vidwall", appstoreId: "6747587746"
 MyAppList.fetchAppIconFromAppStore(appId: "6747587746") 
 ```
 
+Locale settings for localized strings
+
+```swift
+String.localized("Confirm \"\(data.title)\" data", locale: "zh")
+String.localized("Confirm Deletion", locale: "zh")
+String.localized("Confirm Deletion", locale: Locale(identifier: "zh"))
+```
+
+Get localized strings from dependency package
+
+```swift
+String.localized(key: "my_other_apps", locale: "zh")
+```
+
 ## Example Command Menu
 
 ```swift
