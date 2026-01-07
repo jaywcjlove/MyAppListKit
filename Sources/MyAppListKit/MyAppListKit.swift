@@ -87,6 +87,16 @@ public struct MyAppList {
             #endif
         }
     }
+    
+    public static let appScreenTest = AppData(
+        name: "Screen Test",
+        appId: "com.wangchujiang.screentest",
+        appstoreId: "",
+        platform: .macOS,
+        website: "https://wangchujiang.com/screen-test/",
+        desc: "screen_test_des"
+    )
+    
     public static let appDeskmark = AppData(
         name: "Deskmark",
         appId: "com.wangchujiang.deskmark",
@@ -235,6 +245,7 @@ public struct MyAppList {
 
     /// List of all apps
     public static let allApps: [AppData] = [
+        appScreenTest,
         appDevHub,
         appMenuist,
         appDayBar,
