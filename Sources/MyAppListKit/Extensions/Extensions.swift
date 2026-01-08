@@ -32,11 +32,11 @@ public extension String {
         return self.localized(key: key, bundle: bundle, locale: Locale(identifier: locale), arguments)
     }
     
-    static func localized(_ resource: LocalizedStringResource, locale: String) -> String {
+    static func localized(_ resource: LocalizedStringResource, locale: String = Locale.current.identifier) -> String {
         return localized(resource, locale: .init(identifier: locale))
     }
     
-    static func localized(_ resource: LocalizedStringResource, locale: Locale) -> String {
+    static func localized(_ resource: LocalizedStringResource, locale: Locale = .current) -> String {
         var localizable = resource
         localizable.locale = locale
         return String(localized: localizable)
