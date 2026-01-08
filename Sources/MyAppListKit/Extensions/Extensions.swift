@@ -28,8 +28,11 @@ public extension String {
     static func localized(key: String, bundle: Bundle? = nil, comment: String = "", locale: String, _ arguments: CVarArg...) -> String {
         return self.localized(key: key, bundle: bundle, comment: comment, locale: Locale(identifier: locale), arguments)
     }
-    static func localized(key: String, bundle: Bundle? = nil, locale: String, _ arguments: CVarArg...) -> String {
+    static func localized(key: String, bundle: Bundle? = nil, locale: String = Locale.current.identifier, _ arguments: CVarArg...) -> String {
         return self.localized(key: key, bundle: bundle, locale: Locale(identifier: locale), arguments)
+    }
+    static func localized(key: String, bundle: Bundle? = nil, _ arguments: CVarArg...) -> String {
+        return self.localized(key: key, bundle: bundle, locale: .current, arguments)
     }
     
     static func localized(_ resource: LocalizedStringResource) -> String {
