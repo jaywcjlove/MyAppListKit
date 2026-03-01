@@ -22,7 +22,7 @@ jobs:
         id: create_tag
         uses: jaywcjlove/create-tag-action@main
         with:
-          version: ${{ env.VERSION }}
+          version: ${{ steps.extract_version.outputs.VERSION }}
           release: true
           body: |
-            ## Changes in version ${{ env.VERSION }}
+            ## Changes in version ${{ steps.extract_version.outputs.VERSION }}
