@@ -1,0 +1,48 @@
+//
+//  Localizable.strings
+//  MyAppListKit
+//
+//  Created by 王楚江 on 2026/3/1.
+//
+
+"my_other_apps" = "Le mie altre app";
+"check_for_updates" = "Controlla aggiornamenti…";
+"more_tools" = "Altri strumenti";
+
+"rate_app" = "Valuta l'app";
+"send_feedback" = "Invia feedback...";
+"website" = "Sito web";
+
+"feedback_email_url" = "mailto:kennyiseeyou@gmail.com?subject=%@&body=\n\n\nDimmi i tuoi suggerimenti.\n\n%@ %@";
+
+
+"iconed_des" = "Crea icone icns personalizzate";
+"palette_genius_des" = "Gestione colori e campionamento";
+"symbol_scribe_des" = "Copia e gestisci simboli";
+"create_custom_symbols_des" = "Converti SVG in simboli SF";
+"iconize_folder_des" = "Personalizza icone cartelle";
+"key_clicker_des" = "Simula suoni di digitazione e mostra tasti";
+"textsound_saver_des" = "Converti testo in voce";
+"time_passage_des" = "Calcola quanti giorni ti restano da vivere";
+"resume_revise_des" = "Crea un curriculum professionale";
+"regex_mate_des" = "Test espressioni regolari";
+"paste_quick_des" = "Gestione appunti";
+"quick_rss_des" = "Lettore RSS";
+"web_serve_des" = "Crea server web statico locale";
+"copybook_generator_des" = "Genera modelli di scrittura cinese";
+"rightmenu_master_des" = "Migliora menu contestuale Finder";
+"devhub_des" = "Set di strumenti per sviluppatori";
+"devtutor_des" = "Guida rapida SwiftUI/Swift";
+"daybar_des" = "Mostra data/promemoria e TODO nella barra dei menu";
+"videoer_des" = "Elaborazione batch di video e audio";
+"focus_cursor_des" = "Evidenzia posizione cursore";
+"file_sentinel_des" = "Traccia e cerca cronologia comandi Shell";
+"audioer_des" = "Conversione audio batch";
+"musicer_des" = "Semplice lettore musicale locale";
+"mousio_des" = "Muovi cursore mouse con tastiera";
+"vidwall_des" = "Imposta video come sfondo desktop";
+"vidcrop_des" = "Ritaglia facilmente i tuoi video";
+"keyzer_des" = "Semplice gestore password";
+"deskmark_des" = "Aggiungi filigrana al desktop";
+"screen_test_des" = "Strumento test schermo monitor";
+"scap_des" = "Screenshot & Annotazione & Abbellimento & Schizzo";
