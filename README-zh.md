@@ -42,6 +42,8 @@
 MyAppListKit
 ===
 
+![SwiftUI](https://img.shields.io/badge/SwiftUI-007AFF?logo=swift&logoColor=white)
+
 我的个人应用列表的封装整理
 
 欢迎下载 [DevTutor](https://apps.apple.com/app/devtutor/id6471227008)，这是一款旨在帮助开发者快速使用 SwiftUI 构建出色应用的速查手册应用。
