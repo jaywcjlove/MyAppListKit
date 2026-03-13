@@ -44,7 +44,7 @@ MyAppListKit
 ===
 
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-007AFF?logo=swift&logoColor=white)
-[![Follow On X](https://img.shields.io/badge/Follow%20on%20X-000000?logo=x&logoColor=white)](https://github.com/jaywcjlove)
+[![Follow On X](https://img.shields.io/badge/Follow%20on%20X-333333?logo=x&logoColor=white)](https://github.com/jaywcjlove)
 
 Encapsulation of My Personal App List
 
