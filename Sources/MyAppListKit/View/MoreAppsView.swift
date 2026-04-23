@@ -9,9 +9,16 @@ import SwiftUI
 
 public struct MoreAppsView: View {
     @Environment(\.locale) var locale
-    public init() {}
+    private let apps: [MyAppList.AppData]
+    private let appsByMeURL: String?
+
+    public init(apps: [MyAppList.AppData], appsByMeURL: String? = nil) {
+        self.apps = apps
+        self.appsByMeURL = appsByMeURL
+    }
+
     public var body: some View {
-        ForEach(MyAppList.apps(), id: \.appId) { app in
+        ForEach(apps, id: \.appId) { app in
             Button(action: {
                 app.openApp()
             }, label: {
@@ -24,25 +31,34 @@ public struct MoreAppsView: View {
                 .environment(\.locale, locale)
             })
         }
-        Divider()
-        Button(action: {
-            MyAppList.openAppsByMe()
-        }, label: {
-            HStack {
-                Image(systemName: "ellipsis.circle.fill")
-                Text("my_other_apps", bundle: .module)
-            }
-            .environment(\.locale, locale)
-        })
+        if let appsByMeURL {
+            Divider()
+            Button(action: {
+                MyAppList.openURL(string: appsByMeURL)
+            }, label: {
+                HStack {
+                    Image(systemName: "ellipsis.circle.fill")
+                    Text("my_other_apps", bundle: .module)
+                }
+                .environment(\.locale, locale)
+            })
+        }
     }
 }
 
 public struct MoreAppsMenuView: View {
     @Environment(\.locale) var locale
-    public init() {}
+    private let apps: [MyAppList.AppData]
+    private let appsByMeURL: String?
+
+    public init(apps: [MyAppList.AppData], appsByMeURL: String? = nil) {
+        self.apps = apps
+        self.appsByMeURL = appsByMeURL
+    }
+
     public var body: some View {
         Menu {
-            MoreAppsView()
+            MoreAppsView(apps: apps, appsByMeURL: appsByMeURL)
         } label: {
             Text("my_other_apps", bundle: .module)
                 .environment(\.locale, locale)
@@ -51,10 +67,18 @@ public struct MoreAppsMenuView: View {
 }
 
 #Preview {
+    let app = MyAppList.AppData(
+        name: "Example App",
+        appId: "com.example.app",
+        appstoreId: "123456789",
+        platform: .macOS,
+        desc: "example_des"
+    )
+
     List {
-        MoreAppsView()
-        MoreAppsMenuView()
-        ButtonWebsite(app: MyAppList.appMenuist)
+        MoreAppsView(apps: [app], appsByMeURL: "https://apps.apple.com/developer/id1714265259")
+        MoreAppsMenuView(apps: [app], appsByMeURL: "https://apps.apple.com/developer/id1714265259")
+        ButtonWebsite(app: app)
     }
     .padding()
 }

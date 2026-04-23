@@ -24,6 +24,14 @@ public struct ButtonWebsite: View {
 }
 
 #Preview {
-    ButtonWebsite(app: MyAppList.appMenuist)
+    let app = MyAppList.AppData(
+        name: "Example App",
+        appId: "com.example.app",
+        appstoreId: "123456789",
+        platform: .macOS,
+        website: "https://example.com"
+    )
+
+    ButtonWebsite(app: app)
         .padding()
 }

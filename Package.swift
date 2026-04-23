@@ -16,6 +16,10 @@ let package = Package(
             name: "MyAppListKit",
             targets: ["MyAppListKit"]
         ),
+        .library(
+            name: "MyAppListKitApps",
+            targets: ["MyAppListKitApps"]
+        ),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -25,6 +29,10 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
+        ),
+        .target(
+            name: "MyAppListKitApps",
+            dependencies: ["MyAppListKit"]
         ),
 
     ]

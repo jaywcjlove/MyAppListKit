@@ -22,6 +22,13 @@ public struct ButtonRateApp: View {
 }
 
 #Preview {
-    ButtonRateApp(app: MyAppList.appMenuist)
+    let app = MyAppList.AppData(
+        name: "Example App",
+        appId: "com.example.app",
+        appstoreId: "123456789",
+        platform: .macOS
+    )
+
+    ButtonRateApp(app: app)
         .padding()
 }

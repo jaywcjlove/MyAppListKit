@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MyAppListKit
+import MyAppListKitApps
 
 @main
 struct ExampleApp: App {
@@ -25,7 +26,6 @@ struct ExampleApp: App {
 
 struct CommandMenus: Commands {
     var body: some Commands {
-        MoreAppsCommandMenus()
-        
+        MoreAppsCommandMenus(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)
     }
 }

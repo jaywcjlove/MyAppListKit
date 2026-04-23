@@ -48,7 +48,7 @@ MyAppListKit
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-007AFF?logo=swift&logoColor=white)
 [![Follow On X](https://img.shields.io/badge/Follow%20on%20X-333333?logo=x&logoColor=white)](https://x.com/jaywcjlove)
 
-我的个人应用列表的封装整理
+用于展示应用列表、打开 App Store 链接、发送反馈和获取应用图标的 SwiftUI 工具。个人应用数据已拆分到可选的 `MyAppListKitApps` product。
 
 欢迎下载 [DevTutor](https://apps.apple.com/app/devtutor/id6471227008)，这是一款旨在帮助开发者快速使用 SwiftUI 构建出色应用的速查手册应用。
 
@@ -65,6 +65,7 @@ MyAppListKit
 2. 在「Search or Enter Package URL」字段中输入：  
    `https://github.com/jaywcjlove/MyAppListKit`
 3. 将 `MyAppListKit` 链接到你的应用目标（Target）
+4. 如果需要使用内置的个人应用列表，同时链接 `MyAppListKitApps`
 
 或者在你的 `Package.swift` 文件中添加以下内容：
 
@@ -78,10 +79,11 @@ MyAppListKit
 
 ```swift
 import MyAppListKit
+import MyAppListKitApps
 
 List {
     // 遍历我的应用列表
-    ForEach(MyAppList.apps(), id: \.appId) { app in
+    ForEach(MyAppListApps.apps(), id: \.appId) { app in
         Button(app.name, action: {
             app.openApp() // 打开应用（如果已安装）
             // 或者使用静态方法打开应用（根据 appId 或 App Store ID）
@@ -92,30 +94,41 @@ List {
 
 // 显示“更多我的应用”按钮
 Button("More Apps by Me") {
-    MyAppList.openURL(url: URL(string: MyAppList.appsByMe)!) // 打开我的所有应用页面（自定义 URL）
+    MyAppList.openURL(url: URL(string: MyAppListApps.appsByMe)!) // 打开我的所有应用页面（自定义 URL）
     // 或使用封装的方法打开
-    MyAppList.openAppsByMe()
+    MyAppListApps.openAppsByMe()
 }
 
 // 获取一个应用（如 DevHub）相关的信息和操作方法
-MyAppList.appDevHub          // -> AppData 实例，包含应用信息
-MyAppList.appDevHub.storeURL // -> 应用在 App Store 的链接（URL 类型）
+MyAppListApps.appDevHub          // -> AppData 实例，包含应用信息
+MyAppListApps.appDevHub.storeURL // -> 应用在 App Store 的链接（URL 类型）
                              // 例如：macappstore://apps.apple.com/app/id6476452351
 
-MyAppList.appDevHub.appStoreWriteReview  // -> App Store 评论链接
+MyAppListApps.appDevHub.appStoreWriteReview  // -> App Store 评论链接
 // 例如：macappstore://apps.apple.com/app/id6476452351?action=write-review
 
-MyAppList.appDevHub.openURL()            // 在浏览器中打开应用页面
-MyAppList.appDevHub.openWriteReviewURL() // 在浏览器中打开写评论页面
-MyAppList.appDevHub.openApp()            // 打开本地应用，或跳转到 App Store 下载页面
-MyAppList.appDevHub.openWriteReviewURL() // 同上，主要用于引导用户写评论
+MyAppListApps.appDevHub.openURL()            // 在浏览器中打开应用页面
+MyAppListApps.appDevHub.openWriteReviewURL() // 在浏览器中打开写评论页面
+MyAppListApps.appDevHub.openApp()            // 打开本地应用，或跳转到 App Store 下载页面
+MyAppListApps.appDevHub.openWriteReviewURL() // 同上，主要用于引导用户写评论
 ```
 
 返回与指定 Bundle Identifier 关联的默认应用的 URL。
 
 ```swift
-MyAppList.appDevHub.appURL()
+MyAppListApps.appDevHub.appURL()
 ```
+
+## 迁移说明
+
+个人应用数据已从 `MyAppListKit` 移动到可选的 `MyAppListKitApps` product。
+
+1. 对使用内置个人应用列表的 target 增加 `MyAppListKitApps` 依赖。
+2. 在代码中增加 `import MyAppListKitApps`。
+3. 将 `MyAppList.appDevHub`、`MyAppList.allApps`、`MyAppList.apps()`、`MyAppList.appsByMe`、`MyAppList.openAppsByMe()` 替换为对应的 `MyAppListApps.*` API。
+4. 可复用视图需要显式传入数据：`MoreAppsView(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)`、`MoreAppsMenuView(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)` 或 `MoreAppsCommandMenus(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)`。
+
+`MyAppListKit` 现在保持通用。如果你维护自己的应用列表，继续使用 `MyAppList.AppData`，并把自己的 `[MyAppList.AppData]` 传给这些视图即可。
 
 检查应用是否已安装。
 
@@ -156,6 +169,7 @@ String.localized(key: "my_other_apps", locale: "zh")
 ```swift
 import SwiftUI
 import MyAppListKit
+import MyAppListKitApps
 
 extension Locale {
     /// 获取系统首选语言的 Locale，忽略应用的区域设置
@@ -168,18 +182,19 @@ extension Locale {
 struct CommandMenus: Commands {
     var body: some Commands {
         CommandMenu(String.localized(key: "more_tools", locale: Locale.systemPreferred)) {
-            MoreAppsView().environment(\.locale, Locale.systemPreferred)
+            MoreAppsView(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)
+                .environment(\.locale, Locale.systemPreferred)
         }
         CommandGroup(replacing: .systemServices) {}
         CommandGroup(after: CommandGroupPlacement.appInfo) {
             Divider()
-            MyAppCheckForUpdatesView(app: MyAppList.appIconizeFolder)
+            MyAppCheckForUpdatesView(app: MyAppListApps.appIconizeFolder)
                 .environment(\.locale, Locale.systemPreferred)
             Divider()
             CommandGroupView()
         }
         CommandGroup(replacing: CommandGroupPlacement.help) {
-            MyAppCheckForUpdatesView(app: MyAppList.appIconizeFolder)
+            MyAppCheckForUpdatesView(app: MyAppListApps.appIconizeFolder)
                 .environment(\.locale, Locale.systemPreferred)
             Divider()
             CommandGroupView()
@@ -190,17 +205,17 @@ struct CommandMenus: Commands {
 struct CommandGroupView: View {
     var body: some View {
         Group {
-            ButtonWebsite(app: MyAppList.appIconizeFolder)
-            ButtonRateApp(app: MyAppList.appIconizeFolder)
-            ButtonSendFeedback(app: MyAppList.appIconizeFolder)
+            ButtonWebsite(app: MyAppListApps.appIconizeFolder)
+            ButtonRateApp(app: MyAppListApps.appIconizeFolder)
+            ButtonSendFeedback(app: MyAppListApps.appIconizeFolder)
             
-            MoreAppsMenuView()
+            MoreAppsMenuView(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)
             
             Divider()
-            CommandAppButton(app: MyAppList.appIconed)
-            CommandAppButton(app: MyAppList.appCreateCustomSymbols)
-            CommandAppButton(app: MyAppList.appPaletteGenius)
-            CommandAppButton(app: MyAppList.appDevHub)
+            CommandAppButton(app: MyAppListApps.appIconed)
+            CommandAppButton(app: MyAppListApps.appCreateCustomSymbols)
+            CommandAppButton(app: MyAppListApps.appPaletteGenius)
+            CommandAppButton(app: MyAppListApps.appDevHub)
             Divider()
         }
         .environment(\.locale, Locale.systemPreferred)
@@ -230,12 +245,13 @@ struct CommandAppButton: View {
 
 ```swift
 import MyAppListKit
+import MyAppListKitApps
 
 struct ContentView: View {
     var body: some View {
-        MyAppCheckForUpdatesView(app: MyAppList.appIconed)
+        MyAppCheckForUpdatesView(app: MyAppListApps.appIconed)
                     
-        MyAppCheckForUpdatesView(app: MyAppList.appIconed) { label in
+        MyAppCheckForUpdatesView(app: MyAppListApps.appIconed) { label in
             HStack {
                 Text(label)
                 Spacer()
@@ -256,16 +272,16 @@ struct ContentView: View {
 struct CommandMenus: Commands {
     var body: some Commands {
         //CommandMenu("More Tools") {
-        //    MoreAppsView()
+        //    MoreAppsView(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)
         //}
-        MoreAppsCommandMenus()
-        MoreAppsCommandMenus() {
+        MoreAppsCommandMenus(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)
+        MoreAppsCommandMenus(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe) {
             Group {
                 // ....
             }
         }
         CommandGroup(replacing: CommandGroupPlacement.help) {
-            MoreAppsMenuView()
+            MoreAppsMenuView(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)
         }
     }
 }
@@ -279,10 +295,10 @@ struct CommandMenus: Commands {
 struct CommandMenus: Commands {
     var body: some Commands {
         CommandGroup(replacing: CommandGroupPlacement.help) {
-            ButtonWebsite(app: MyAppList.appRegexMate)
-            ButtonRateApp(app: MyAppList.appRegexMate)
+            ButtonWebsite(app: MyAppListApps.appRegexMate)
+            ButtonRateApp(app: MyAppListApps.appRegexMate)
             Divider()
-            ButtonSendFeedback(app: MyAppList.appRegexMate)
+            ButtonSendFeedback(app: MyAppListApps.appRegexMate)
         }
     }
 }
@@ -293,6 +309,7 @@ struct CommandMenus: Commands {
 
 ```swift
 import MyAppListKit
+import MyAppListKitApps
 
 @main
 struct IconizeFolderApp: App {
@@ -301,7 +318,7 @@ struct IconizeFolderApp: App {
             ContentView()
         }
         .commands {
-            MoreAppsCommandMenus()
+            MoreAppsCommandMenus(apps: MyAppListApps.apps(), appsByMeURL: MyAppListApps.appsByMe)
         }
     }
 
@@ -313,7 +330,7 @@ struct IconizeFolderApp: App {
 ```swift
 let locale: Locale = Locale(identifier: Locale.preferredLanguages.first ?? "en")
 
-ForEach(MyAppList.apps(), id: \.appId) { app in
+ForEach(MyAppListApps.apps(), id: \.appId) { app in
     Button(action: {
         MyAppList.openApp(appId: app.appId, appstoreId: app.appstoreId)
     }, label: {

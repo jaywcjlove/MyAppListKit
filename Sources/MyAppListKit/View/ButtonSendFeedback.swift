@@ -25,6 +25,13 @@ public struct ButtonSendFeedback: View {
 }
 
 #Preview {
-    ButtonSendFeedback(app: MyAppList.appMenuist)
+    let app = MyAppList.AppData(
+        name: "Example App",
+        appId: "com.example.app",
+        appstoreId: "123456789",
+        platform: .macOS
+    )
+
+    ButtonSendFeedback(app: app)
         .padding()
 }

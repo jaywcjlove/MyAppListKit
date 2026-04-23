@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7D083BF52CF62BFA00C32765 /* MyAppListKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7D083BF42CF62BFA00C32765 /* MyAppListKit */; };
+		7D083BF62CF62BFA00C32765 /* MyAppListKitApps in Frameworks */ = {isa = PBXBuildFile; productRef = 7D083BF72CF62BFA00C32765 /* MyAppListKitApps */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D083BF52CF62BFA00C32765 /* MyAppListKit in Frameworks */,
+				7D083BF62CF62BFA00C32765 /* MyAppListKitApps in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			name = Example;
 			packageProductDependencies = (
 				7D083BF42CF62BFA00C32765 /* MyAppListKit */,
+				7D083BF72CF62BFA00C32765 /* MyAppListKitApps */,
 			);
 			productName = Example;
 			productReference = 7D083BCF2CF62B7700C32765 /* Example.app */;
@@ -390,6 +393,10 @@
 		7D083BF42CF62BFA00C32765 /* MyAppListKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MyAppListKit;
+		};
+		7D083BF72CF62BFA00C32765 /* MyAppListKitApps */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyAppListKitApps;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
