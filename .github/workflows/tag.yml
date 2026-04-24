@@ -25,4 +25,4 @@ jobs:
           version: ${{ steps.extract_version.outputs.VERSION }}
           release: true
           body: |
-            ## Changes in version ${{ steps.extract_version.outputs.VERSION }}
+            **Full Changelog**: https://github.com/jaywcjlove/PermissionFlow/commits/${{ steps.extract_version.outputs.version }}
