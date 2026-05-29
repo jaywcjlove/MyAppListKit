@@ -20,14 +20,16 @@ public struct MyAppList {
         public let divider: Bool = false
         public let website: String?
         public let desc: String?
+        public let descBundle: Bundle?
 
-        public init(name: String, appId: String, appstoreId: String, platform: Platform, website: String? = nil, desc: String? = nil) {
+        public init(name: String, appId: String, appstoreId: String, platform: Platform, website: String? = nil, desc: String? = nil, descBundle: Bundle? = nil) {
             self.name = name
             self.appId = appId
             self.appstoreId = appstoreId
             self.website = website
             self.platform = platform
             self.desc = desc
+            self.descBundle = descBundle
         }
 
         public enum Platform: Sendable {

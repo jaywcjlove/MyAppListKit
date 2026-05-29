@@ -233,7 +233,7 @@ struct CommandAppButton: View {
                 let text: String = " - "
                 Text(app.name) +
                 Text(text).foregroundStyle(Color.secondary) +
-                Text(String.localized(key: desc ?? "", locale: Locale.systemPreferred))
+                Text(String.localized(key: app.desc ?? "", bundle: app.descBundle, locale: Locale.systemPreferred))
                     .foregroundStyle(Color.secondary).font(.system(size: 10))
             }
         })
@@ -339,7 +339,7 @@ ForEach(MyAppListApps.apps(), id: \.appId) { app in
                 Text(app.name).font(.system(size: 12))
                     .multilineTextAlignment(.leading)
                 if let desc = app.desc {
-                    Text(String.localized(key: desc, locale: locale))
+                    Text(String.localized(key: desc, bundle: app.descBundle, locale: locale))
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .foregroundStyle(Color.secondary)

@@ -1,0 +1,37 @@
+//
+//  Localizable.strings
+//  MyAppListKit
+//
+//  Created by wong on 3/18/25.
+//
+"iconed_des" = "Erstelle individuelle Icons";
+"palette_genius_des" = "Farben verwalten und aufnehmen";
+"symbol_scribe_des" = "Symbole kopieren und verwalten";
+"create_custom_symbols_des" = "SVG zu SF-Symbolen umwandeln";
+"iconize_folder_des" = "Ordnersymbole anpassen";
+"key_clicker_des" = "Tastaturgeräusche und Tasten anzeigen";
+"textsound_saver_des" = "Text in Sprache umwandeln";
+"time_passage_des" = "Berechne verbleibende Lebenstage";
+"resume_revise_des" = "Erstelle einen professionellen Lebenslauf";
+"regex_mate_des" = "Werkzeug für reguläre Ausdrücke";
+"paste_quick_des" = "Einfaches Clipboard-Management";
+"quick_rss_des" = "RSS-Reader";
+"web_serve_des" = "Erstelle lokalen Webserver";
+"copybook_generator_des" = "Erzeuge chinesische Schreibvorlagen";
+"rightmenu_master_des" = "Finder Menü verbessern";
+"devhub_des" = "Toolset für Entwickler";
+"devtutor_des" = "SwiftUI/Swift Schnellreferenz";
+"daybar_des" = "Zeige Datum und Erinnerungen in der Menüleiste";
+"videoer_des" = "Batch-Verarbeitung von Videos und Audios";
+"focus_cursor_des" = "Hervorhebung des Cursors";
+"file_sentinel_des" = "Verlauf von Shell-Befehlen überwachen";
+"audioer_des" = "Batch-Audio-Konvertierung";
+"musicer_des" = "Einfacher lokaler Musikplayer";
+"mousio_des" = "Bewege den Mauszeiger mit der Tastatur";
+"vidwall_des" = "Video als Desktop-Hintergrund festlegen";
+"vidcrop_des" = "Einfache Videozuschnitt";
+"keyzer_des" = "Einfache Passwortverwaltung";
+"deskmark_des" = "Wasserzeichen zum Desktop hinzufügen";
+"screen_test_des" = "Monitor-Bildschirm-Testwerkzeug";
+"scap_des" = "Bildschirmfoto & Anmerkung & Verschönerung & Skizze";
+"zipora_des" = "Zip/RAR/7Z-Entpacker mit Sofortansicht für Ordner und Archive";

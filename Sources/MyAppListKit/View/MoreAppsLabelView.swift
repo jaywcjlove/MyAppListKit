@@ -11,6 +11,7 @@ public struct MoreAppsLabelView: View {
     @Environment(\.locale) var locale
     var name: String
     var desc: String
+    var descBundle: Bundle?
     var appId: String
     var appstoreId: String
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
@@ -24,9 +25,10 @@ public struct MoreAppsLabelView: View {
         case horizontal
         case vertical
     }
-    public init(name: String, desc: String, appId: String, appstoreId: String, axis: Axis? = nil) {
+    public init(name: String, desc: String, descBundle: Bundle? = nil, appId: String, appstoreId: String, axis: Axis? = nil) {
         self.name = name
         self.desc = desc
+        self.descBundle = descBundle
         self.appId = appId
         self.appstoreId = appstoreId
         self.axis = axis ?? .vertical
@@ -36,7 +38,7 @@ public struct MoreAppsLabelView: View {
             HStack {
                 MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
                 Text(name) + Text(" - ").foregroundStyle(Color.secondary) +
-                Text(String.localized(key: desc, locale: locale))
+                Text(String.localized(key: desc, bundle: descBundle, locale: locale))
                     .foregroundStyle(Color.secondary).font(.system(size: 10))
             }
             .environment(\.locale, locale)
@@ -45,7 +47,7 @@ public struct MoreAppsLabelView: View {
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
             MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
             Text(name)
-            Text(String.localized(key: desc, locale: locale))
+            Text(String.localized(key: desc, bundle: descBundle, locale: locale))
                 .foregroundStyle(Color.secondary).font(.system(size: 10))
                 .environment(\.locale, locale)
 #elseif canImport(UIKit)
@@ -53,7 +55,7 @@ public struct MoreAppsLabelView: View {
                 MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
                 VStack(alignment: .leading) {
                     Text(name)
-                    Text(String.localized(key: desc, locale: locale))
+                    Text(String.localized(key: desc, bundle: descBundle, locale: locale))
                         .foregroundStyle(Color.secondary).font(.system(size: 10))
                 }
             }

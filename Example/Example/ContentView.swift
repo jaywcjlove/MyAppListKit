@@ -27,7 +27,7 @@ struct ContentView: View {
                 Button(action: {
                     app.openApp()
                 }, label: {
-                    MoreAppsLabelView(name: app.name, desc: app.desc ?? "", appId: app.appId, appstoreId: app.appstoreId)
+                    MoreAppsLabelView(name: app.name, desc: app.desc ?? "", descBundle: app.descBundle, appId: app.appId, appstoreId: app.appstoreId)
                 })
                 .buttonStyle(.plain)
             }

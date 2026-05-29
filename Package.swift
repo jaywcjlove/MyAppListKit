@@ -32,7 +32,10 @@ let package = Package(
         ),
         .target(
             name: "MyAppListKitApps",
-            dependencies: ["MyAppListKit"]
+            dependencies: ["MyAppListKit"],
+            resources: [
+                .process("Resources")
+            ]
         ),
 
     ]
