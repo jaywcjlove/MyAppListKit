@@ -1,6 +1,15 @@
 import MyAppListKit
 
 public enum MyAppListApps {
+    public static let appZipora = MyAppList.AppData(
+        name: "Zipora",
+        appId: "com.wangchujiang.zipora",
+        appstoreId: "6766860898",
+        platform: .macOS,
+        website: "https://wangchujiang.com/zipora/",
+        desc: "zipora_des"
+    )
+    
     public static let appScap = MyAppList.AppData(
         name: "Scap",
         appId: "com.wangchujiang.scap",
@@ -182,6 +191,7 @@ public enum MyAppListApps {
     )
 
     public static let allApps: [MyAppList.AppData] = [
+        appZipora,
         appScap,
         appScreenTest,
         appDevHub,
