@@ -52,10 +52,10 @@ MyAppListKit
 
 SwiftUI utilities for displaying app lists, opening App Store links, collecting feedback, and fetching app icons. Personal app data is provided by the optional `MyAppListKitApps` product.
 
-Welcome to download [DevTutor](https://apps.apple.com/app/6471227008?platform=mac), a cheat sheet app designed to help developers quickly build excellent applications using SwiftUI.
+Welcome to download [DevTutor](https://jaywcjlove.github.io/maslink/?id=6471227008&platform=mac), a cheat sheet app designed to help developers quickly build excellent applications using SwiftUI.
 
 <p>
-  <a target="_blank" href="https://apps.apple.com/app/6471227008?platform=mac" title="DevTutor for SwiftUI AppStore"><img alt="DevTutor for SwiftUI AppStore" src="https://jaywcjlove.github.io/sb/download/macos.svg" height="51">
+  <a target="_blank" href="https://jaywcjlove.github.io/maslink/?id=6471227008&platform=mac" title="DevTutor for SwiftUI AppStore"><img alt="DevTutor for SwiftUI AppStore" src="https://jaywcjlove.github.io/sb/download/macos.svg" height="51">
   </a>
 </p>
 
