@@ -51,10 +51,10 @@ MyAppListKit
 
 用于展示应用列表、打开 App Store 链接、发送反馈和获取应用图标的 SwiftUI 工具。个人应用数据已拆分到可选的 `MyAppListKitApps` product。
 
-欢迎下载 [DevTutor](https://apps.apple.com/app/devtutor/id6471227008)，这是一款旨在帮助开发者快速使用 SwiftUI 构建出色应用的速查手册应用。
+欢迎下载 [DevTutor](https://jaywcjlove.github.io/maslink/?id=6471227008&platform=mac)，这是一款旨在帮助开发者快速使用 SwiftUI 构建出色应用的速查手册应用。
 
 <p>
-  <a target="_blank" href="https://apps.apple.com/app/devtutor/id6471227008" title="DevTutor for SwiftUI AppStore"><img alt="DevTutor for SwiftUI AppStore" src="https://jaywcjlove.github.io/sb/download/macos.svg" height="51">
+  <a target="_blank" href="https://jaywcjlove.github.io/maslink/?id=6471227008&platform=mac" title="DevTutor for SwiftUI AppStore"><img alt="DevTutor for SwiftUI AppStore" src="https://jaywcjlove.github.io/sb/download/macos.svg" height="51">
   </a>
 </p>
 
