@@ -355,6 +355,19 @@ ForEach(MyAppListApps.apps(), id: \.appId) { app in
 }
 ```
 
+### MyAppListKitResources
+
+Expose internal bundled resources externally via `Bundle.module`.
+For host apps to access localized strings or other assets bundled within `MyAppListKit`.
+
+```swift
+import MyAppListKit
+
+let bundle = MyAppListKitResources.bundle
+
+String.localized(key: "my_other_apps", bundle: bundle, locale: locale)
+```
+
 ## License
 
 Licensed under the MIT License.

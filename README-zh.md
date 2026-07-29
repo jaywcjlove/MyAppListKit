@@ -359,6 +359,18 @@ ForEach(MyAppListApps.apps(), id: \.appId) { app in
 }
 ```
 
+### MyAppListKitResources
+
+对外暴露包内资源 bundle（`Bundle.module`）。宿主 App 需要读取 MyAppListKit 自带的本地化字符串或其他资源时使用：
+
+```swift
+import MyAppListKit
+
+let bundle = MyAppListKitResources.bundle
+
+String.localized(key: "my_other_apps", bundle: bundle, locale: locale)
+```
+
 ## 许可证
 
 本项目采用 MIT 许可证授权。
