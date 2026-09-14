@@ -68,6 +68,7 @@ public struct MoreAppsMenuView: View {
             if let systemImage {
                 Label(str, systemImage: systemImage)
                     .environment(\.locale, locale)
+                    .labelStyle(.titleAndIcon)
             } else {
                 Text(str).environment(\.locale, locale)
             }
