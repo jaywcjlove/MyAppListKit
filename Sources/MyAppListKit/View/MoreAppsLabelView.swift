@@ -35,18 +35,29 @@ public struct MoreAppsLabelView: View {
     }
     public var body: some View {
         if axis == .horizontal {
-            HStack {
+            Label {
+                HStack {
+                    Text(name) + Text(" - ").foregroundStyle(Color.secondary) +
+                    Text(String.localized(key: desc, bundle: descBundle, locale: locale))
+                        .foregroundStyle(Color.secondary).font(.system(size: 10))
+                }
+            } icon: {
                 MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
-                Text(name) + Text(" - ").foregroundStyle(Color.secondary) +
-                Text(String.localized(key: desc, bundle: descBundle, locale: locale))
-                    .foregroundStyle(Color.secondary).font(.system(size: 10))
             }
+            .labelStyle(.titleAndIcon)
             .environment(\.locale, locale)
         }
         if axis == .vertical { // in Menu
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-            MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
-            Text(name)
+            Label {
+                Text(name)
+                    .font(.body)
+                    .foregroundColor(.primary)
+            } icon: {
+                MoreAppsIcon(appId: appId, appstoreId: appstoreId, size: size)
+            }
+            .labelStyle(.titleAndIcon)
+            .environment(\.locale, locale)
             Text(String.localized(key: desc, bundle: descBundle, locale: locale))
                 .foregroundStyle(Color.secondary).font(.system(size: 10))
                 .environment(\.locale, locale)

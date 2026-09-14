@@ -37,10 +37,12 @@ public struct MoreAppsView: View {
             Button(action: {
                 MyAppList.openURL(string: appsByMeURL)
             }, label: {
-                HStack {
-                    Image(systemName: "ellipsis.circle.fill")
+                Label {
                     Text("my_other_apps", bundle: .module)
+                } icon: {
+                    Image(systemName: "ellipsis.circle.fill")
                 }
+                .labelStyle(.titleAndIcon)
                 .environment(\.locale, locale)
             })
         }
