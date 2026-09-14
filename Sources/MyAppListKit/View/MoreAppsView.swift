@@ -64,13 +64,12 @@ public struct MoreAppsMenuView: View {
         Menu {
             MoreAppsView(apps: apps, appsByMeURL: appsByMeURL)
         } label: {
-            let str = String.localized(key: "my_other_apps", bundle: .module)
+            let str = String.localized(key: "my_other_apps", bundle: .module, locale: locale)
             if let systemImage {
                 Label(str, systemImage: systemImage)
-                    .environment(\.locale, locale)
                     .labelStyle(.titleAndIcon)
             } else {
-                Text(str).environment(\.locale, locale)
+                Text(str)
             }
         }
     }
