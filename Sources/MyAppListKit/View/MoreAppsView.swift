@@ -53,18 +53,24 @@ public struct MoreAppsMenuView: View {
     @Environment(\.locale) var locale
     private let apps: [MyAppList.AppData]
     private let appsByMeURL: String?
-
-    public init(apps: [MyAppList.AppData], appsByMeURL: String? = nil) {
+    private let systemImage: String?
+    public init(apps: [MyAppList.AppData], appsByMeURL: String? = nil, systemImage: String? = nil) {
         self.apps = apps
         self.appsByMeURL = appsByMeURL
+        self.systemImage = systemImage
     }
 
     public var body: some View {
         Menu {
             MoreAppsView(apps: apps, appsByMeURL: appsByMeURL)
         } label: {
-            Text("my_other_apps", bundle: .module)
-                .environment(\.locale, locale)
+            let str = String.localized(key: "my_other_apps", bundle: .module)
+            if let systemImage {
+                Label(str, systemImage: systemImage)
+                    .environment(\.locale, locale)
+            } else {
+                Text(str).environment(\.locale, locale)
+            }
         }
     }
 }
